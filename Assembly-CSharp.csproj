@@ -51,6 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\Common\Common.cs" />
+     <Compile Include="Assets\Script\Data\RequestBase.cs" />
+     <Compile Include="Assets\Script\Data\RequestRoomList.cs" />
      <Compile Include="Assets\Script\SocketManager.cs" />
      <Compile Include="Assets\Script\WebView.cs" />
  <Reference Include="UnityEngine.UI">
