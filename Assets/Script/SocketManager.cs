@@ -10,28 +10,21 @@ using System.Threading;
 
 
 public class SocketManager : MonoBehaviour {
-
-    class StateObject
-    {
-        // Client socket.  
-        public Socket workSocket = null;
-        // Size of receive buffer.  
-        public const int BufferSize = 1024;
-        // Receive buffer.  
-        public byte[] buffer = new byte[BufferSize];
-        // Received data string.  
-        public StringBuilder sb = new StringBuilder();
-    }
-
-    string ip = "192.168.0.8";
-    int port = 8895;
+    
+    //string ip = "192.168.0.8";
+    static string ip = "211.201.206.24";
+    static int port = 8895;
     private AsyncCallback m_fnReceiveHandler;
     public byte[] buffer = new byte[1024];
     Socket socket;
 
+    public GameObject gameObj;
+    GameController gameController;
+    
     void Awake()
     {
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        gameController = gameObj.GetComponent<GameController>();
         try
         {
             Debug.Log("awake");
@@ -39,31 +32,26 @@ public class SocketManager : MonoBehaviour {
             //socket.Connect(ip, port);
             IPAddress ipAddress = IPAddress.Parse(ip);
             IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
-            socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallback), socket);
-            socket.Blocking = false;
+            //socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallback), socket);
+            //socket.Blocking = false;
             m_fnReceiveHandler = new AsyncCallback(handleDataReceive);
-            socket.Connect(ip, port);
-            //socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, SocketFlags.None);
+            try
+            {
+                socket.Connect(ip, port);
+            }
+            catch(SocketException e)
+            {
+                Debug.Log("socket error : " + e);
+            }
+            
+            socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
 
         }
         catch (Exception e)
         {
             Debug.Log("socket connection fail : " + e.Message);
+
         }
-
-
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void ConnectCallback(IAsyncResult ar)
@@ -71,62 +59,75 @@ public class SocketManager : MonoBehaviour {
         try
         {
             Debug.Log("connection callback");
-
             // Retrieve the socket from the state object.  
             socket = (Socket)ar.AsyncState;
 
             // Complete the connection.  
             socket.EndConnect(ar);
-            Debug.Log("Socket connected to "+ socket.RemoteEndPoint.ToString());
-
-            // Signal that the connection has been made.  
-            //connectDone.Set();
+            Debug.Log("Socket connected to " + socket.RemoteEndPoint.ToString());
+            
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.ToString());
+            Debug.Log(e.ToString());
         }
     }
 
 
     public void handleDataReceive(IAsyncResult ar)
     {
-        Debug.Log("receive");
-        // 넘겨진 추가 정보를 가져옵니다.
-        // AsyncState 속성의 자료형은 Object 형식이기 때문에 형 변환이 필요합니다~!
-        //AsyncObject ao = (AsyncObject)ar.AsyncState;
-        
-        //socket = (Socket)ar.AsyncState;
-        StateObject obj = (StateObject)ar.AsyncState;
+        socket = (Socket)ar.AsyncState;
+        int length = 0;
 
-        // 자료를 수신하고, 수신받은 바이트를 가져옵니다.
-        Int32 recvBytes = socket.EndReceive(ar);
-
-        // 수신받은 자료의 크기가 1 이상일 때에만 자료 처리
-        if (recvBytes > 0)
+        try
         {
-            obj.sb.Append(Encoding.ASCII.GetString(obj.buffer, 0, recvBytes));
-            Debug.Log("res : " +obj.sb.ToString());
-            socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
+            length = socket.EndReceive(ar);
+            Debug.Log("1 receive : " + length);            
         }
-
-        // 자료 처리가 끝났으면~
-        // 이제 다시 데이터를 수신받기 위해서 수신 대기를 해야 합니다.
-        // Begin~~ 메서드를 이용해 비동기적으로 작업을 대기했다면
-        // 반드시 대리자 함수에서 End~~ 메서드를 이용해 비동기 작업이 끝났다고 알려줘야 합니다!
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
         
+        string stringTransferred = Encoding.UTF8.GetString(buffer, 0, length);
+        BaseResponse result = JsonUtility.FromJson<BaseResponse>(stringTransferred); 
 
+        if (result.resCode.Equals("0"))
+        {
+            gameController.responseString(result.identifier, stringTransferred);            
+        }
+        else
+        {
+            Debug.Log("error : " + result.message);
+        }
+        
+        buffer = new byte[1024];
+        socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
+        
     }
+
 
     public void onClick()
     {
+        RequestRoomList list = new RequestRoomList();
+        sendMessage(list);
+    }
+
+    public void sendMessage(object obj)
+    {
+        string msg = JsonUtility.ToJson(obj);
+
         if (socket.Connected)
         {
-            byte[] btyString = Encoding.UTF8.GetBytes("test ~ ");
+            byte[] btyString = Encoding.UTF8.GetBytes(msg);
+            //socket.BeginSend(btyString, 0, btyString.Length, SocketFlags.None, new AsyncCallback(handleSend), socket);
 
-            socket.BeginSend(btyString, 0, btyString.Length, SocketFlags.None, m_fnReceiveHandler, socket);
-            //socket.Send(btyString, SocketFlags.None);
-            
+            SocketAsyncEventArgs socketAsyncData = new SocketAsyncEventArgs();
+            socketAsyncData.SetBuffer(btyString, 0, btyString.Length);
+
+            socket.SendAsync(socketAsyncData);
+            //socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(handleDataReceive), socket);
+
         }
         else
         {
@@ -134,10 +135,5 @@ public class SocketManager : MonoBehaviour {
         }
     }
 
-    string makeJson(string str)
-    {
-        return "";
-    }
-    
 
- }
+}
