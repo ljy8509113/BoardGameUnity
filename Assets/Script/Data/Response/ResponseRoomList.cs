@@ -16,4 +16,7 @@ public class ResponseRoomList : ResponseBase
     }
 
     public List<Room> list;
+
+    public int current;
+    public int max;
 }

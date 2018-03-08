@@ -12,6 +12,8 @@ public class Common {
     public const string IDENTIFIER_CREATE_ROOM = "create_room";
     public const string IDENTIFIER_TEST = "test";
 
+    public const int LIST_COUNT = 20;
+
     public static string getUUID()
     {
         return "uuid_test";

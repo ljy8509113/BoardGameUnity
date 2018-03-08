@@ -11,8 +11,8 @@ using System.Threading;
 
 public class SocketManager : MonoBehaviour {
     
-    string ip = "192.168.0.8";
-    //static string ip = "211.201.206.24";
+    //string ip = "192.168.0.8";
+    static string ip = "211.201.206.24";
     static int port = 8895;
     private AsyncCallback m_fnReceiveHandler;
     public byte[] buffer = new byte[1024];
@@ -114,14 +114,7 @@ public class SocketManager : MonoBehaviour {
         socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
         
     }
-
-
-    public void onClick()
-    {
-        RequestRoomList list = new RequestRoomList();
-        sendMessage(list);
-    }
-
+    
     public void sendMessage(object obj)
     {
         string msg = JsonUtility.ToJson(obj);

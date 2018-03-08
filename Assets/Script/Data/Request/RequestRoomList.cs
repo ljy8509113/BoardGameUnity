@@ -1,8 +1,12 @@
 ﻿public class RequestRoomList : RequestBase {
 
-    
-	public RequestRoomList()
+    public int current;
+    public int count;
+
+    public RequestRoomList(int current, int count)
     {
-        base.setIdentifier(Common.IDENTIFIER_GAME_ROOM_LIST);        
+        base.setIdentifier(Common.IDENTIFIER_GAME_ROOM_LIST);
+        this.current = current;
+        this.count = count;
     }
 }

@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
             case Common.IDENTIFIER_GAME_ROOM_LIST:
                 {
                     ResponseRoomList roomList = JsonUtility.FromJson<ResponseRoomList>(json);
-                    listViewCode.setItem(roomList);
+                    listViewCode.setData(roomList);
                     isActivity = true;
                     isChangeObj = true;
                     //listView.SetActive(true);
@@ -51,11 +51,11 @@ public class GameController : MonoBehaviour {
             case Common.IDENTIFIER_GAMING_USER:
             {
                 ResponseGamingUser res = JsonUtility.FromJson<ResponseGamingUser>(json);
-                    Debug.Log(res.isGaming + " / " +res.textMsg);
+                Debug.Log(res.isGaming + " / " +res.textMsg);
                 
                 if(res.isGaming == false)
                     {
-                        RequestRoomList list = new RequestRoomList();
+                        RequestRoomList list = new RequestRoomList(0, Common.LIST_COUNT);
                         sendMessage(list);
                     }
                     else
