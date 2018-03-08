@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 224105571588738778}
   - component: {fileID: 222662391808350472}
   - component: {fileID: 114928276972554334}
+  - component: {fileID: 114584433289952576}
   m_Layer: 5
   m_Name: RoomItem
   m_TagString: Untagged
@@ -222,7 +223,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114019874388108154}
   m_HandleRect: {fileID: 224806281123349104}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -462,6 +463,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!114 &114584433289952576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272017611630456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b985f14c2231d042a123a387244d1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txtTitle: {fileID: 114409467880948716}
+  txtUserCount: {fileID: 114911312970348502}
 --- !u!114 &114617271409950980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,7 +667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0.00029864907}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0.00020417571}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5000001, y: 1.0000005}
 --- !u!224 &224105571588738778

@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class RequestRoomList : RequestBase {
+﻿public class RequestRoomList : RequestBase {
 
     
 	public RequestRoomList()
     {
-        base.setData("game_room_list", Common.GAME_NO, Common.getUUID());        
+        base.setIdentifier(Common.IDENTIFIER_GAME_ROOM_LIST);        
     }
 }

@@ -302,10 +302,17 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Common\Common.cs" />
     <Compile Include="Assets\Script\Data\Request\RequestBase.cs" />
+    <Compile Include="Assets\Script\Data\Request\RequestCreateRoom.cs" />
+    <Compile Include="Assets\Script\Data\Request\RequestGamingUser.cs" />
     <Compile Include="Assets\Script\Data\Request\RequestRoomList.cs" />
-    <Compile Include="Assets\Script\Data\Response\BaseResponse.cs" />
+    <Compile Include="Assets\Script\Data\Request\RequestTest.cs" />
+    <Compile Include="Assets\Script\Data\Response\ResponseBase.cs" />
+    <Compile Include="Assets\Script\Data\Response\ResponseCreateRoom.cs" />
+    <Compile Include="Assets\Script\Data\Response\ResponseGamingUser.cs" />
     <Compile Include="Assets\Script\Data\Response\ResponseRoomList.cs" />
+    <Compile Include="Assets\Script\Data\Response\ResponseTest.cs" />
     <Compile Include="Assets\Script\GameController.cs" />
+    <Compile Include="Assets\Script\MakeRoom.cs" />
     <Compile Include="Assets\Script\SocketManager.cs" />
     <Compile Include="Assets\Script\Util\UI\ListView.cs" />
     <Compile Include="Assets\Script\Util\UI\RoomItem.cs" />

@@ -18,7 +18,7 @@ public class ListView : MonoBehaviour
         
     }
 
-    public void setItem( BaseResponse res)
+    public void setItem(ResponseBase res)
     {
         switch (res.identifier)
         {

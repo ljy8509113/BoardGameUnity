@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 
-public class ResponseRoomList : BaseResponse {
+public class ResponseRoomList : ResponseBase
+{
     [Serializable]
     public class Room
     {

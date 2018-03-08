@@ -8,12 +8,12 @@ public class RequestBase {
     public string uuid;
     public int gameNo;
     public string identifier;
-
-    public void setData(string identifier, int gameNo, string uuid)
+    
+    public void setIdentifier(string identifier)
     {
-        this.uuid = uuid;
         this.identifier = identifier;
-        this.gameNo = gameNo;
+        uuid = Common.getUUID();
+        gameNo = Common.GAME_NO;
     }
     
 }

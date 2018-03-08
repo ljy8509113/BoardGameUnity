@@ -11,8 +11,8 @@ using System.Threading;
 
 public class SocketManager : MonoBehaviour {
     
-    //string ip = "192.168.0.8";
-    static string ip = "211.201.206.24";
+    string ip = "192.168.0.8";
+    //static string ip = "211.201.206.24";
     static int port = 8895;
     private AsyncCallback m_fnReceiveHandler;
     public byte[] buffer = new byte[1024];
@@ -20,6 +20,9 @@ public class SocketManager : MonoBehaviour {
 
     public GameObject gameObj;
     GameController gameController;
+
+    public delegate void ResponseResultDelegate(string identifier, string result);
+    public ResponseResultDelegate resDelegate = null;
     
     void Awake()
     {
@@ -32,12 +35,13 @@ public class SocketManager : MonoBehaviour {
             //socket.Connect(ip, port);
             IPAddress ipAddress = IPAddress.Parse(ip);
             IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
-            //socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallback), socket);
+            
             //socket.Blocking = false;
             m_fnReceiveHandler = new AsyncCallback(handleDataReceive);
             try
             {
-                socket.Connect(ip, port);
+                socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallback), socket);
+                //socket.Connect(ip, port);
             }
             catch(SocketException e)
             {
@@ -65,7 +69,10 @@ public class SocketManager : MonoBehaviour {
             // Complete the connection.  
             socket.EndConnect(ar);
             Debug.Log("Socket connected to " + socket.RemoteEndPoint.ToString());
-            
+
+            RequestGamingUser gaming = new RequestGamingUser();
+            sendMessage(gaming);
+
         }
         catch (Exception e)
         {
@@ -90,11 +97,13 @@ public class SocketManager : MonoBehaviour {
         }
         
         string stringTransferred = Encoding.UTF8.GetString(buffer, 0, length);
-        BaseResponse result = JsonUtility.FromJson<BaseResponse>(stringTransferred); 
+        ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
+        Debug.Log("response : " + stringTransferred);
 
         if (result.resCode.Equals("0"))
         {
-            gameController.responseString(result.identifier, stringTransferred);            
+            //gameController.responseString(result.identifier, stringTransferred);
+            resDelegate(result.identifier, stringTransferred);
         }
         else
         {
