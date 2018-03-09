@@ -7,12 +7,12 @@ public class MakeRoom : MonoBehaviour {
 
     public InputField titleFile;
     public Dropdown dropDownUserCount;
-    public GameObject socketObj;
-    SocketManager socketManager;
+    //public GameObject socketObj;
+    //SocketManager socketManager;
 
 	// Use this for initialization
 	void Start () {
-        socketManager = socketObj.GetComponent<SocketManager>();
+        
 	}
 	
 	// Update is called once per frame
@@ -29,14 +29,14 @@ public class MakeRoom : MonoBehaviour {
         int maxUserCount = int.Parse(dropDownUserCount.options[dropDownUserCount.value].text);
 
         RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title);
-        socketManager.sendMessage(cr);
+        SocketManager.Instance().sendMessage(cr);
 
     }
 
     public void sendMessage()
     {
         RequestTest test = new RequestTest();
-        socketManager.sendMessage(test);
+        SocketManager.Instance().sendMessage(test);
     }
 
 }

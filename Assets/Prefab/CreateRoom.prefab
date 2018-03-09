@@ -986,7 +986,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleFile: {fileID: 114992971476375406}
   dropDownUserCount: {fileID: 114928187165459704}
-  socketObj: {fileID: 0}
 --- !u!114 &114663786883288864
 MonoBehaviour:
   m_ObjectHideFlags: 1

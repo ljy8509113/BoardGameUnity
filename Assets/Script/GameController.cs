@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-    public GameObject socketManagerObj;
-    SocketManager socketManager;
+    //public GameObject socketManagerObj;
+    //SocketManager socketManager;
 
     public GameObject listView;
     ListView listViewCode;
@@ -16,9 +16,10 @@ public class GameController : MonoBehaviour {
     
     void Awake()
     {
-        socketManager = socketManagerObj.GetComponent<SocketManager>();
+        //socketManager = socketManagerObj.GetComponent<SocketManager>();
         listViewCode = listView.GetComponent<ListView>();
-        socketManager.resDelegate += responseString;
+        //socketManager.resDelegate += responseString;
+        SocketManager.Instance().resDelegate += responseString;
         createRoom.SetActive(false);
     }
     // Use this for initialization
@@ -55,7 +56,7 @@ public class GameController : MonoBehaviour {
                 
                 if(res.isGaming == false)
                     {
-                        RequestRoomList list = new RequestRoomList(0, Common.LIST_COUNT);
+                        RequestRoomList list = new RequestRoomList(1, Common.LIST_COUNT);
                         sendMessage(list);
                     }
                     else
@@ -86,7 +87,8 @@ public class GameController : MonoBehaviour {
 
     public void sendMessage(object str)
     {
-        socketManager.sendMessage(str);
+        //socketManager.sendMessage(str);
+        SocketManager.Instance().sendMessage(str);
     }
 
     public void onCreateRoom()

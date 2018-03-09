@@ -9,13 +9,25 @@ using System.Net;
 using System.Threading;
 
 
-public class SocketManager : MonoBehaviour {
+public class SocketManager : MonoBehaviour
+{
+    private static SocketManager instance = null;
+    public static SocketManager Instance()
+    {
+        if (instance == null)
+        {
+            instance = GameObject.FindObjectOfType(typeof(SocketManager)) as SocketManager;
+        }
+
+        return instance;
+    }
     
     //string ip = "192.168.0.8";
-    static string ip = "211.201.206.24";
+    //static string ip = "211.201.206.24";
     static int port = 8895;
     private AsyncCallback m_fnReceiveHandler;
-    public byte[] buffer = new byte[1024];
+    const int BUFFER_SIZE = 2048; 
+    public byte[] buffer = new byte[BUFFER_SIZE];
     Socket socket;
 
     public GameObject gameObj;
@@ -33,7 +45,7 @@ public class SocketManager : MonoBehaviour {
             Debug.Log("awake");
 
             //socket.Connect(ip, port);
-            IPAddress ipAddress = IPAddress.Parse(ip);
+            IPAddress ipAddress = IPAddress.Parse(Common.getIp());
             IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
             
             //socket.Blocking = false;
@@ -97,8 +109,9 @@ public class SocketManager : MonoBehaviour {
         }
         
         string stringTransferred = Encoding.UTF8.GetString(buffer, 0, length);
-        ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
         Debug.Log("response : " + stringTransferred);
+        ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
+        
 
         if (result.resCode.Equals("0"))
         {
@@ -110,7 +123,7 @@ public class SocketManager : MonoBehaviour {
             Debug.Log("error : " + result.message);
         }
         
-        buffer = new byte[1024];
+        buffer = new byte[BUFFER_SIZE];
         socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
         
     }

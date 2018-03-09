@@ -11,9 +11,19 @@ public class ListView : MonoBehaviour
     public RectTransform prefab;
     public ScrollRect scrollView;
     public RectTransform content;
-
-    [SerializeField]
+    
     public List<GameObject> listItem;
+
+    bool isUpdateData = false;
+    List<ResponseRoomList.Room> roomDataList;
+
+    public Text bottomNaviText;
+
+    //public GameObject httpManagerObj;
+    //public HttpManager httpManager;
+
+    int current = 1;
+    int maxCount = 0;
 
     void Awake()
     {
@@ -22,18 +32,47 @@ public class ListView : MonoBehaviour
 
     void Start()
     {
-        for(int i=0; i<Common.LIST_COUNT; i++)
+        for (int i = 0; i < Common.LIST_COUNT; i++)
         {
             GameObject item = Instantiate(roomItem) as GameObject;
+            RoomItem itemSource = item.GetComponent<RoomItem>();
+            itemSource.delegateClick += onClick;
+            itemSource.setIndex(i);
+            item.SetActive(true);
             listItem.Add(item);
-            content.transform.parent = item.transform ;
-
+            item.transform.parent = content.transform;
         }
+
+        //httpManager = httpManagerObj.GetComponent<HttpManager>();
+
     }
 
     void Update()
     {
-        
+        if (isUpdateData)
+        {
+            isUpdateData = false;
+            int currentCount = current * Common.LIST_COUNT;
+
+            if (currentCount > maxCount)
+                currentCount = maxCount;
+
+            bottomNaviText.text = currentCount + "/" + maxCount;
+            for (int i = 0; i < Common.LIST_COUNT; i++)
+            {
+                if(i < roomDataList.Count)
+                {
+                    listItem[i].SetActive(true);
+                    ResponseRoomList.Room room = roomDataList[i];
+                    listItem[i].GetComponent<RoomItem>().setData(room.title, room.maxUser, room.currentUser, room.no);
+                }
+                else
+                {
+                    listItem[i].SetActive(false);
+                }
+                
+            }
+        }
     }
     
 
@@ -44,15 +83,13 @@ public class ListView : MonoBehaviour
             case Common.IDENTIFIER_GAME_ROOM_LIST:
                 {
                     ResponseRoomList resRoomList = (ResponseRoomList)res;
-                    int current = resRoomList.current;
-                    int max = resRoomList.max;
+                    current = resRoomList.current;
+                    maxCount = resRoomList.max;
 
                     if (resRoomList.list != null && resRoomList.list.Count > 0)
                     {
-                        foreach (ResponseRoomList.Room room in resRoomList.list)
-                        {
-
-                        }
+                        roomDataList = resRoomList.list;
+                        isUpdateData = true;                        
                     }
                     else
                     {
@@ -61,6 +98,44 @@ public class ListView : MonoBehaviour
                 }
                 
                 break;
+        }
+    }
+
+    public void onClick(int index)
+    {
+        //Debug.Log("" + item.getIndex());
+        Debug.Log("index : " + index);
+    }
+
+
+    public void onNext()
+    {
+        // string req = "http://" + Common.getIp()+":8895"+"?gameRoomList";
+        //Debug.Log("req ip : " + req);
+        //httpManager.sendRequest(req);
+        int currentCount = current * Common.LIST_COUNT;
+        if (currentCount >= maxCount)
+        {
+            Debug.Log("end count");
+        }
+        else
+        {
+            RequestRoomList list = new RequestRoomList(current + 1, Common.LIST_COUNT);
+            SocketManager.Instance().sendMessage(list);
+        }
+
+    }
+
+    public void onBefore()
+    {
+        if (current <= 1)
+        {
+            Debug.Log("start point");
+        }
+        else
+        {
+            RequestRoomList list = new RequestRoomList(current - 1, Common.LIST_COUNT);
+            SocketManager.Instance().sendMessage(list);
         }
     }
 }
