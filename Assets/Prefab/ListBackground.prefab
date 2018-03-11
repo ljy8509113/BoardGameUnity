@@ -110,7 +110,6 @@ GameObject:
   - component: {fileID: 222245810291001168}
   - component: {fileID: 114480656274137730}
   - component: {fileID: 114811503007485520}
-  - component: {fileID: 114801824452627900}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -590,18 +589,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &114801824452627900
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1393109030084876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2262413a43a6e9840bd869dd671b4200, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 0
 --- !u!114 &114811503007485520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -857,8 +844,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 155.03, y: -40.76}
-  m_SizeDelta: {x: 300.06, y: 71.52}
+  m_AnchoredPosition: {x: 175.66, y: -40.76}
+  m_SizeDelta: {x: 341.32, y: 71.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224810903886066366
 RectTransform:

@@ -7,6 +7,17 @@ public class GameController : MonoBehaviour {
     //public GameObject socketManagerObj;
     //SocketManager socketManager;
 
+    private static GameController instance = null;
+    public static GameController Instance()
+    {
+        if (instance == null)
+        {
+            instance = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
+        }
+
+        return instance;
+    }
+
     public GameObject listView;
     ListView listViewCode;
     bool isActivity = false;
@@ -76,9 +87,15 @@ public class GameController : MonoBehaviour {
             case Common.IDENTIFIER_TEST:
                 {
                     ResponseTest res = JsonUtility.FromJson<ResponseTest>(json);
-                    Debug.Log("test res : " + res.message);
+                    
                 }
 
+                break;
+            case Common.IDENTIFIER_CONNECT_ROOM:
+                {
+                    ResponseConnectionRoom res = JsonUtility.FromJson<ResponseConnectionRoom>(json);
+
+                }
                 break;
 
         }

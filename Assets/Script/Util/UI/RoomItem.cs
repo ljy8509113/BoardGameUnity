@@ -10,13 +10,10 @@ public class RoomItem : MonoBehaviour {
     public Button button;
     private int index = 0;
     public GameObject listView;
+    
+    ResponseRoomList.Room roomInfo;
 
-    int roomNo;
-    string title;
-    int currentUserCount;
-    int maxUserCount;
-
-    public delegate void onClickDelegate(int index);
+    public delegate void onClickDelegate(ResponseRoomList.Room item);
     public onClickDelegate delegateClick = null;
 
     // Use this for initialization
@@ -29,15 +26,11 @@ public class RoomItem : MonoBehaviour {
 		
 	}
 
-    public void setData(string title, int maxUserCount, int currentUserCount, int roomNo)
+    public void setData(ResponseRoomList.Room roomInfo)
     {
-        this.roomNo = roomNo;
-        this.title = title;
-        this.maxUserCount = maxUserCount;
-        this.currentUserCount = currentUserCount;
-
-        txtTitle.text = title;
-        txtUserCount.text = currentUserCount + "/" + maxUserCount;
+        this.roomInfo = roomInfo;
+        txtTitle.text = this.roomInfo.title;
+        txtUserCount.text = this.roomInfo.currentUser + "/" + this.roomInfo.maxUser;
     }
 
     public void setIndex(int index)
@@ -52,6 +45,6 @@ public class RoomItem : MonoBehaviour {
 
     public void onClick()
     {
-        delegateClick(index);
+        delegateClick(this.roomInfo);
     }
 }

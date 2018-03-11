@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
+﻿
 public class Common {
 
     public enum IP_KINDS
@@ -18,6 +14,7 @@ public class Common {
     public const string IDENTIFIER_CONNECT_ROOM = "connection_room";
     public const string IDENTIFIER_CREATE_ROOM = "create_room";
     public const string IDENTIFIER_TEST = "test";
+    public const string IDENTIFIER_LOGIN = "login";
 
     public const int LIST_COUNT = 10;
 
@@ -26,7 +23,7 @@ public class Common {
         return "uuid_test";
     }
 
-    public static IP_KINDS ipKinds = IP_KINDS.KOITT;
+    public static IP_KINDS ipKinds = IP_KINDS.HOME;
 
     public static string getIp()
     {
@@ -40,4 +37,10 @@ public class Common {
         }
         return "211.201.206.24";
     }
+
+    public static string KEY_AUTO_LOGIN = "autoLogin";
+
+    public static string JOIN_URL = getIp() + "/";
+
+   
 }

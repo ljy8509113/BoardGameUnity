@@ -30,8 +30,8 @@ public class SocketManager : MonoBehaviour
     public byte[] buffer = new byte[BUFFER_SIZE];
     Socket socket;
 
-    public GameObject gameObj;
-    GameController gameController;
+    //public GameObject gameObj;
+    //GameController gameController;
 
     public delegate void ResponseResultDelegate(string identifier, string result);
     public ResponseResultDelegate resDelegate = null;
@@ -39,7 +39,7 @@ public class SocketManager : MonoBehaviour
     void Awake()
     {
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        gameController = gameObj.GetComponent<GameController>();
+        //gameController = gameObj.GetComponent<GameController>();
         try
         {
             Debug.Log("awake");

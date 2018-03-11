@@ -38,7 +38,7 @@ public class ListView : MonoBehaviour
             RoomItem itemSource = item.GetComponent<RoomItem>();
             itemSource.delegateClick += onClick;
             itemSource.setIndex(i);
-            item.SetActive(true);
+            item.SetActive(false);
             listItem.Add(item);
             item.transform.parent = content.transform;
         }
@@ -64,7 +64,7 @@ public class ListView : MonoBehaviour
                 {
                     listItem[i].SetActive(true);
                     ResponseRoomList.Room room = roomDataList[i];
-                    listItem[i].GetComponent<RoomItem>().setData(room.title, room.maxUser, room.currentUser, room.no);
+                    listItem[i].GetComponent<RoomItem>().setData(room);
                 }
                 else
                 {
@@ -101,10 +101,14 @@ public class ListView : MonoBehaviour
         }
     }
 
-    public void onClick(int index)
+    public void onClick(ResponseRoomList.Room item)
     {
         //Debug.Log("" + item.getIndex());
-        Debug.Log("index : " + index);
+        Debug.Log("index : " + item.title);
+
+        RequestConnectionRoom req = new RequestConnectionRoom(item.no);
+        SocketManager.Instance().sendMessage(req);
+
     }
 
 
