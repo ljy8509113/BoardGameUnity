@@ -25,7 +25,7 @@ public class Common {
         return "uuid_test";
     }
 
-    public static IP_KINDS ipKinds = IP_KINDS.KOITT;
+    public static IP_KINDS ipKinds = IP_KINDS.HOME;
 
     public static string getIp()
     {
@@ -41,6 +41,8 @@ public class Common {
     }
 
     public static string KEY_AUTO_LOGIN = "autoLogin";
+    public static string KEY_EMAIL = "email";
+    public static string KEY_PASSWORD = "password";
 
     public static string JOIN_URL = getIp() + "/";
 

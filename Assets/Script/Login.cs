@@ -39,9 +39,9 @@ public class Login : MonoBehaviour
         
         if ( Common.isMailCheck(email) )
         {
-            string passwordCryp = Security.Instance().cryption(password);
+            string passwordCryp = Security.Instance().cryption(password, false);
             Debug.Log("check email : true // password : " + passwordCryp);
-            Debug.Log("password : " + Security.Instance().deCryption(passwordCryp));
+            Debug.Log("password : " + Security.Instance().deCryption(passwordCryp, false));
 
             RequestLogin login = new RequestLogin(email, passwordCryp, toggleAuto.isOn);
             SocketManager.Instance().sendMessage(login);
@@ -55,14 +55,12 @@ public class Login : MonoBehaviour
 
     public void onJoin()
     {
-        WebView.Instance().show(Common.JOIN_URL);
+        GameController.Instance().changeState(GameController.OBJECT_INDEX.JOIN);
     }
 
     public void onChangeValue()
     {
-        PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, toggleAuto.isOn == true ? 1 : 0);
-        Debug.Log("valueChange : " + toggleAuto.isOn);
-
+        Debug.Log("valueChange : " + toggleAuto.isOn);        
     }
     
 

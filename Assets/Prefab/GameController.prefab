@@ -53,3 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listView: {fileID: 0}
   createRoom: {fileID: 0}
+  join: {fileID: 0}
+  login: {fileID: 0}

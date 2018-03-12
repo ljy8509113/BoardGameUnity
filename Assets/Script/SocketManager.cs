@@ -81,10 +81,7 @@ public class SocketManager : MonoBehaviour
             // Complete the connection.  
             socket.EndConnect(ar);
             Debug.Log("Socket connected to " + socket.RemoteEndPoint.ToString());
-
-            RequestGamingUser gaming = new RequestGamingUser();
-            sendMessage(gaming);
-
+            
         }
         catch (Exception e)
         {
@@ -113,7 +110,7 @@ public class SocketManager : MonoBehaviour
         ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
         
 
-        if (result.resCode.Equals("0"))
+        if (result.resCode == 0)
         {
             //gameController.responseString(result.identifier, stringTransferred);
             resDelegate(result.identifier, stringTransferred);
@@ -137,8 +134,9 @@ public class SocketManager : MonoBehaviour
         {
             byte[] btyString = Encoding.UTF8.GetBytes(msg);
             string encodingBase64 = Convert.ToBase64String(btyString);
-
+            
             byte[] resultEncoding = Encoding.UTF8.GetBytes(encodingBase64);
+            
             //socket.BeginSend(btyString, 0, btyString.Length, SocketFlags.None, new AsyncCallback(handleSend), socket);
 
             SocketAsyncEventArgs socketAsyncData = new SocketAsyncEventArgs();

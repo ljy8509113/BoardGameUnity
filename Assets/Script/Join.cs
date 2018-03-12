@@ -26,12 +26,12 @@ public class Join : MonoBehaviour {
     
     public void onJoin()
     {
-        email.text = "test1@gmail.com";
-        password.text = "1234";
-        nickName.text = "테스터1";
-        year.text = "1985";
-        month.text = "10";
-        day.text = "21";
+        //email.text = "test1@gmail.com";
+        //password.text = "1234";
+        //nickName.text = "테스터1";
+        //year.text = "1985";
+        //month.text = "10";
+        //day.text = "21";
 
         if (Common.isMailCheck(email.text) == false)
         {
@@ -66,7 +66,7 @@ public class Join : MonoBehaviour {
             birthDay = DateTime.ParseExact(dayStr, "yyyy-MM-dd", null);
             Debug.Log("birthDay : " + birthDay);
 
-            RequestJoin req = new RequestJoin(email.text, Security.Instance().cryption(password.text), nickName.text, birthDay);
+            RequestJoin req = new RequestJoin(email.text, Security.Instance().cryption(password.text, false), nickName.text, birthDay);
             SocketManager.Instance().sendMessage(req);
         }
         catch(Exception e)
@@ -78,6 +78,11 @@ public class Join : MonoBehaviour {
         }
         
         
+    }
+
+    public void cancel()
+    {
+        GameController.Instance().changeState(GameController.OBJECT_INDEX.LOGIN);
     }
 
     //void OnGUI()
