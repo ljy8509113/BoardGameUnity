@@ -131,14 +131,18 @@ public class SocketManager : MonoBehaviour
     public void sendMessage(object obj)
     {
         string msg = JsonUtility.ToJson(obj);
-
+        Debug.Log("sendMessage : " + msg);
+        
         if (socket.Connected)
         {
             byte[] btyString = Encoding.UTF8.GetBytes(msg);
+            string encodingBase64 = Convert.ToBase64String(btyString);
+
+            byte[] resultEncoding = Encoding.UTF8.GetBytes(encodingBase64);
             //socket.BeginSend(btyString, 0, btyString.Length, SocketFlags.None, new AsyncCallback(handleSend), socket);
 
             SocketAsyncEventArgs socketAsyncData = new SocketAsyncEventArgs();
-            socketAsyncData.SetBuffer(btyString, 0, btyString.Length);
+            socketAsyncData.SetBuffer(resultEncoding, 0, resultEncoding.Length);
 
             socket.SendAsync(socketAsyncData);
             //socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(handleDataReceive), socket);
