@@ -3,6 +3,7 @@
 bin/
 build/
 target/
+Library/
 
 # Compiled source #
 ###################
@@ -44,3 +45,4 @@ jdbc.properties
 
 #security 파일
 Security.cs
+
