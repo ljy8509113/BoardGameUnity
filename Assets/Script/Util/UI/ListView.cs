@@ -106,7 +106,7 @@ public class ListView : MonoBehaviour
         //Debug.Log("" + item.getIndex());
         Debug.Log("index : " + item.title);
 
-        RequestConnectionRoom req = new RequestConnectionRoom(item.no);
+        RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserInfo.Instance().nickName);
         SocketManager.Instance().sendMessage(req);
 
     }

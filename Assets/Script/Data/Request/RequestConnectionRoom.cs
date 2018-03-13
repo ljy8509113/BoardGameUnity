@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿public class RequestConnectionRoom : RequestBase {
 
-public class RequestConnectionRoom : RequestBase {
+    public int roomId;
+    public string nickName; 
 
-    int roomId;
-
-    public RequestConnectionRoom(int roomId)
+    public RequestConnectionRoom(int roomId, string nickName) : base(Common.IDENTIFIER_CONNECT_ROOM)
     {
-        base.setIdentifier(Common.IDENTIFIER_CONNECT_ROOM);
         this.roomId = roomId;
+        this.nickName = nickName;
     }
 }

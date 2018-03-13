@@ -1,16 +1,13 @@
 ﻿using System;
 
 public class RequestJoin : RequestBase {
-
-    public string email;
     public string password;
     public string nickName;
     public DateTime birthday;
 
-    public RequestJoin(string email, string password, string nickName, DateTime birthday)
+    public RequestJoin(string email, string password, string nickName, DateTime birthday) : base(Common.IDENTIFIER_JOIN)
     {
-        base.setIdentifier(Common.IDENTIFIER_JOIN);
-        this.email = email;
+        base.email = email;
         this.password = password;
         this.nickName = nickName;
         this.birthday = birthday;

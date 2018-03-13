@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class MakeRoom : MonoBehaviour {
@@ -28,7 +26,7 @@ public class MakeRoom : MonoBehaviour {
         string title = titleFile.text;
         int maxUserCount = int.Parse(dropDownUserCount.options[dropDownUserCount.value].text);
 
-        RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title);
+        RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title, UserInfo.Instance().nickName);
         SocketManager.Instance().sendMessage(cr);
 
     }

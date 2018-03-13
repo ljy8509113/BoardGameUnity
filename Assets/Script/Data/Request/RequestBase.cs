@@ -5,15 +5,14 @@ using UnityEngine;
 [SerializeField]
 public class RequestBase {
     
-    public string uuid;
+    public string email;
     public int gameNo;
     public string identifier;
     
-    public void setIdentifier(string identifier)
+    public RequestBase(string identifier)
     {
         this.identifier = identifier;
-        uuid = Common.getUUID();
-        gameNo = Common.GAME_NO;
-    }
-    
+        this.email = UserInfo.Instance().email;
+        this.gameNo = Common.GAME_NO;
+    }    
 }

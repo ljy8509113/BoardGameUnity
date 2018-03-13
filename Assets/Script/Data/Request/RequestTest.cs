@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class RequestTest : RequestBase {
 
-	public RequestTest()
+	public RequestTest() : base(Common.IDENTIFIER_TEST)
     {
-        base.setIdentifier(Common.IDENTIFIER_TEST);
     }
 }

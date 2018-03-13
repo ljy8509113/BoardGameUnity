@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
 
 public class GameController : MonoBehaviour {
-
-    //public GameObject socketManagerObj;
-    //SocketManager socketManager;
     public enum OBJECT_INDEX
     {
         NONE = -1,
@@ -97,8 +93,7 @@ public class GameController : MonoBehaviour {
         }
         
     }
-
-
+    
     private static GameController instance = null;
     public static GameController Instance()
     {
@@ -122,11 +117,8 @@ public class GameController : MonoBehaviour {
 
     void Awake()
     {
-        //socketManager = socketManagerObj.GetComponent<SocketManager>();
         listViewCode = listView.GetComponent<ListView>();
-        //socketManager.resDelegate += responseString;
-        SocketManager.Instance().resDelegate += responseString;
-        //createRoom.SetActive(false);
+        SocketManager.Instance().resDelegate += responseString;        
     }
     // Use this for initialization
     void Start () {
@@ -152,8 +144,6 @@ public class GameController : MonoBehaviour {
         if (stateChage.IsUpdate() != false)
         {
             stateChage.change();
-            //listView.SetActive(isActivity);
-            //isChangeObj = false;
         }        
 	}
 
@@ -165,7 +155,7 @@ public class GameController : MonoBehaviour {
                 {
                     ResponseRoomList roomList = JsonUtility.FromJson<ResponseRoomList>(json);
                     listViewCode.setData(roomList);
-                    //listView.SetActive(true);
+                    
                     stateChage.changeState(OBJECT_INDEX.ROOM_LIST);
                 }
                 break;
@@ -232,14 +222,13 @@ public class GameController : MonoBehaviour {
                             {
                                 string pw = Security.Instance().deCryption(res.password, false);
                                 Debug.Log("login pw : " + pw);
+                                UserInfo.Instance().setData(res.email, res.nickName);
                                 stateChage.setAccount(res.email, pw, true);
                             }
                             catch(Exception e)
                             {
                                 Debug.Log("login error : " + e.Message);
                             }
-                            
-                            
                         }
                         else
                         {

@@ -1,8 +1,6 @@
 ﻿public class RequestGamingUser : RequestBase {
-
     
-	public RequestGamingUser()
+	public RequestGamingUser() : base(Common.IDENTIFIER_GAMING_USER)
     {
-        base.setIdentifier(Common.IDENTIFIER_GAMING_USER);        
     }
 }

@@ -1,16 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Net.Sockets;
-using System.IO;
 using System;
 using System.Text;
 using System.Net;
-using System.Threading;
-
 
 public class SocketManager : MonoBehaviour
 {
+    public enum IP_KINDS
+    {
+        KOITT = 0,
+        HOME = 1
+    }
+
+    public IP_KINDS ipKinds;
+    public string getIp()
+    {
+        switch (ipKinds)
+        {
+            case IP_KINDS.KOITT:
+                return "192.168.0.8";
+            case IP_KINDS.HOME:
+                return "211.201.206.24";
+
+        }
+        return "211.201.206.24";
+    }
+
     private static SocketManager instance = null;
     public static SocketManager Instance()
     {
@@ -22,30 +37,25 @@ public class SocketManager : MonoBehaviour
         return instance;
     }
     
-    //string ip = "192.168.0.8";
-    //static string ip = "211.201.206.24";
     static int port = 8895;
     private AsyncCallback m_fnReceiveHandler;
     const int BUFFER_SIZE = 2048; 
-    public byte[] buffer = new byte[BUFFER_SIZE];
+    byte[] buffer = new byte[BUFFER_SIZE];
     Socket socket;
-
-    //public GameObject gameObj;
-    //GameController gameController;
-
+    
     public delegate void ResponseResultDelegate(string identifier, string result);
     public ResponseResultDelegate resDelegate = null;
     
     void Awake()
     {
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        //gameController = gameObj.GetComponent<GameController>();
+        
         try
         {
             Debug.Log("awake");
 
             //socket.Connect(ip, port);
-            IPAddress ipAddress = IPAddress.Parse(Common.getIp());
+            IPAddress ipAddress = IPAddress.Parse(getIp());
             IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
             
             //socket.Blocking = false;
@@ -112,7 +122,6 @@ public class SocketManager : MonoBehaviour
 
         if (result.resCode == 0)
         {
-            //gameController.responseString(result.identifier, stringTransferred);
             resDelegate(result.identifier, stringTransferred);
         }
         else
