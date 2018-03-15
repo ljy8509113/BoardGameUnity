@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class Join : MonoBehaviour {
+public class JoinState : BaseState {
 
     public InputField email;
     public InputField password;
@@ -12,7 +12,16 @@ public class Join : MonoBehaviour {
     public InputField year;
     public InputField month;
     public InputField day;
-    
+
+    override public void showState(ResponseBase res)
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    override public void hideState()
+    {
+        this.gameObject.SetActive(false);
+    }
 
     // Use this for initialization
     void Start () {
@@ -82,9 +91,10 @@ public class Join : MonoBehaviour {
 
     public void cancel()
     {
-        GameController.Instance().changeState(GameController.OBJECT_INDEX.LOGIN);
+        //GameController.Instance().changeState(GameController.OBJECT_INDEX.LOGIN);
+        GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
     }
-
+    
     //void OnGUI()
     //{
     //    if (GUILayout.Button("aaa", GUILayout.MinWidth(200), GUILayout.MinHeight(100)))

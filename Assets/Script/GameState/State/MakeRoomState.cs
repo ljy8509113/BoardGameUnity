@@ -1,21 +1,29 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MakeRoom : MonoBehaviour {
+public class MakeRoomState : BaseState {
 
     public InputField titleFile;
     public Dropdown dropDownUserCount;
-    //public GameObject socketObj;
-    //SocketManager socketManager;
 
-	// Use this for initialization
-	void Start () {
-        
+   override
+   public void showState(ResponseBase res)
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    override
+    public void hideState()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    // Use this for initialization
+    void Start () {        
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () {		
 	}
 
     public void makeRoom()

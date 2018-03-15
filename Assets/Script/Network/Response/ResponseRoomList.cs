@@ -12,7 +12,8 @@ public class ResponseRoomList : ResponseBase
         public int maxUser;
         public int currentUser;
         public string state;
-        public string masterUuid;
+        public string masterEmail;
+        public string masterNickName;
     }
 
     public List<Room> list;

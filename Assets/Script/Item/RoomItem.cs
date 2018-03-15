@@ -7,9 +7,9 @@ public class RoomItem : MonoBehaviour {
 
     public Text txtTitle;
     public Text txtUserCount;
+    public Text txtMasterNickName;
     public Button button;
     private int index = 0;
-    public GameObject listView;
     
     ResponseRoomList.Room roomInfo;
 
@@ -31,6 +31,7 @@ public class RoomItem : MonoBehaviour {
         this.roomInfo = roomInfo;
         txtTitle.text = this.roomInfo.title;
         txtUserCount.text = this.roomInfo.currentUser + "/" + this.roomInfo.maxUser;
+        txtMasterNickName.text = roomInfo.masterNickName;
     }
 
     public void setIndex(int index)
