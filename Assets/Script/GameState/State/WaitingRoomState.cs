@@ -40,4 +40,22 @@ public class WaitingRoomState : BaseState {
 
     }
 
+    void setData(ResponseBase res)
+    {
+        List<RoomUser> list = ((ResponseConnectionRoom)res).userList;
+
+        foreach(RoomUser item in list)
+        {
+            if (item.isMaster)
+            {
+                WaitingRoomItem masterUser = userItem.GetComponent<WaitingRoomItem>();
+                masterUser.
+            }
+            else
+            {
+
+            }
+        }
+    }
+
 }

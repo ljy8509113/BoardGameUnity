@@ -12,7 +12,7 @@ public class WaitingRoomItem : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
-		
+        buttonOut.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -23,6 +23,18 @@ public class WaitingRoomItem : MonoBehaviour {
     public void onOut()
     {
 
+    }
+
+    public void setData(RoomUser user)
+    {
+        textNickName.text = user.nickName;
+        textState.text = user.
+        
+    }
+
+    public void setOutButton(bool isShow)
+    {
+        buttonOut.gameObject.SetActive(isShow);
     }
     
 }

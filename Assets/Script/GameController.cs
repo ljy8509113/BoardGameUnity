@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour {
     {
         if (instance == null)
         {
-            instance = GameObject.FindObjectOfType(typeof(GameController)) as GameController;
+            instance = GameObject.FindObjectOfType(typeof(GameController)) as GameController;            
         }
 
         return instance;
@@ -259,7 +259,11 @@ public class GameController : MonoBehaviour {
     //{
     //    stateChage.changeState(index);
     //}
-    
+
+    void Awake()
+    {
+        SocketManager.Instance().resDelegate += responseString;
+    }
 
     public void responseString(string identifier, string json)
     {
