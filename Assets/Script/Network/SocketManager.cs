@@ -49,7 +49,9 @@ public class SocketManager : MonoBehaviour
     void Awake()
     {
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        
+        socket.SendTimeout = 120000;
+        socket.ReceiveTimeout = 120000;
+
         try
         {
             Debug.Log("awake");
@@ -70,8 +72,6 @@ public class SocketManager : MonoBehaviour
                 Debug.Log("socket error : " + e);
             }
             
-            socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
-
         }
         catch (Exception e)
         {
@@ -79,7 +79,7 @@ public class SocketManager : MonoBehaviour
 
         }
     }
-
+    
     public void ConnectCallback(IAsyncResult ar)
     {
         try
@@ -87,15 +87,17 @@ public class SocketManager : MonoBehaviour
             Debug.Log("connection callback");
             // Retrieve the socket from the state object.  
             socket = (Socket)ar.AsyncState;
+            Debug.Log("1 " + socket);
 
             // Complete the connection.  
             socket.EndConnect(ar);
             Debug.Log("Socket connected to " + socket.RemoteEndPoint.ToString());
-            
+            socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
+
         }
         catch (Exception e)
         {
-            Debug.Log(e.ToString());
+            Debug.Log("connectionCallback : " + e.Message);
         }
     }
 

@@ -17,28 +17,30 @@ public class GameManager : MonoBehaviour {
     class StateInfo
     {
         GAME_STATE currentState = GAME_STATE.INIT;
-        GAME_STATE changeState = GAME_STATE.INIT;
         ResponseBase resInfo = null;
-        bool isUpdate = false;
+        public bool isUpdate = false;
+        public bool isStateChange = false;
 
         public void setData(GAME_STATE state, ResponseBase res)
         {
             resInfo = res;
-            changeState = state;
-            isUpdate = true;
+            if (currentState == state)
+            {
+                isUpdate = true;
+            }   
+            else
+            {
+                currentState = state;
+                isStateChange = true;
+            }            
         }
 
         public void changed()
         {
             isUpdate = false;
-            currentState = changeState;            
+            isStateChange = false;
         }
-
-        public bool isChage()
-        {
-            return isUpdate;
-        }
-
+        
         public GAME_STATE getState()
         {
             return currentState;
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour {
     public List<BaseState> objectList;
 
     StateInfo info = new StateInfo();
+    bool isUpdate = false;
 
     void Awake()
     {
@@ -78,26 +81,31 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(info.isChage())
+		if(isUpdate)
         {
-            info.changed();
+            isUpdate = false;
             for(int i=0; i<objectList.Count; i++)
             {
                 if(i == (int)info.getState())
                 {
-
-                    objectList[i].showState(info.getData());
+                    if(info.isStateChange)
+                        objectList[i].initState(info.getData());
+                    else
+                        objectList[i].updateState(info.getData());
+                    info.changed();
                 }
                 else
                 {
                     objectList[i].hideState();
                 }
+
             }
         }
 	}
 
     public void stateChange(GAME_STATE state, ResponseBase res)
     {
-        info.setData(state, res);        
+        info.setData(state, res);
+        isUpdate = true;
     }
 }

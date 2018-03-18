@@ -1,21 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MakeRoomState : BaseState {
+public class CreateRoomState : BaseState {
 
     public InputField titleFile;
     public Dropdown dropDownUserCount;
-
-   override
-   public void showState(ResponseBase res)
+    
+    public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
     }
-
-    override
-    public void hideState()
+    
+    public override void hideState()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public override void updateState(ResponseBase res)
+    {
+        GameManager.Instance().stateChange(GameManager.GAME_STATE.WAITING_ROOM, res);
     }
 
     // Use this for initialization

@@ -9,6 +9,7 @@ public class WaitingRoomItem : MonoBehaviour {
     public Text textState;
     public Button buttonOut;
     public Plane planBackground;
+    private RoomUser userInfo;
     
 	// Use this for initialization
 	void Start () {
@@ -27,14 +28,23 @@ public class WaitingRoomItem : MonoBehaviour {
 
     public void setData(RoomUser user)
     {
+        userInfo = user;
         textNickName.text = user.nickName;
-        textState.text = user.
-        
+
+        if (user.isMaster)
+            textState.text = "";
+        else
+            textState.text = user.onReady == true ? "Ready" : "";        
     }
 
     public void setOutButton(bool isShow)
     {
         buttonOut.gameObject.SetActive(isShow);
+    }
+
+    public RoomUser getUserData()
+    {
+        return userInfo;
     }
     
 }

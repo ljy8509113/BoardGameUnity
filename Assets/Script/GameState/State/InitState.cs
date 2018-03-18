@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class InitState : BaseState {
 
-    override public void showState(ResponseBase res)
+    public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
     }
 
-    override public void hideState()
+    public override void hideState()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public override void updateState(ResponseBase res)
+    {
+        
     }
 
     // Use this for initialization

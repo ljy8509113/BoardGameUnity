@@ -21,8 +21,8 @@ public class RoomListState : BaseState
     int current = 1;
     int maxCount = 0;
 
-    override
-    public void showState(ResponseBase res)
+    
+    public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
 
@@ -61,11 +61,14 @@ public class RoomListState : BaseState
             //목록없음
         }        
     }
-
-    override
-    public void hideState()
+    
+    public override void hideState()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public override void updateState(ResponseBase res)
+    {
     }
 
     void Awake()
@@ -92,49 +95,9 @@ public class RoomListState : BaseState
 
     void Update()
     {
-        //if (isUpdateData)
-        //{
-        //    isUpdateData = false;
-        //    int currentCount = current * Common.LIST_COUNT;
-
-        //    if (currentCount > maxCount)
-        //        currentCount = maxCount;
-
-        //    bottomNaviText.text = currentCount + "/" + maxCount;
-        //    for (int i = 0; i < Common.LIST_COUNT; i++)
-        //    {
-        //        if (i < roomDataList.Count)
-        //        {
-        //            listItem[i].SetActive(true);
-        //            ResponseRoomList.Room room = roomDataList[i];
-        //            listItem[i].GetComponent<RoomItem>().setData(room);
-        //        }
-        //        else
-        //        {
-        //            listItem[i].SetActive(false);
-        //        }
-
-        //    }
-        //}
+       
     }
-
-
-    //public void setData(ResponseBase res)
-    //{
-    //    ResponseRoomList resRoomList = (ResponseRoomList)res;
-    //    current = resRoomList.current;
-    //    maxCount = resRoomList.max;
-
-    //    if (resRoomList.list != null && resRoomList.list.Count > 0)
-    //    {
-    //        roomDataList = resRoomList.list;
-    //        isUpdateData = true;
-    //    }
-    //    else
-    //    {
-    //        //목록없음
-    //    }
-    //}
+    
     
     public void onClick(ResponseRoomList.Room item)
     {
@@ -176,6 +139,11 @@ public class RoomListState : BaseState
             RequestRoomList list = new RequestRoomList(current - 1, Common.LIST_COUNT);
             SocketManager.Instance().sendMessage(list);
         }
+    }
+
+    public void onCreateRoom()
+    {
+        GameManager.Instance().stateChange(GameManager.GAME_STATE.CREATE_ROOM, null);
     }
 }
 

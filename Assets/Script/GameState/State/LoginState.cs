@@ -8,7 +8,7 @@ public class LoginState : BaseState
     public InputField fieldPassword;
     public Toggle toggleAuto;
 
-   override public void showState(ResponseBase res)
+   public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
 
@@ -18,47 +18,27 @@ public class LoginState : BaseState
         }
         else
         {
-            ResponseLogin resLogin = (ResponseLogin)res;
-            if (resLogin.isAutoLogin)
-            {
-                Debug.Log("login : isAuto");
-                try
-                {
-                    string pw = Security.Instance().deCryption(resLogin.password, false);
-                    Debug.Log("login pw : " + pw);
-                    UserInfo.Instance().setData(resLogin.email, resLogin.nickName);
 
-                    PlayerPrefs.SetString(Common.KEY_EMAIL, resLogin.email);
-                    PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 1);
-                    PlayerPrefs.SetString( Common.KEY_PASSWORD, Security.Instance().cryption(resLogin.password, true) );                    
-                }
-                catch (Exception e)
-                {
-                    Debug.Log("login error : " + e.Message);
-                }
-            }
-            else
-            {
-                PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 0);
-                PlayerPrefs.SetString(Common.KEY_PASSWORD, "");
-                Debug.Log("login : isAuto f");
-                
-            }
-
-            RequestGamingUser gaming = new RequestGamingUser();
-            SocketManager.Instance().sendMessage(gaming);
+            loginResult((ResponseLogin)res);
         }
 
     }
 
-    override public void hideState()
+    public override void hideState()
     {
         this.gameObject.SetActive(false);
     }
 
+    public override void updateState(ResponseBase res)
+    {
+        loginResult((ResponseLogin)res);
+    }
+
     // Use this for initialization
     void Start()
-    {   
+    {
+        fieldEmail.text = "test1@gmail.com";
+        fieldPassword.text = "1234";
     }
 
     // Update is called once per frame
@@ -98,7 +78,45 @@ public class LoginState : BaseState
         Debug.Log("valueChange : " + toggleAuto.isOn);        
     }
     
+    void loginResult(ResponseLogin res)
+    {
+        UserInfo.Instance().setData(res.email, res.nickName);
+        Debug.Log("email : " + UserInfo.Instance().email);
+        Debug.Log("nickName : " + UserInfo.Instance().nickName);
 
+        if (res.isAutoLogin)
+        {
+            Debug.Log("login : isAuto");
+            try
+            {
+                string pw = Security.Instance().deCryption(res.password, false);
+                Debug.Log("login pw : " + pw);
+                
+                PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
+                PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 1);
+                PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(res.password, true));
+
+                RequestGamingUser gaming = new RequestGamingUser();
+                SocketManager.Instance().sendMessage(gaming);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("login error : " + e.Message);
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 0);
+            PlayerPrefs.SetString(Common.KEY_PASSWORD, "");
+            Debug.Log("login : isAuto f");
+
+            RequestGamingUser gaming = new RequestGamingUser();
+            SocketManager.Instance().sendMessage(gaming);
+
+        }
+
+        
+    }
 
 }
 

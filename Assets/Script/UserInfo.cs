@@ -4,19 +4,21 @@ using UnityEngine;
 public class UserInfo : MonoBehaviour
 {
     private static UserInfo instance = null;
-
+    
     public static UserInfo Instance()
     {
         if (instance == null)
-            instance = new UserInfo();
+        {
+            instance = GameObject.FindObjectOfType(typeof(UserInfo)) as UserInfo;
+        }
 
         return instance;
     }
 
-    public string email = "";
-    public string nickName = "";
-    public bool isAutoLogin = false;
-    public string password = "";
+    public string email;
+    public string nickName;
+    public bool isAutoLogin;
+    public string password;
 
     public void setData(string email, string nickName)
     {

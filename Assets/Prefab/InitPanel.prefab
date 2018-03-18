@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224976191697661036}
   - component: {fileID: 222511628258170574}
   - component: {fileID: 114075540904523244}
+  - component: {fileID: 114085139057889048}
   m_Layer: 5
   m_Name: InitPanel
   m_TagString: Untagged
@@ -55,6 +56,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114085139057889048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1023519844455736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31ae4fe4df05fd45a35f78a6b6b2b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &222511628258170574
 CanvasRenderer:
   m_ObjectHideFlags: 1
