@@ -3,12 +3,16 @@ using UnityEngine.UI;
 
 public class CreateRoomState : BaseState {
 
-    public InputField titleFile;
+    public InputField titleField;
     public Dropdown dropDownUserCount;
+    public InputField passwordField;
+    public Toggle buttonToggle;
+
     
     public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
+        buttonToggle.isOn = false;
     }
     
     public override void hideState()
@@ -31,21 +35,38 @@ public class CreateRoomState : BaseState {
 
     public void makeRoom()
     {
-        Debug.Log("title : " + titleFile.text);
+        Debug.Log("title : " + titleField.text);
         Debug.Log("user : " + dropDownUserCount.options[dropDownUserCount.value].text);
 
-        string title = titleFile.text;
+        string title = titleField.text;
         int maxUserCount = int.Parse(dropDownUserCount.options[dropDownUserCount.value].text);
+        
+        if(title == "")
+        {
+            DialogManager.Instance.ShowSubmitDialog("제목을 입력해주세요.", (bool result) => {
+            });
+            return;
+        }
 
-        RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title, UserInfo.Instance().nickName);
+        if (buttonToggle.isOn)
+        {
+            if(passwordField.text.Length < 1)
+            {
+                DialogManager.Instance.ShowSubmitDialog("비밀번호를 입력해주세요.", (bool result) => {
+                });
+                return;
+            }
+        }
+
+        RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title, UserInfo.Instance().nickName, passwordField.text);
         SocketManager.Instance().sendMessage(cr);
-
+        
     }
-
-    public void sendMessage()
+    
+    public void onChangeValue()
     {
-        RequestTest test = new RequestTest();
-        SocketManager.Instance().sendMessage(test);
+        Debug.Log("valueChange : " + buttonToggle.isOn);
+        passwordField.enabled = buttonToggle.isOn;        
     }
 
 }
