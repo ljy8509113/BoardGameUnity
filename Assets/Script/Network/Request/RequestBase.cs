@@ -12,7 +12,7 @@ public class RequestBase {
     public RequestBase(string identifier)
     {
         this.identifier = identifier;
-        this.email = UserInfo.Instance().email;
+        this.email = UserManager.Instance().email;
         this.gameNo = Common.GAME_NO;
     }    
 }

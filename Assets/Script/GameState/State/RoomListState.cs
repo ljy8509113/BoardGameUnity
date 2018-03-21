@@ -104,7 +104,7 @@ public class RoomListState : BaseState
         //Debug.Log("" + item.getIndex());
         Debug.Log("index : " + item.title);
 
-        RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserInfo.Instance().nickName);
+        RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName);
         SocketManager.Instance().sendMessage(req);
 
     }

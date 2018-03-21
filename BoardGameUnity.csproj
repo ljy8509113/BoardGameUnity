@@ -301,7 +301,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Common\Common.cs" />
-    <Compile Include="Assets\Script\Data\RoomUser.cs" />
+    <Compile Include="Assets\Script\Data\UserInfo.cs" />
     <Compile Include="Assets\Script\GameController.cs" />
     <Compile Include="Assets\Script\GameState\Base\BaseState.cs" />
     <Compile Include="Assets\Script\GameState\GameManager.cs" />
@@ -330,7 +330,7 @@
     <Compile Include="Assets\Script\Network\Response\ResponseRoomList.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseTest.cs" />
     <Compile Include="Assets\Script\Network\SocketManager.cs" />
-    <Compile Include="Assets\Script\UserInfo.cs" />
+    <Compile Include="Assets\Script\UserManager.cs" />
     <Compile Include="Assets\Script\Util\Security.cs" />
     <Compile Include="Assets\Script\Util\UI\WebView.cs" />
   </ItemGroup>

@@ -3,5 +3,6 @@ using System.Collections.Generic;
 
 
 public class ResponseConnectionRoom : ResponseBase {
-    public List<RoomUser> userList;
+    public string title;
+    public List<UserInfo> userList;
 }

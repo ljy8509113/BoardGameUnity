@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour {
     {
         GAME_STATE currentState = GAME_STATE.INIT;
         ResponseBase resInfo = null;
-        public bool isUpdate = false;
         public bool isStateChange = false;
 
         public void setData(GAME_STATE state, ResponseBase res)
@@ -26,19 +25,13 @@ public class GameManager : MonoBehaviour {
             resInfo = res;
             if (currentState == state)
             {
-                isUpdate = true;
+                isStateChange = false;
             }   
             else
             {
                 currentState = state;
                 isStateChange = true;
             }            
-        }
-
-        public void changed()
-        {
-            isUpdate = false;
-            isStateChange = false;
         }
         
         public GAME_STATE getState()
@@ -91,8 +84,7 @@ public class GameManager : MonoBehaviour {
                     if(info.isStateChange)
                         objectList[i].initState(info.getData());
                     else
-                        objectList[i].updateState(info.getData());
-                    info.changed();
+                        objectList[i].updateState(info.getData());                    
                 }
                 else
                 {

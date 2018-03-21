@@ -9,7 +9,8 @@ public class WaitingRoomItem : MonoBehaviour {
     public Text textState;
     public Button buttonOut;
     public Plane planBackground;
-    private RoomUser userInfo;
+    public Text textMaster;
+    private UserInfo userInfo;
     
 	// Use this for initialization
 	void Start () {
@@ -26,15 +27,15 @@ public class WaitingRoomItem : MonoBehaviour {
 
     }
 
-    public void setData(RoomUser user)
+    public void setData(UserInfo user)
     {
         userInfo = user;
         textNickName.text = user.nickName;
 
         if (user.isMaster)
-            textState.text = "";
+            textState.text = "방장";
         else
-            textState.text = user.onReady == true ? "Ready" : "";        
+            textState.text = user.state == (int)Common.USER_STATE.READY ? "Ready" : ""; //true ? "Ready" : "";        
     }
 
     public void setOutButton(bool isShow)
@@ -42,7 +43,7 @@ public class WaitingRoomItem : MonoBehaviour {
         buttonOut.gameObject.SetActive(isShow);
     }
 
-    public RoomUser getUserData()
+    public UserInfo getUserData()
     {
         return userInfo;
     }

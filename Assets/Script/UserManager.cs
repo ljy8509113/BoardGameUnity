@@ -1,15 +1,15 @@
 ﻿
 using UnityEngine;
 
-public class UserInfo : MonoBehaviour
+public class UserManager : MonoBehaviour
 {
-    private static UserInfo instance = null;
+    private static UserManager instance = null;
     
-    public static UserInfo Instance()
+    public static UserManager Instance()
     {
         if (instance == null)
         {
-            instance = GameObject.FindObjectOfType(typeof(UserInfo)) as UserInfo;
+            instance = GameObject.FindObjectOfType(typeof(UserManager)) as UserManager;
         }
 
         return instance;

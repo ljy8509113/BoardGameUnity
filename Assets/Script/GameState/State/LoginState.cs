@@ -80,9 +80,9 @@ public class LoginState : BaseState
     
     void loginResult(ResponseLogin res)
     {
-        UserInfo.Instance().setData(res.email, res.nickName);
-        Debug.Log("email : " + UserInfo.Instance().email);
-        Debug.Log("nickName : " + UserInfo.Instance().nickName);
+        UserManager.Instance().setData(res.email, res.nickName);
+        Debug.Log("email : " + UserManager.Instance().email);
+        Debug.Log("nickName : " + UserManager.Instance().nickName);
 
         if (res.isAutoLogin)
         {

@@ -58,7 +58,7 @@ public class CreateRoomState : BaseState {
             }
         }
 
-        RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title, UserInfo.Instance().nickName, passwordField.text);
+        RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title, UserManager.Instance().nickName, passwordField.text);
         SocketManager.Instance().sendMessage(cr);
         
     }

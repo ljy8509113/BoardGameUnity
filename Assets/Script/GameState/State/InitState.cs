@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class InitState : BaseState {
 
@@ -22,22 +23,33 @@ public class InitState : BaseState {
     // Use this for initialization
     void Start () {
 
-        UserInfo.Instance().loadData();
+        UserManager.Instance().loadData();
 
-        if(UserInfo.Instance().isAutoLogin)
+        if (UserManager.Instance().isAutoLogin)
         {
-            string password = Security.Instance().deCryption(UserInfo.Instance().password, true);                
-            RequestLogin req = new RequestLogin(UserInfo.Instance().email, Security.Instance().cryption(password, false), true);
+            string password = Security.Instance().deCryption(UserManager.Instance().password, true);
+            RequestLogin req = new RequestLogin(UserManager.Instance().email, Security.Instance().cryption(password, false), true);
             SocketManager.Instance().sendMessage(req);
         }
         else
         {
             GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
         }
+
+        //string password = Security.Instance().cryption("1234", false);
+        //string email, string password, string nickName, DateTime birthday
+
+        //DateTime birthDay = DateTime.ParseExact("1990-01-05", "yyyy-MM-dd", null);
+
+        //for(int i=5; i<10; i++)
+        //{
+        //    RequestJoin req = new RequestJoin("imsi"+i+"@gmail.com", password, "임시계정 " + i, birthDay);
+        //    SocketManager.Instance().sendMessage(req);
+        //}
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

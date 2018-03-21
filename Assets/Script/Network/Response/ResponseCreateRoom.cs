@@ -1,7 +1,5 @@
-﻿public class ResponseCreateRoom : ResponseBase {
+﻿using System.Collections.Generic;
+public class ResponseCreateRoom : ResponseBase {
     public string title;
-    public int total;
-    public int win;
-    public int lose;
-    public int outCount;
+    public List<UserInfo> userList;
 }

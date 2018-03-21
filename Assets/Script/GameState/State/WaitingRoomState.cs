@@ -9,16 +9,15 @@ public class WaitingRoomState : BaseState {
     public Button buttonReady;
     public Button buttonCancel;
     public Text title;
-    public int MAX_USER_COUNT = 3;
+    public int MAX_USER_COUNT = 4;
     List<GameObject> listUserObj = new List<GameObject>();
     public GameObject content;
-    ResponseBase res = null;
-
+    
     public override void initState(ResponseBase res)
     {
-        this.res = res; 
         this.gameObject.SetActive(true);
         Debug.Log("initState res : " + res);
+        setData(res);
     }
 
     public override void hideState()
@@ -28,21 +27,23 @@ public class WaitingRoomState : BaseState {
 
     public override void updateState(ResponseBase res)
     {
-        this.res = res;
         setData(res);
+    }
+
+    void Awake()
+    {
+        for (int i = 0; i < MAX_USER_COUNT; i++)
+        {
+            GameObject item = Instantiate(userItem) as GameObject;
+            //item.SetActive(false);
+            listUserObj.Add(item);
+            item.transform.parent = content.transform;
+        }
+        Debug.Log("awake --------- ");
     }
 
     // Use this for initialization
     void Start () {
-        for (int i = 0; i < MAX_USER_COUNT; i++)
-        {
-            GameObject item = Instantiate(userItem) as GameObject;
-            //RoomUser itemSource = item.GetComponent<RoomUser>();
-            //itemSource.delegateClick += onClick;
-            item.SetActive(false);
-            listUserObj.Add(item);
-            item.transform.parent = content.transform;
-        }
         Debug.Log("start --------- ");
     }
 	
@@ -63,35 +64,41 @@ public class WaitingRoomState : BaseState {
 
     void setData(ResponseBase res)
     {
-        if(res.identifier == Common.IDENTIFIER_CREATE_ROOM)
+        List<UserInfo> resList;
+        string masterEmail;
+
+        if (res.identifier == Common.IDENTIFIER_CREATE_ROOM)
         {
-            WaitingRoomItem soucre = userItem.GetComponent<WaitingRoomItem>();
-            RoomUser master = new RoomUser();
-            ResponseCreateRoom resCr = (ResponseCreateRoom)res; 
-            master.setData(UserInfo.Instance().email, UserInfo.Instance().nickName, true, true, resCr.total, resCr.win, resCr.lose, resCr.outCount);
+            ResponseCreateRoom resCr = (ResponseCreateRoom)res;
+            title.text = resCr.title;
+            resList = ((ResponseCreateRoom)res).userList;
         }
         else
         {
-            List<RoomUser> list = ((ResponseConnectionRoom)res).userList;
-
-            for (int i = 0; i < listUserObj.Count; i++)
-            {
-                if (i < list.Count)
-                {
-                    listUserObj[i].SetActive(true);
-                    WaitingRoomItem soucre = listUserObj[i].GetComponent<WaitingRoomItem>();
-                    soucre.setData(list[i]);
-                }
-                else
-                {
-                    listUserObj[i].SetActive(false);
-                }
-            }
+            ResponseConnectionRoom resCr = (ResponseConnectionRoom)res;
+            title.text = resCr.title;
+            resList = ((ResponseConnectionRoom)res).userList;
         }
         
-        
-    }
+        for (int i = 0; i < listUserObj.Count; i++)
+        {
+            if (i < resList.Count)
+            {
+                listUserObj[i].SetActive(true);
+                WaitingRoomItem soucre = listUserObj[i].GetComponent<WaitingRoomItem>();
+                soucre.setData(resList[i]);
 
+                if (resList[i].isMaster)
+                    masterEmail = resList[i].email;
+            }
+            else
+            {
+                listUserObj[i].SetActive(false);
+            }
+        }
+
+    }
+    
     public void outUser()
     {
 
