@@ -301,10 +301,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Common\Common.cs" />
+    <Compile Include="Assets\Script\Data\GameCardInfo.cs" />
+    <Compile Include="Assets\Script\Data\NumberCard.cs" />
+    <Compile Include="Assets\Script\Data\UserGameData.cs" />
     <Compile Include="Assets\Script\Data\UserInfo.cs" />
     <Compile Include="Assets\Script\GameController.cs" />
     <Compile Include="Assets\Script\GameState\Base\BaseState.cs" />
     <Compile Include="Assets\Script\GameState\GameManager.cs" />
+    <Compile Include="Assets\Script\GameState\Play\GamePlayManager.cs" />
+    <Compile Include="Assets\Script\GameState\Play\SelectableCard.cs" />
     <Compile Include="Assets\Script\GameState\State\CreateRoomState.cs" />
     <Compile Include="Assets\Script\GameState\State\InitState.cs" />
     <Compile Include="Assets\Script\GameState\State\JoinState.cs" />
@@ -324,6 +329,8 @@
     <Compile Include="Assets\Script\Network\Response\ResponseBase.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseConnectionRoom.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseCreateRoom.cs" />
+    <Compile Include="Assets\Script\Network\Response\ResponseGameCardInfo.cs" />
+    <Compile Include="Assets\Script\Network\Response\ResponseGameStart.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseGamingUser.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseJoin.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseLogin.cs" />
