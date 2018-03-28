@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 [Serializable]
 public class UserGameData {
-    private int no;
-    private string email;
-    private string nickName;
-    private List<NumberCard> cards;
-    private bool isLose;
+    public int no;
+    public string email;
+    public string nickName;
+    public List<NumberCard> cards;
+    public bool isLose;
 }

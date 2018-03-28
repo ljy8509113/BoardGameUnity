@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GamePlayManager : MonoBehaviour {
 
     public GameObject rootObj;
     public GameObject selectableObj;
-
+    
     private static GamePlayManager instance = null;
     public static GamePlayManager Instance()
     {
@@ -17,6 +18,9 @@ public class GamePlayManager : MonoBehaviour {
 
         return instance;
     }
+
+    UserGameData myData;
+    List<UserGameData> userDatas = new List<UserGameData>();
 
     void Awake()
     {
@@ -37,4 +41,14 @@ public class GamePlayManager : MonoBehaviour {
     {
         rootObj.SetActive(true);
     }
+
+    public void initSelectableCard(ResponseGameStart res)
+    {
+        selectableObj.SetActive(true);
+        SelectableCard sc = selectableObj.GetComponent<SelectableCard>();
+        sc.init(res.cardInfo.mapFieldCards);
+    }
+
+   
+
 }

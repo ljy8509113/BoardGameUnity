@@ -3,6 +3,6 @@ using System.Collections.Generic;
 
 [Serializable]
 public class GameCardInfo {
-    List<UserGameData> arrayUser;
-    Dictionary<int, NumberCard> mapFieldCards;
+    public List<UserGameData> arrayUser;
+    public Dictionary<int, NumberCard> mapFieldCards;
 }
