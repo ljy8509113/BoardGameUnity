@@ -256,6 +256,9 @@
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
@@ -263,25 +266,31 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements">
-      <HintPath>C:/Users/KOITT/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
+      <HintPath>C:/Users/ljy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>C:/Users/KOITT/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>C:/Users/ljy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/KOITT/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/ljy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Analytics">
-      <HintPath>C:/Users/KOITT/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/Editor/UnityEditor.Analytics.dll</HintPath>
+      <HintPath>C:/Users/ljy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/Editor/UnityEditor.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/Users/KOITT/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@0.0.19/UnityEngine.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/ljy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@0.0.19/UnityEngine.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
-      <HintPath>C:/Users/KOITT/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@0.0.19/Editor/UnityEditor.Purchasing.dll</HintPath>
+      <HintPath>C:/Users/ljy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.purchasing@0.0.19/Editor/UnityEditor.Purchasing.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/KOITT/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/ljy/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -299,9 +308,10 @@
     <Compile Include="Assets\Script\GameController.cs" />
     <Compile Include="Assets\Script\GameState\Base\BaseState.cs" />
     <Compile Include="Assets\Script\GameState\GameManager.cs" />
-    <Compile Include="Assets\Script\GameState\Play\CardState.cs" />
     <Compile Include="Assets\Script\GameState\Play\GamePlayManager.cs" />
+    <Compile Include="Assets\Script\GameState\Play\MyCard.cs" />
     <Compile Include="Assets\Script\GameState\Play\SelectableCard.cs" />
+    <Compile Include="Assets\Script\GameState\Play\UserCard.cs" />
     <Compile Include="Assets\Script\GameState\State\CreateRoomState.cs" />
     <Compile Include="Assets\Script\GameState\State\InitState.cs" />
     <Compile Include="Assets\Script\GameState\State\JoinState.cs" />
@@ -317,6 +327,7 @@
     <Compile Include="Assets\Script\Network\Request\RequestJoin.cs" />
     <Compile Include="Assets\Script\Network\Request\RequestLogin.cs" />
     <Compile Include="Assets\Script\Network\Request\RequestRoomList.cs" />
+    <Compile Include="Assets\Script\Network\Request\RequestSelectNumber.cs" />
     <Compile Include="Assets\Script\Network\Request\RequestTest.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseBase.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseConnectionRoom.cs" />
@@ -327,6 +338,7 @@
     <Compile Include="Assets\Script\Network\Response\ResponseJoin.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseLogin.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseRoomList.cs" />
+    <Compile Include="Assets\Script\Network\Response\ResponseSelectNumber.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseTest.cs" />
     <Compile Include="Assets\Script\Network\SocketManager.cs" />
     <Compile Include="Assets\Script\UserManager.cs" />

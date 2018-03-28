@@ -11,6 +11,13 @@ public class Common {
     public const string IDENTIFIER_LOGIN = "login";
     public const string IDENTIFIER_JOIN = "join";
 
+    public const string IDENTIFIER_SELECT_NUMBER		= "select_number";
+	public const string IDENTIFIER_TURN				= "turn";
+	public const string IDENTIFIER_GAME_CARD_INFO	= "game_card_info";
+	public const string IDENTIFIER_OPEN_CARD		= "open_card";
+	public const string IDENTIFIER_GAME_FINISH		= "game_finish"; 	
+	public const string IDENTIFIER_GAME_START		= "game_start";
+
     public const int LIST_COUNT = 10;
 
     public static string getUUID()

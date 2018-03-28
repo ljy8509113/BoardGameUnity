@@ -29,13 +29,61 @@ public class SelectableCard : MonoBehaviour {
             NumberCard itemSource = item.GetComponent<NumberCard>();
 
             itemSource.setData(card.number, card.isOpen, card.index);
-
-            //listCards.Add(new NumberCard(card.number, card.isOpen, card.index));
+            itemSource.selectDelegate += selectNumber;
+            
             dic.Remove(index);
 
             item.transform.parent = content.transform;            
         }
+        
+    }
 
-       
+    public void selectNumber(int number)
+    {
+        RequestSelectNumber req = new RequestSelectNumber(number);
+        SocketManager.Instance().sendMessage(req);
+    }
+
+    public void selectResult(bool isSuccess, int number)
+    {
+        if (isSuccess)
+        {
+            GameObject obj = getCard(number);
+            NumberCard card = obj.GetComponent<NumberCard>();
+
+        }
+        else
+        {
+
+        }
+    }
+
+    public void removeCard(int cardNumber)
+    {
+        GameObject obj = getCard(cardNumber);
+        removeCard(obj);       
+    }
+
+    public void removeCard(GameObject obj)
+    {
+        if (obj != null)
+        {
+            listCards.Remove(obj);
+            Destroy(obj);
+        }
+    }
+
+    GameObject getCard(int number)
+    {
+        foreach (GameObject obj in listCards)
+        {
+            NumberCard card = obj.GetComponent<NumberCard>();
+            if (number == card.number)
+            {
+                return obj;                
+            }
+        }
+
+        return null;
     }
 }

@@ -8,6 +8,9 @@ public class NumberCard : MonoBehaviour
     public bool isOpen;
     public int index;
 
+    public delegate void onSelectDelegate(int number);
+    public onSelectDelegate selectDelegate;
+
     public NumberCard(){
     }
 
@@ -21,5 +24,11 @@ public class NumberCard : MonoBehaviour
         this.number = number;
         this.isOpen = isOpen;
         this.index = index;
+    }
+
+    public void onSelect()
+    {
+        if (selectDelegate != null)
+            selectDelegate(number);
     }
 }
