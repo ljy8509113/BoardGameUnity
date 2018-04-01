@@ -18,32 +18,30 @@ public class Alert : MonoBehaviour {
     public Text textMessage;
 
     public delegate void ButtonResult(bool isOn);
+
     ButtonResult result;
-    AlertState state = new AlertState();
+    AlertState state;
 
-    private static Alert instance = null;
-    public static Alert Instance()
+    void Awake()
     {
-        if (instance == null)
-        {
-            instance = GameObject.FindObjectOfType(typeof(Alert)) as Alert;
-        }
-
-        return instance;
+        state = new AlertState();
+        this.gameObject.SetActive(false);
     }
 
     // Use this for initialization
     void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (state.isChange)
         {
+            Debug.Log("alert update in");
             state.isChange = false;
             if (state.isTwoButton)
             {
+                Debug.Log("alert two");
                 buttonCancel.gameObject.SetActive(true);
                 buttonSubmit.gameObject.SetActive(true);
                 oneButton.gameObject.SetActive(false);
@@ -51,26 +49,42 @@ public class Alert : MonoBehaviour {
             }
             else
             {
+                Debug.Log("alert one");
                 buttonCancel.gameObject.SetActive(false);
                 buttonSubmit.gameObject.SetActive(false);
                 oneButton.gameObject.SetActive(true);
             }
             textMessage.text = state.message;
-            gameObject.SetActive(true);
+            this.gameObject.SetActive(true);
         }
 	}
     
-    public void show(string message, bool isTwoButton, ButtonResult result)
+    public void setData(string message, bool isTwoButton, ButtonResult result)
     {
         this.result = result;
         state.isTwoButton = isTwoButton;
         state.message = message;
         state.isChange = true;
     }
-
+    
     public void buttonAction(bool isOn)
     {
         result(isOn);
-        gameObject.SetActive(false);
-    }    
+        hide();
+    }
+
+    public void hide()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    public void setState(bool isChange)
+    {
+        state.isChange = isChange;
+    }
+
+    public bool getState()
+    {
+        return state.isChange;
+    }
 }

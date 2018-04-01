@@ -930,7 +930,7 @@ Prefab:
     - target: {fileID: 224379814144083096, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -185
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224702662768820758, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
         type: 2}
@@ -955,7 +955,7 @@ Prefab:
     - target: {fileID: 224053207539914362, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -185
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224502360853211414, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
         type: 2}
@@ -1191,11 +1191,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114872118771061034, guid: 12dbbe849e9fa9e4eb17bd7e2eb966b0,
+    - target: {fileID: 114961307386854136, guid: 12dbbe849e9fa9e4eb17bd7e2eb966b0,
         type: 2}
-      propertyPath: rootObj
+      propertyPath: alert
       value: 
-      objectReference: {fileID: 1999196672}
+      objectReference: {fileID: 1931011980}
     - target: {fileID: 114720862506297434, guid: 12dbbe849e9fa9e4eb17bd7e2eb966b0,
         type: 2}
       propertyPath: objectList.Array.data[0]
@@ -1226,8 +1226,7 @@ Prefab:
       propertyPath: objectList.Array.data[5]
       value: 
       objectReference: {fileID: 1628081742}
-    m_RemovedComponents:
-    - {fileID: 114872118771061034, guid: 12dbbe849e9fa9e4eb17bd7e2eb966b0, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12dbbe849e9fa9e4eb17bd7e2eb966b0, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1450929073
@@ -1492,10 +1491,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1835669184149976, guid: f957cf8903a755f4f8d421fe6d5b8ca7, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f957cf8903a755f4f8d421fe6d5b8ca7, type: 2}
   m_IsPrefabParent: 0
@@ -1617,11 +1612,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2088082847}
   m_Script: {fileID: 11500000, guid: 8741d90702725a243aa7f15d82278af1, type: 3}
---- !u!1 &1999196672 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1834235038682148, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
+--- !u!114 &1931011980 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114141560429564262, guid: f957cf8903a755f4f8d421fe6d5b8ca7,
     type: 2}
-  m_PrefabInternal: {fileID: 1096432697}
+  m_PrefabInternal: {fileID: 1607684890}
+  m_Script: {fileID: 11500000, guid: d61601ea96732f94a8d38fa3a4003579, type: 3}
 --- !u!224 &1999196673 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224235290099038912, guid: 8b950dbbf35d3fd44809c5f65251a0f1,

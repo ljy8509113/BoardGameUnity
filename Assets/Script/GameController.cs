@@ -14,11 +14,20 @@ public class GameController : MonoBehaviour {
 
         return instance;
     }
-    
 
+    public Alert alert;
+    
     void Awake()
     {
-        SocketManager.Instance().resDelegate += responseString;
+        SocketManager.Instance().resDelegate += responseString;        
+    }
+
+    void Update()
+    {
+        if(alert != null && alert.getState())
+        {
+            alert.gameObject.SetActive(true);
+        }
     }
 
     public void responseString(string identifier, string json)
@@ -51,7 +60,18 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-
+                        showAlert(res.textMsg, true, (bool result) => {
+                            if (result)
+                            {
+                                Debug.Log("isGaming YES");
+                            }
+                            else
+                            {
+                                RequestRoomList list = new RequestRoomList(Common.GAME_NO, Common.LIST_COUNT);
+                                SocketManager.Instance().sendMessage(list);
+                            }
+                        });
+                        
                     }
                 }
                 break;
@@ -61,7 +81,7 @@ public class GameController : MonoBehaviour {
                     ResponseCreateRoom res = JsonUtility.FromJson<ResponseCreateRoom>(json);
                     if (res.isSuccess())
                     {
-                        GameManager.Instance().stateChange(GameManager.GAME_STATE.CREATE_ROOM, res);
+                        GameManager.Instance().stateChange(GameManager.GAME_STATE.WAITING_ROOM, res);
                     }
                     else
                     {
@@ -124,6 +144,16 @@ public class GameController : MonoBehaviour {
                 break;
 
         }
+
+    }
+
+    public void showAlert(string message, bool isTwoButton, Alert.ButtonResult result)
+    {
+        alert.setData(message, isTwoButton, result);
+    }
+
+    public void hideAlert()
+    {
 
     }
 

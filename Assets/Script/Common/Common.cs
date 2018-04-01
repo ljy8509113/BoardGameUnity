@@ -41,4 +41,5 @@ public class Common {
         READY = 1,
         DISCONNECTION = 2
     }
+    
 }
