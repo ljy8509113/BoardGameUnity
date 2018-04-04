@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class GamePlayManager : MonoBehaviour {
 
-    public GameObject rootObj;
-    public GameObject selectableObj;
+    public GameObject playObj;
     
+
     private static GamePlayManager instance = null;
     public static GamePlayManager Instance()
     {
@@ -24,7 +24,7 @@ public class GamePlayManager : MonoBehaviour {
 
     void Awake()
     {
-        rootObj.SetActive(false);
+        
     }
 
     // Use this for initialization
@@ -36,19 +36,17 @@ public class GamePlayManager : MonoBehaviour {
 	void Update () {
 		
 	}
-
-    public void startGame(ResponseBase res)
-    {
-        rootObj.SetActive(true);
-    }
-
+    
     public void initSelectableCard(ResponseGameStart res)
     {
-        selectableObj.SetActive(true);
-        SelectableCard sc = selectableObj.GetComponent<SelectableCard>();
-        sc.init(res.cardInfo.mapFieldCards);
+        //selectableObj.SetActive(true);
+        //SelectableCard sc = selectableObj.GetComponent<SelectableCard>();
+        //sc.init(res.cardInfo.mapFieldCards);
     }
 
-   
+    public void resData(string res)
+    {
+
+    }   
 
 }

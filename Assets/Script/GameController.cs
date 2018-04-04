@@ -142,7 +142,17 @@ public class GameController : MonoBehaviour {
                     }
                 }
                 break;
-
+            case Common.IDENTIFIER_SELECT_NUMBER:
+            case Common.IDENTIFIER_TURN:
+            case Common.IDENTIFIER_GAME_CARD_INFO:
+            case Common.IDENTIFIER_OPEN_CARD:
+            case Common.IDENTIFIER_GAME_FINISH:
+            case Common.IDENTIFIER_GAME_START:
+                {
+                    //GamePlayManager.Instance().resData(json);
+                }
+                break;
+            
         }
 
     }
@@ -154,7 +164,7 @@ public class GameController : MonoBehaviour {
 
     public void hideAlert()
     {
-
+        alert.hide();
     }
 
 }

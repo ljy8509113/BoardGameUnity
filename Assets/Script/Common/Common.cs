@@ -3,6 +3,8 @@
 public class Common {
     public const int GAME_NO = 1;
 
+
+    //game before
     public const string IDENTIFIER_GAME_ROOM_LIST = "game_room_list";
     public const string IDENTIFIER_GAMING_USER = "gaming_user";
     public const string IDENTIFIER_CONNECT_ROOM = "connection_room";
@@ -11,6 +13,8 @@ public class Common {
     public const string IDENTIFIER_LOGIN = "login";
     public const string IDENTIFIER_JOIN = "join";
 
+
+    //game play
     public const string IDENTIFIER_SELECT_NUMBER		= "select_number";
 	public const string IDENTIFIER_TURN				= "turn";
 	public const string IDENTIFIER_GAME_CARD_INFO	= "game_card_info";

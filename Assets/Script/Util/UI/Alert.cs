@@ -75,7 +75,8 @@ public class Alert : MonoBehaviour {
 
     public void hide()
     {
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
+
     }
 
     public void setState(bool isChange)

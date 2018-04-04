@@ -18,7 +18,6 @@ public class LoginState : BaseState
         }
         else
         {
-
             loginResult((ResponseLogin)res);
         }
 
@@ -50,8 +49,8 @@ public class LoginState : BaseState
     {
         string email = fieldEmail.text;
         string password = fieldPassword.text;
-        
-        if ( Common.isMailCheck(email) )
+
+        if (Common.isMailCheck(email))
         {
             string passwordCryp = Security.Instance().cryption(password, false);
             Debug.Log("check email : true // password : " + passwordCryp);
@@ -63,8 +62,7 @@ public class LoginState : BaseState
         else
         {
             Debug.Log("check email : " + false);
-        }
-
+        }        
     }
 
     public void onJoin()

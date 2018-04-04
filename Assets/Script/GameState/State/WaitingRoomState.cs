@@ -11,7 +11,10 @@ public class WaitingRoomState : BaseState {
     public Text title;
     public int MAX_USER_COUNT = 4;
     List<GameObject> listUserObj = new List<GameObject>();
+    List<UserInfo> listUsers = new List<UserInfo>();
     public GameObject content;
+
+    bool isMaster = false;
     
     public override void initState(ResponseBase res)
     {
@@ -28,6 +31,7 @@ public class WaitingRoomState : BaseState {
     public override void updateState(ResponseBase res)
     {
         setData(res);
+        setButton();
     }
 
     void Awake()
@@ -45,6 +49,7 @@ public class WaitingRoomState : BaseState {
     // Use this for initialization
     void Start () {
         Debug.Log("start --------- ");
+        setButton();
     }
 	
 	// Update is called once per frame
@@ -54,7 +59,15 @@ public class WaitingRoomState : BaseState {
 
     public void onReady()
     {
+        Debug.Log("onReady -- ");
+        if (isMaster)
+        {
 
+        }
+        else
+        {
+
+        }
     }
 
     public void onCancel()
@@ -64,32 +77,34 @@ public class WaitingRoomState : BaseState {
 
     void setData(ResponseBase res)
     {
-        List<UserInfo> resList;
         string masterEmail;
-
+        
         if (res.identifier == Common.IDENTIFIER_CREATE_ROOM)
         {
             ResponseCreateRoom resCr = (ResponseCreateRoom)res;
             title.text = resCr.title;
-            resList = ((ResponseCreateRoom)res).userList;
+            listUsers = ((ResponseCreateRoom)res).userList;
+            isMaster = true;
         }
         else
         {
             ResponseConnectionRoom resCr = (ResponseConnectionRoom)res;
             title.text = resCr.title;
-            resList = ((ResponseConnectionRoom)res).userList;
+            listUsers = ((ResponseConnectionRoom)res).userList;
+            isMaster = false;
+            
         }
         
         for (int i = 0; i < listUserObj.Count; i++)
         {
-            if (i < resList.Count)
+            if (i < listUsers.Count)
             {
                 listUserObj[i].SetActive(true);
                 WaitingRoomItem soucre = listUserObj[i].GetComponent<WaitingRoomItem>();
-                soucre.setData(resList[i]);
+                soucre.setData(listUsers[i]);
 
-                if (resList[i].isMaster)
-                    masterEmail = resList[i].email;
+                if (listUsers[i].isMaster)
+                    masterEmail = listUsers[i].email;
             }
             else
             {
@@ -97,8 +112,45 @@ public class WaitingRoomState : BaseState {
             }
         }
 
+        
     }
     
+    void setButton()
+    {
+        if (isMaster)
+        {
+            buttonReady.GetComponentInChildren<Text>().text = "시작";
+            buttonReady.enabled = isAllReady();
+        }
+        else
+        {
+            buttonReady.GetComponentInChildren<Text>().text = "준비";
+        }
+    }
+
+    bool isAllReady()
+    {
+        bool isAllReady = true;
+        if(listUsers.Count > 1)
+        {
+            for(int i=0; i<listUsers.Count; i++)
+            {
+                UserInfo info = listUsers[i];
+
+                if (listUsers[i].state != (int)Common.USER_STATE.READY)
+                {
+                    isAllReady = false;
+                }
+            }
+        }
+        else
+        {
+            buttonReady.enabled = false;
+        }
+
+        return isAllReady;        
+    }
+
     public void outUser()
     {
 
