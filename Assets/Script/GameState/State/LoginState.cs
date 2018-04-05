@@ -20,7 +20,6 @@ public class LoginState : BaseState
         {
             loginResult((ResponseLogin)res);
         }
-
     }
 
     public override void hideState()

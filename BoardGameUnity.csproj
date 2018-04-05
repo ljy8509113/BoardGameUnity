@@ -317,6 +317,7 @@
     <Compile Include="Assets\Script\Network\Request\RequestGamingUser.cs" />
     <Compile Include="Assets\Script\Network\Request\RequestJoin.cs" />
     <Compile Include="Assets\Script\Network\Request\RequestLogin.cs" />
+    <Compile Include="Assets\Script\Network\Request\RequestOutRoom.cs" />
     <Compile Include="Assets\Script\Network\Request\RequestReady.cs" />
     <Compile Include="Assets\Script\Network\Request\RequestRoomList.cs" />
     <Compile Include="Assets\Script\Network\Request\RequestSelectNumber.cs" />
@@ -331,6 +332,7 @@
     <Compile Include="Assets\Script\Network\Response\ResponseJoin.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseLogin.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseRoomList.cs" />
+    <Compile Include="Assets\Script\Network\Response\ResponseRoomUsers.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseSelectNumber.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseTest.cs" />
     <Compile Include="Assets\Script\Network\SocketManager.cs" />

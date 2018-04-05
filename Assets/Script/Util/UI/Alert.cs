@@ -69,14 +69,14 @@ public class Alert : MonoBehaviour {
     
     public void buttonAction(bool isOn)
     {
-        result(isOn);
+        if(result != null)
+            result(isOn);
         hide();
     }
 
     public void hide()
     {
-        //this.gameObject.SetActive(false);
-
+        this.gameObject.SetActive(false);
     }
 
     public void setState(bool isChange)

@@ -11,7 +11,10 @@ public class WaitingRoomItem : MonoBehaviour {
     public Plane planBackground;
     public Text textMaster;
     private UserInfo userInfo;
-    
+
+    public delegate void OutUser(string email);
+    public OutUser outReceiver;
+
 	// Use this for initialization
 	void Start () {
         buttonOut.gameObject.SetActive(false);
@@ -24,7 +27,8 @@ public class WaitingRoomItem : MonoBehaviour {
 
     public void onOut()
     {
-
+        if(outReceiver != null)
+            outReceiver(userInfo.email);
     }
 
     public void setData(UserInfo user)

@@ -13,8 +13,10 @@ public class WaitingRoomState : BaseState {
     List<GameObject> listUserObj = new List<GameObject>();
     List<UserInfo> listUsers = new List<UserInfo>();
     public GameObject content;
+    UserInfo myInfo;
 
     bool isMaster = false;
+    int roomNo;
     
     public override void initState(ResponseBase res)
     {
@@ -62,17 +64,33 @@ public class WaitingRoomState : BaseState {
         Debug.Log("onReady -- ");
         if (isMaster)
         {
-
+            if (isAllReady())
+            {
+                RequestStart req = new RequestStart(roomNo);
+                SocketManager.Instance().sendMessage(req);
+            }
+            else
+            {
+                GameController.Instance().showAlert("모두 준비상태가 되어야 시작가능합니다.", false, null);
+            }            
         }
         else
         {
-
+            bool isReady = true;
+            if (myInfo.state == (int)Common.USER_STATE.READY)
+            {
+                isReady = false;
+            }
+            
+            RequestReady req = new RequestReady(isReady, roomNo);
+            SocketManager.Instance().sendMessage(req);
         }
     }
 
     public void onCancel()
     {
-
+        RequestOutRoom req = new RequestOutRoom(roomNo, UserManager.Instance().email);
+        SocketManager.Instance().sendMessage(req);
     }
 
     void setData(ResponseBase res)
@@ -85,6 +103,7 @@ public class WaitingRoomState : BaseState {
             title.text = resCr.title;
             listUsers = ((ResponseCreateRoom)res).userList;
             isMaster = true;
+            roomNo = resCr.roomNo;
         }
         else
         {
@@ -92,7 +111,7 @@ public class WaitingRoomState : BaseState {
             title.text = resCr.title;
             listUsers = ((ResponseConnectionRoom)res).userList;
             isMaster = false;
-            
+            roomNo = resCr.roomNo;
         }
         
         for (int i = 0; i < listUserObj.Count; i++)
@@ -105,14 +124,20 @@ public class WaitingRoomState : BaseState {
 
                 if (listUsers[i].isMaster)
                     masterEmail = listUsers[i].email;
+
+                if(listUsers[i].email == UserManager.Instance().email)
+                {
+                    myInfo = listUsers[i];
+                }
+
+                WaitingRoomItem item = listUserObj[i].GetComponent<WaitingRoomItem>();
+                item.outReceiver += outUser;
             }
             else
             {
                 listUserObj[i].SetActive(false);
             }
         }
-
-        
     }
     
     void setButton()
@@ -151,9 +176,10 @@ public class WaitingRoomState : BaseState {
         return isAllReady;        
     }
 
-    public void outUser()
+    public void outUser(string email)
     {
-
+        RequestOutRoom req = new RequestOutRoom(roomNo, email);
+        SocketManager.Instance().sendMessage(req);
     }
 
 }

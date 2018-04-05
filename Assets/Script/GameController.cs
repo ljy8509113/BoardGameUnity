@@ -142,6 +142,20 @@ public class GameController : MonoBehaviour {
                     }
                 }
                 break;
+            case Common.IDENTIFIER_ROOM_USERS:
+                {
+                    ResponseRoomUsers res = JsonUtility.FromJson<ResponseRoomUsers>(json);
+                    if (res.isSuccess())
+                    {
+                        GameManager.Instance().stateChange(GameManager.GAME_STATE.WAITING_ROOM, res);
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+                break;
+
             case Common.IDENTIFIER_SELECT_NUMBER:
             case Common.IDENTIFIER_TURN:
             case Common.IDENTIFIER_GAME_CARD_INFO:

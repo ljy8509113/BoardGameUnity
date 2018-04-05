@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿
+public class RequestReady : RequestBase {
+    bool isReady;
+    int roomNo;
 
-public class RequestReady : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public RequestReady(bool isReady, int roomNo) : base(Common.IDENTIFIER_READY)
+    {
+        this.isReady = isReady;
+        this.roomNo = roomNo;
+    }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

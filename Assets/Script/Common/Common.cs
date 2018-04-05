@@ -5,22 +5,24 @@ public class Common {
 
 
     //game before
-    public const string IDENTIFIER_GAME_ROOM_LIST = "game_room_list";
-    public const string IDENTIFIER_GAMING_USER = "gaming_user";
-    public const string IDENTIFIER_CONNECT_ROOM = "connection_room";
-    public const string IDENTIFIER_CREATE_ROOM = "create_room";
-    public const string IDENTIFIER_TEST = "test";
-    public const string IDENTIFIER_LOGIN = "login";
-    public const string IDENTIFIER_JOIN = "join";
-
+    public const string IDENTIFIER_GAME_ROOM_LIST   = "game_room_list";
+    public const string IDENTIFIER_GAMING_USER      = "gaming_user";
+    public const string IDENTIFIER_CONNECT_ROOM     = "connection_room";
+    public const string IDENTIFIER_CREATE_ROOM      = "create_room";
+    public const string IDENTIFIER_TEST             = "test";
+    public const string IDENTIFIER_LOGIN            = "login";
+    public const string IDENTIFIER_JOIN             = "join";
+    public const string IDENTIFIER_ROOM_USERS 		= "room_users";
 
     //game play
-    public const string IDENTIFIER_SELECT_NUMBER		= "select_number";
+    public const string IDENTIFIER_SELECT_NUMBER	= "select_number";
 	public const string IDENTIFIER_TURN				= "turn";
 	public const string IDENTIFIER_GAME_CARD_INFO	= "game_card_info";
 	public const string IDENTIFIER_OPEN_CARD		= "open_card";
 	public const string IDENTIFIER_GAME_FINISH		= "game_finish"; 	
 	public const string IDENTIFIER_GAME_START		= "game_start";
+    public const string IDENTIFIER_READY            = "ready";
+    public const string IDENTIFIER_OUT_ROOM         = "out_room";
 
     public const int LIST_COUNT = 10;
 

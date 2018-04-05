@@ -2,4 +2,5 @@
 public class ResponseCreateRoom : ResponseBase {
     public string title;
     public List<UserInfo> userList;
+    public int roomNo;
 }
