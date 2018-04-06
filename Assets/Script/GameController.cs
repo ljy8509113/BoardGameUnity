@@ -64,14 +64,14 @@ public class GameController : MonoBehaviour {
                             if (result)
                             {
                                 Debug.Log("isGaming YES");
+                                RequestConnectionRoom req = new RequestConnectionRoom(res.roomNo, UserManager.Instance().nickName);
                             }
                             else
                             {
                                 RequestRoomList list = new RequestRoomList(Common.GAME_NO, Common.LIST_COUNT);
                                 SocketManager.Instance().sendMessage(list);
                             }
-                        });
-                        
+                        });                        
                     }
                 }
                 break;

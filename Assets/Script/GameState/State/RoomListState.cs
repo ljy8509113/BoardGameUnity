@@ -145,5 +145,11 @@ public class RoomListState : BaseState
     {
         GameManager.Instance().stateChange(GameManager.GAME_STATE.CREATE_ROOM, null);
     }
+
+    public void onReflush()
+    {
+        RequestRoomList req = new RequestRoomList(current, Common.LIST_COUNT);
+        SocketManager.Instance().sendMessage(req);
+    }
 }
 

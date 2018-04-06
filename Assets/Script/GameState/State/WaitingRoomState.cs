@@ -95,8 +95,6 @@ public class WaitingRoomState : BaseState {
 
     void setData(ResponseBase res)
     {
-        string masterEmail;
-        
         if (res.identifier == Common.IDENTIFIER_CREATE_ROOM)
         {
             ResponseCreateRoom resCr = (ResponseCreateRoom)res;
@@ -121,10 +119,7 @@ public class WaitingRoomState : BaseState {
                 listUserObj[i].SetActive(true);
                 WaitingRoomItem soucre = listUserObj[i].GetComponent<WaitingRoomItem>();
                 soucre.setData(listUsers[i]);
-
-                if (listUsers[i].isMaster)
-                    masterEmail = listUsers[i].email;
-
+                
                 if(listUsers[i].email == UserManager.Instance().email)
                 {
                     myInfo = listUsers[i];

@@ -1,7 +1,7 @@
 ﻿
 public class RequestReady : RequestBase {
-    bool isReady;
-    int roomNo;
+    public bool isReady;
+    public int roomNo;
 
     public RequestReady(bool isReady, int roomNo) : base(Common.IDENTIFIER_READY)
     {
