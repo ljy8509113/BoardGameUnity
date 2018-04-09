@@ -95,38 +95,73 @@ public class WaitingRoomState : BaseState {
 
     void setData(ResponseBase res)
     {
-        if (res.identifier == Common.IDENTIFIER_CREATE_ROOM)
+        switch (res.identifier)
         {
-            ResponseCreateRoom resCr = (ResponseCreateRoom)res;
-            title.text = resCr.title;
-            listUsers = ((ResponseCreateRoom)res).userList;
-            isMaster = true;
-            roomNo = resCr.roomNo;
+            case Common.IDENTIFIER_CREATE_ROOM :
+                {
+                    ResponseCreateRoom resCr = (ResponseCreateRoom)res;
+                    title.text = resCr.title;
+                    setUsersData(((ResponseCreateRoom)res).userList);
+                    isMaster = true;
+                    roomNo = resCr.roomNo;
+                }
+                break;
+            case Common.IDENTIFIER_CONNECT_ROOM:
+                {
+                    ResponseConnectionRoom resCr = (ResponseConnectionRoom)res;
+                    title.text = resCr.title;
+                    setUsersData(((ResponseConnectionRoom)res).userList);
+                    isMaster = false;
+                    roomNo = resCr.roomNo;
+                }
+                break;
+            case Common.IDENTIFIER_READY:
+                {
+                    ResponseReady resReady = (ResponseReady)res;
+                    for(int i=0; i<listUsers.Count; i++)
+                    {
+                        if (resReady.email.Equals(listUsers[i].email))
+                        {
+                            listUsers[i].state = resReady.isReady == true ? (int)Common.USER_STATE.READY : (int)Common.USER_STATE.CONNECTION;
+                        }
+                    }
+                    setUsersData(listUsers);
+                }
+                break;
+            case Common.IDENTIFIER_OUT_ROOM:
+                {
+                    GameManager.Instance().stateChange(GameManager.GAME_STATE.ROOM_LIST, res);
+                }
+                break;
+            case Common.IDENTIFIER_ROOM_USERS:
+                {
+                    ResponseRoomUsers resUsers = (ResponseRoomUsers)res;
+                    setUsersData(resUsers.userList);
+                }
+                break;
         }
-        else
-        {
-            ResponseConnectionRoom resCr = (ResponseConnectionRoom)res;
-            title.text = resCr.title;
-            listUsers = ((ResponseConnectionRoom)res).userList;
-            isMaster = false;
-            roomNo = resCr.roomNo;
-        }
-        
+    }
+    
+    void setUsersData(List<UserInfo> users)
+    {
+        listUsers = users;
         for (int i = 0; i < listUserObj.Count; i++)
         {
             if (i < listUsers.Count)
             {
                 listUserObj[i].SetActive(true);
-                WaitingRoomItem soucre = listUserObj[i].GetComponent<WaitingRoomItem>();
-                soucre.setData(listUsers[i]);
-                
-                if(listUsers[i].email == UserManager.Instance().email)
+                WaitingRoomItem source = listUserObj[i].GetComponent<WaitingRoomItem>();
+
+                if (listUsers[i].email == UserManager.Instance().email)
                 {
                     myInfo = listUsers[i];
+                    source.setData(listUsers[i], false);
                 }
-
-                WaitingRoomItem item = listUserObj[i].GetComponent<WaitingRoomItem>();
-                item.outReceiver += outUser;
+                else
+                {
+                    source.setData(listUsers[i], isMaster);
+                }
+                source.outReceiver += outUser;
             }
             else
             {
@@ -134,7 +169,7 @@ public class WaitingRoomState : BaseState {
             }
         }
     }
-    
+
     void setButton()
     {
         if (isMaster)

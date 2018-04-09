@@ -331,6 +331,8 @@
     <Compile Include="Assets\Script\Network\Response\ResponseGamingUser.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseJoin.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseLogin.cs" />
+    <Compile Include="Assets\Script\Network\Response\ResponseOutRoom.cs" />
+    <Compile Include="Assets\Script\Network\Response\ResponseReady.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseRoomList.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseRoomUsers.cs" />
     <Compile Include="Assets\Script\Network\Response\ResponseSelectNumber.cs" />

@@ -31,7 +31,7 @@ public class WaitingRoomItem : MonoBehaviour {
             outReceiver(userInfo.email);
     }
 
-    public void setData(UserInfo user)
+    public void setData(UserInfo user, bool isOutButton)
     {
         userInfo = user;
         textNickName.text = user.nickName;
@@ -40,6 +40,8 @@ public class WaitingRoomItem : MonoBehaviour {
             textState.text = "방장";
         else
             textState.text = user.state == (int)Common.USER_STATE.READY ? "Ready" : ""; //true ? "Ready" : "";        
+
+        buttonOut.gameObject.SetActive(isOutButton);
     }
 
     public void setOutButton(bool isShow)
@@ -51,5 +53,5 @@ public class WaitingRoomItem : MonoBehaviour {
     {
         return userInfo;
     }
-    
+        
 }

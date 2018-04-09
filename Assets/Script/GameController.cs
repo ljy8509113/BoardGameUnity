@@ -155,6 +155,19 @@ public class GameController : MonoBehaviour {
                     }
                 }
                 break;
+            case Common.IDENTIFIER_OUT_ROOM:
+                {
+                    ResponseOutRoom res = JsonUtility.FromJson<ResponseOutRoom>(json);
+                    if (res.isSuccess())
+                    {
+                        GameManager.Instance().stateChange(GameManager.GAME_STATE.WAITING_ROOM, res);
+                    }
+                    else
+                    {
+
+                    }
+                }
+                break;
 
             case Common.IDENTIFIER_SELECT_NUMBER:
             case Common.IDENTIFIER_TURN:

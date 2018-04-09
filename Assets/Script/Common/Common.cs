@@ -13,6 +13,7 @@ public class Common {
     public const string IDENTIFIER_LOGIN            = "login";
     public const string IDENTIFIER_JOIN             = "join";
     public const string IDENTIFIER_ROOM_USERS 		= "room_users";
+    public const string IDENTIFIER_OUT_ROOM         = "out_room";
 
     //game play
     public const string IDENTIFIER_SELECT_NUMBER	= "select_number";
@@ -22,7 +23,7 @@ public class Common {
 	public const string IDENTIFIER_GAME_FINISH		= "game_finish"; 	
 	public const string IDENTIFIER_GAME_START		= "game_start";
     public const string IDENTIFIER_READY            = "ready";
-    public const string IDENTIFIER_OUT_ROOM         = "out_room";
+    
 
     public const int LIST_COUNT = 10;
 
