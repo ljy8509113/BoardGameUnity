@@ -23,6 +23,7 @@ public class WaitingRoomState : BaseState {
         this.gameObject.SetActive(true);
         Debug.Log("initState res : " + res);
         setData(res);
+        setButton();
     }
 
     public override void hideState()
