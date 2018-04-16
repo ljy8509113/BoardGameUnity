@@ -25,7 +25,21 @@ public class RoomListState : BaseState
     public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
+        updateRoomList(res);
+    }
+    
+    public override void hideState()
+    {
+        this.gameObject.SetActive(false);
+    }
 
+    public override void updateState(ResponseBase res)
+    {
+        updateRoomList(res);
+    }
+
+    void updateRoomList(ResponseBase res)
+    {
         ResponseRoomList resRoomList = (ResponseRoomList)res;
         current = resRoomList.current;
         maxCount = resRoomList.max;
@@ -59,16 +73,7 @@ public class RoomListState : BaseState
         else
         {
             //목록없음
-        }        
-    }
-    
-    public override void hideState()
-    {
-        this.gameObject.SetActive(false);
-    }
-
-    public override void updateState(ResponseBase res)
-    {
+        }
     }
 
     void Awake()
