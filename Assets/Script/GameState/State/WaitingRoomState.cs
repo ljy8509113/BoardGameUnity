@@ -72,7 +72,7 @@ public class WaitingRoomState : BaseState {
             }
             else
             {
-                GameController.Instance().showAlert("모두 준비상태가 되어야 시작가능합니다.", false, null);
+				GameController.Instance().showAlert("모두 준비상태가 되어야 시작가능합니다.", false, null,false);
             }            
         }
         else

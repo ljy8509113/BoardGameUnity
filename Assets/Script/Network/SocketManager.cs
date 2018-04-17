@@ -9,7 +9,8 @@ public class SocketManager : MonoBehaviour
     public enum IP_KINDS
     {
         KOITT = 0,
-        HOME = 1
+        HOME = 1,
+		LAMU = 2,
     }
 
     public IP_KINDS ipKinds;
@@ -21,6 +22,8 @@ public class SocketManager : MonoBehaviour
                 return "192.168.0.8";
             case IP_KINDS.HOME:
                 return "211.201.206.24";
+			case IP_KINDS.LAMU : 
+				return "192.168.0.3";
 
         }
         return "211.201.206.24";

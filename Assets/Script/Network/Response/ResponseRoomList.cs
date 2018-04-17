@@ -8,15 +8,14 @@ public class ResponseRoomList : ResponseBase
     {
         public int no;
         public string title;
-        public int gameNo;
         public int maxUser;
         public int currentUser;
-        public string state;
-        public string masterEmail;
-        public string masterNickName;
+        public bool isPlaing;
+		public string masterUserNickName;
+		public string password;
     }
 
-    public List<Room> list;
+	public List<Room> list;
 
     public int current;
     public int max;

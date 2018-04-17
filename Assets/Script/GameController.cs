@@ -42,8 +42,11 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-                        DialogManager.Instance.ShowSubmitDialog(res.message, (bool result) => {
-                        });
+//                        DialogManager.Instance.ShowSubmitDialog(res.message, (bool result) => {
+//                        });
+						showAlert(res.message, false, (bool result, string fieldText)=>{
+							
+						},false);
                     }
                     
                 }
@@ -60,7 +63,7 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-                        showAlert(res.textMsg, true, (bool result) => {
+						showAlert(res.textMsg, true, (bool result, string fieldText) => {
                             if (result)
                             {
                                 Debug.Log("isGaming YES");
@@ -71,7 +74,7 @@ public class GameController : MonoBehaviour {
                                 RequestRoomList list = new RequestRoomList(Common.GAME_NO, Common.LIST_COUNT);
                                 SocketManager.Instance().sendMessage(list);
                             }
-                        });                        
+						},false);                        
                     }
                 }
                 break;
@@ -85,8 +88,9 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-                        DialogManager.Instance.ShowSubmitDialog(res.message, (bool result) => {
-                        });
+						showAlert(res.message, false, (bool result, string fieldText)=>{
+
+						},false);
                     }
                         
                 }
@@ -107,8 +111,9 @@ public class GameController : MonoBehaviour {
                         GameManager.Instance().stateChange(GameManager.GAME_STATE.WAITING_ROOM, res);
                     }else
                     {
-                        DialogManager.Instance.ShowSubmitDialog(res.message, (bool result) => {
-                        });
+						showAlert(res.message, false, (bool result, string fieldText)=>{
+
+						},false);
                     }
 
                 }
@@ -122,8 +127,9 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-                        DialogManager.Instance.ShowSubmitDialog(res.message, (bool result) => {
-                        });
+						showAlert(res.message, false, (bool result, string fieldText)=>{
+
+						},false);
                     }
                 }
                 break;
@@ -136,9 +142,9 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-                        DialogManager.Instance.ShowSubmitDialog(res.message, (bool result) => {
-                            Debug.Log("login error : " + res.message);
-                        });
+						showAlert(res.message, false, (bool result, string fieldText)=>{
+
+						},false);
                     }
                 }
                 break;
@@ -181,6 +187,20 @@ public class GameController : MonoBehaviour {
                     }
                 }
                 break;
+			case Common.IDENTIFIER_ROOM_PASSWORD:
+			{
+				ResponseRoomPassword res = JsonUtility.FromJson<ResponseRoomPassword> (json);
+				if (res.isSuccess ()) {
+					RequestConnectionRoom req = new RequestConnectionRoom (res.roomNo, UserManager.Instance().nickName);
+					SocketManager.Instance ().sendMessage (req);
+				} else {
+					showAlert(res.message, false, (bool result, string fieldText)=>{
+
+					},false);
+				}
+
+			}
+			break;
 
             case Common.IDENTIFIER_SELECT_NUMBER:
             case Common.IDENTIFIER_TURN:
@@ -197,9 +217,9 @@ public class GameController : MonoBehaviour {
 
     }
 
-    public void showAlert(string message, bool isTwoButton, Alert.ButtonResult result)
+	public void showAlert(string message, bool isTwoButton, Alert.ButtonResult result, bool isShowField)
     {
-        alert.setData(message, isTwoButton, result);
+		alert.setData(message, isTwoButton, result, isShowField);
     }
 
     public void hideAlert()

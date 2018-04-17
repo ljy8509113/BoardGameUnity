@@ -109,9 +109,19 @@ public class RoomListState : BaseState
         //Debug.Log("" + item.getIndex());
         Debug.Log("index : " + item.title);
 
-        RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName);
-        SocketManager.Instance().sendMessage(req);
-
+		if (item.password == null || item.password.Length == 0) {
+			RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName);
+			SocketManager.Instance().sendMessage(req);
+		} else {
+			GameController.Instance ().showAlert ("비밀번호를 입력해주세요.", true, (bool result, string fieldText) => {
+				if(result){
+					RequestRoomPassword req = new RequestRoomPassword(item.no, fieldText);
+					SocketManager.Instance().sendMessage(req);
+				}else{
+				
+				}
+			}, true);
+		}
     }
 
 

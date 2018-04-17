@@ -10,14 +10,16 @@ public class Alert : MonoBehaviour {
         public bool isChange = false;
         public string message;
         public bool isTwoButton = false;
+		public bool isShowField = false;
     }
 
     public Button oneButton;
     public Button buttonCancel;
     public Button buttonSubmit;
     public Text textMessage;
+	public InputField field;
 
-    public delegate void ButtonResult(bool isOn);
+	public delegate void ButtonResult(bool isOn, string fieldText);
 
     ButtonResult result;
     AlertState state;
@@ -59,18 +61,23 @@ public class Alert : MonoBehaviour {
         }
 	}
     
-    public void setData(string message, bool isTwoButton, ButtonResult result)
+	public void setData(string message, bool isTwoButton, ButtonResult result, bool isShowField)
     {
         this.result = result;
         state.isTwoButton = isTwoButton;
         state.message = message;
-        state.isChange = true;
+		state.isShowField = isShowField;
+		state.isChange = true;
+
     }
     
     public void buttonAction(bool isOn)
     {
-        if(result != null)
-            result(isOn);
+		if (result != null) {
+			result(isOn, field.text);
+		}
+        
+		resetAlert ();
         hide();
     }
 
@@ -88,4 +95,19 @@ public class Alert : MonoBehaviour {
     {
         return state.isChange;
     }
+
+	void resetAlert(){
+		state.isChange = false;
+		state.isTwoButton = false;
+		state.message = "";
+		state.isShowField = false;
+
+		oneButton.gameObject.SetActive(true);
+		buttonCancel.gameObject.SetActive(false);
+		buttonSubmit.gameObject.SetActive(false);
+		textMessage.text = "";
+		field.text = "";
+		field.gameObject.SetActive (false);
+
+	}
 }
