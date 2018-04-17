@@ -35,7 +35,7 @@ public class LoginState : BaseState
     // Use this for initialization
     void Start()
     {
-        fieldEmail.text = "test1@gmail.com";
+        fieldEmail.text = "imsi1@gmail.com";
         fieldPassword.text = "1234";
     }
 
@@ -55,9 +55,8 @@ public class LoginState : BaseState
             Debug.Log("check email : true // password : " + passwordCryp);
             Debug.Log("password : " + Security.Instance().deCryption(passwordCryp, false));
 
-            //RequestLogin login = new RequestLogin(email, passwordCryp, toggleAuto.isOn);
-			RequestLogin login = new RequestLogin(email, password, toggleAuto.isOn);
-            SocketManager.Instance().sendMessage(login);
+            RequestLogin login = new RequestLogin(email, passwordCryp, toggleAuto.isOn);
+			SocketManager.Instance().sendMessage(login);
         }
         else
         {

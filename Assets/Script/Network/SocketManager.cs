@@ -21,12 +21,12 @@ public class SocketManager : MonoBehaviour
             case IP_KINDS.KOITT:
                 return "192.168.0.8";
             case IP_KINDS.HOME:
-                return "211.201.206.24";
+                return "211.44.213.112";
 			case IP_KINDS.LAMU : 
 				return "192.168.0.3";
 
         }
-        return "211.201.206.24";
+        return "211.44.213.112";
     }
 
     private static SocketManager instance = null;
