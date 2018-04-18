@@ -45,9 +45,10 @@ public class Common {
     
     public enum USER_STATE
     {
-        CONNECTION = 0,
-        READY = 1,
-        DISCONNECTION = 2
+        NONE = 0,
+        GAME_WAITING = 1,
+		READY = 2,
+        PLAING = 3
     }
-    
+
 }

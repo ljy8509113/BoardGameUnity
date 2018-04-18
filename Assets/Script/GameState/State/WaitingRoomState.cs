@@ -122,7 +122,7 @@ public class WaitingRoomState : BaseState {
                     {
                         if (resReady.email.Equals(listUsers[i].email))
                         {
-                            listUsers[i].state = resReady.isReady == true ? (int)Common.USER_STATE.READY : (int)Common.USER_STATE.CONNECTION;
+							listUsers[i].state = resReady.isReady == true ? (int)Common.USER_STATE.READY : (int)Common.USER_STATE.NONE;
                         }
                     }
                     setUsersData(listUsers);
