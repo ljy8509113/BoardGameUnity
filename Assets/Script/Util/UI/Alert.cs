@@ -57,6 +57,7 @@ public class Alert : MonoBehaviour {
                 oneButton.gameObject.SetActive(true);
             }
             textMessage.text = state.message;
+			field.gameObject.SetActive (state.isShowField);
             this.gameObject.SetActive(true);
         }
 	}

@@ -112,7 +112,6 @@ public class WaitingRoomState : BaseState {
                     ResponseConnectionRoom resCr = (ResponseConnectionRoom)res;
                     title.text = resCr.title;
                     setUsersData(((ResponseConnectionRoom)res).userList);
-                    isMaster = false;
                     roomNo = resCr.roomNo;
                 }
                 break;

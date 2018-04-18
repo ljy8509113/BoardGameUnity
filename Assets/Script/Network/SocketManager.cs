@@ -19,7 +19,8 @@ public class SocketManager : MonoBehaviour
         switch (ipKinds)
         {
             case IP_KINDS.KOITT:
-                return "192.168.0.8";
+                //return "192.168.0.8";
+			return "192.168.0.67";
             case IP_KINDS.HOME:
                 return "211.44.213.112";
 			case IP_KINDS.LAMU : 
