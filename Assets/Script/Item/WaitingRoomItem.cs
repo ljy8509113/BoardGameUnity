@@ -31,17 +31,18 @@ public class WaitingRoomItem : MonoBehaviour {
             outReceiver(userInfo.email);
     }
 
-    public void setData(UserInfo user, bool isOutButton)
+    public void setData(UserInfo user, bool isMaster)
     {
         userInfo = user;
         textNickName.text = user.nickName;
 
-        if (user.isMaster)
-            textState.text = "방장";
-        else
-            textState.text = user.state == (int)Common.USER_STATE.READY ? "Ready" : ""; //true ? "Ready" : "";        
-
-        buttonOut.gameObject.SetActive(isOutButton);
+		if (userInfo.isMaster) {
+			textState.text = "방장";	
+			buttonOut.gameObject.SetActive (false);
+		} else {
+			textState.text = user.state == (int)Common.USER_STATE.READY ? "Ready" : "";        
+			buttonOut.gameObject.SetActive (isMaster);
+		}
     }
 
     public void setOutButton(bool isShow)

@@ -103,7 +103,6 @@ public class WaitingRoomState : BaseState {
                     ResponseCreateRoom resCr = (ResponseCreateRoom)res;
                     title.text = resCr.title;
                     setUsersData(((ResponseCreateRoom)res).userList);
-                    isMaster = true;
                     roomNo = resCr.roomNo;
                 }
                 break;
@@ -156,12 +155,10 @@ public class WaitingRoomState : BaseState {
                 if (listUsers[i].email == UserManager.Instance().email)
                 {
                     myInfo = listUsers[i];
-                    source.setData(listUsers[i], false);
+					isMaster = listUsers[i].isMaster;
                 }
-                else
-                {
-                    source.setData(listUsers[i], isMaster);
-                }
+
+				source.setData(listUsers[i], isMaster);
                 source.outReceiver += outUser;
             }
             else
