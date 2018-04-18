@@ -130,7 +130,8 @@ public class WaitingRoomState : BaseState {
                 break;
             case Common.IDENTIFIER_OUT_ROOM:
                 {
-                    GameManager.Instance().stateChange(GameManager.GAME_STATE.ROOM_LIST, res);
+
+                    GameManager.Instance().stateChange(GameManager.GAME_STATE.ROOM_LIST, null);
                 }
                 break;
             case Common.IDENTIFIER_ROOM_USERS:
