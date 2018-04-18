@@ -26,7 +26,8 @@ public class CreateRoomState : BaseState {
     }
 
     // Use this for initialization
-    void Start () {        
+    void Start () {
+        passwordField.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -43,8 +44,7 @@ public class CreateRoomState : BaseState {
         
         if(title == "")
         {
-            DialogManager.Instance.ShowSubmitDialog("제목을 입력해주세요.", (bool result) => {
-            });
+            GameController.Instance().showAlert("제목을 입력해주세요.", false, null, false);
             return;
         }
 
@@ -52,8 +52,7 @@ public class CreateRoomState : BaseState {
         {
             if(passwordField.text.Length < 1)
             {
-                DialogManager.Instance.ShowSubmitDialog("비밀번호를 입력해주세요.", (bool result) => {
-                });
+                GameController.Instance().showAlert("비밀번호를 입력해주세요.", false, null, false);
                 return;
             }
         }
