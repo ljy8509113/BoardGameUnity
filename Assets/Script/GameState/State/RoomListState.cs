@@ -25,7 +25,15 @@ public class RoomListState : BaseState
     public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
-        updateRoomList(res);
+        if(res != null)
+        {
+            updateRoomList(res);
+        }
+        else
+        {
+            RequestRoomList req = new RequestRoomList(1, Common.LIST_COUNT);
+            SocketManager.Instance().sendMessage(req);
+        }
     }
     
     public override void hideState()
