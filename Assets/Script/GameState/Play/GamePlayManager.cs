@@ -37,7 +37,7 @@ public class GamePlayManager : MonoBehaviour {
 		
 	}
     
-    public void initSelectableCard(ResponseGameStart res)
+    public void initSelectableCard(ResponseGameCardInfo res)
     {
         //selectableObj.SetActive(true);
         //SelectableCard sc = selectableObj.GetComponent<SelectableCard>();

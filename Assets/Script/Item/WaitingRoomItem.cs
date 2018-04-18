@@ -9,7 +9,6 @@ public class WaitingRoomItem : MonoBehaviour {
     public Text textState;
     public Button buttonOut;
     public Plane planBackground;
-    public Text textMaster;
     private UserInfo userInfo;
 
     public delegate void OutUser(string email);
@@ -17,7 +16,7 @@ public class WaitingRoomItem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        buttonOut.gameObject.SetActive(false);
+        
 	}
 	
 	// Update is called once per frame
@@ -40,16 +39,12 @@ public class WaitingRoomItem : MonoBehaviour {
 			textState.text = "방장";	
 			buttonOut.gameObject.SetActive (false);
 		} else {
+            Debug.Log("button state : " + isMaster);
 			textState.text = user.state == (int)Common.USER_STATE.READY ? "Ready" : "";        
 			buttonOut.gameObject.SetActive (isMaster);
 		}
     }
-
-    public void setOutButton(bool isShow)
-    {
-        buttonOut.gameObject.SetActive(isShow);
-    }
-
+    
     public UserInfo getUserData()
     {
         return userInfo;

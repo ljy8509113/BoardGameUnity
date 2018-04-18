@@ -152,8 +152,9 @@ public class WaitingRoomState : BaseState {
                 listUserObj[i].SetActive(true);
                 WaitingRoomItem source = listUserObj[i].GetComponent<WaitingRoomItem>();
 
-                if (listUsers[i].email == UserManager.Instance().email)
+                if (listUsers[i].email.Equals(UserManager.Instance().email))
                 {
+                    Debug.Log("my info : "+ listUsers[i].isMaster);
                     myInfo = listUsers[i];
 					isMaster = listUsers[i].isMaster;
                 }
@@ -184,13 +185,14 @@ public class WaitingRoomState : BaseState {
     bool isAllReady()
     {
         bool isAllReady = true;
-        if(listUsers.Count > 1)
+
+        if (listUsers.Count > 1)
         {
             for(int i=0; i<listUsers.Count; i++)
             {
                 UserInfo info = listUsers[i];
 
-                if (listUsers[i].state != (int)Common.USER_STATE.READY)
+                if (!listUsers[i].isMaster && listUsers[i].state != (int)Common.USER_STATE.READY)
                 {
                     isAllReady = false;
                 }
@@ -198,7 +200,7 @@ public class WaitingRoomState : BaseState {
         }
         else
         {
-            buttonReady.enabled = false;
+            return false;
         }
 
         return isAllReady;        

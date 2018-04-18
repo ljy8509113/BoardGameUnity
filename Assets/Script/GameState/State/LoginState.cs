@@ -56,12 +56,13 @@ public class LoginState : BaseState
             Debug.Log("password : " + Security.Instance().deCryption(passwordCryp, false));
 
             RequestLogin login = new RequestLogin(email, passwordCryp, toggleAuto.isOn);
-			SocketManager.Instance().sendMessage(login);
+            SocketManager.Instance().sendMessage(login);
         }
         else
         {
             Debug.Log("check email : " + false);
-        }        
+        }
+
     }
 
     public void onJoin()

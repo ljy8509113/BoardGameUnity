@@ -1,3 +1,3 @@
 ﻿public class ResponseGameCardInfo : ResponseBase {
-    GameCardInfo cardInfo;
+    public GameCardInfo cardInfo;
 }

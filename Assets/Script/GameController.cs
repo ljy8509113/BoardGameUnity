@@ -201,13 +201,24 @@ public class GameController : MonoBehaviour {
 
 			}
 			break;
+            case Common.IDENTIFIER_START:
+                {
+                    ResponseStart res = JsonUtility.FromJson<ResponseStart>(json);
+                    if (res.isSuccess())
+                    {
+                        LoadingManager.LoadScene("game");
+                    }
+                    else
+                    {
 
+                    }
+                }
+                break;
             case Common.IDENTIFIER_SELECT_NUMBER:
             case Common.IDENTIFIER_TURN:
             case Common.IDENTIFIER_GAME_CARD_INFO:
             case Common.IDENTIFIER_OPEN_CARD:
             case Common.IDENTIFIER_GAME_FINISH:
-            case Common.IDENTIFIER_GAME_START:
                 {
                     //GamePlayManager.Instance().resData(json);
                 }
