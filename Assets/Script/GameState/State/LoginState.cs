@@ -35,7 +35,7 @@ public class LoginState : BaseState
     // Use this for initialization
     void Start()
     {
-        fieldEmail.text = "test1@gmail.com";
+        fieldEmail.text = "test@gmail.com";
         fieldPassword.text = "1234";
     }
 
