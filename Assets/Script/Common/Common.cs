@@ -2,7 +2,7 @@
 
 public class Common {
     public const int GAME_NO = 1;
-
+    public const int NO_DATA = -1;
 
     //game before
     public const string IDENTIFIER_GAME_ROOM_LIST   = "game_room_list";

@@ -19,6 +19,7 @@ public class UserManager : MonoBehaviour
     public string nickName;
     public bool isAutoLogin;
     public string password;
+    public int roomNo = Common.NO_DATA;
 
     public void setData(string email, string nickName)
     {
@@ -49,6 +50,16 @@ public class UserManager : MonoBehaviour
         email = PlayerPrefs.GetString(Common.KEY_EMAIL);
         password = PlayerPrefs.GetString(Common.KEY_PASSWORD);
         isAutoLogin = PlayerPrefs.GetInt(Common.KEY_AUTO_LOGIN) == 1 ? true : false;
+    }
+
+    public void connectionRoom(int roomNo)
+    {
+        this.roomNo = roomNo;
+    }
+
+    public void outRoom()
+    {
+        roomNo = Common.NO_DATA;
     }
     
 }

@@ -63,6 +63,8 @@ public class LoginState : BaseState
             Debug.Log("check email : " + false);
         }
 
+        //SceneChanger.Instance().changeScene("game");
+
     }
 
     public void onJoin()

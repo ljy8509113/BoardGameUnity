@@ -105,7 +105,7 @@ public class SocketManager : MonoBehaviour
         }
     }
 
-
+    private object lockObject = new object();
     public void handleDataReceive(IAsyncResult ar)
     {
         socket = (Socket)ar.AsyncState;
@@ -128,7 +128,10 @@ public class SocketManager : MonoBehaviour
 
         if (result.resCode == 0)
         {
-            resDelegate(result.identifier, stringTransferred);
+            lock (lockObject)
+            {
+                resDelegate(result.identifier, stringTransferred);
+            }
         }
         else
         {

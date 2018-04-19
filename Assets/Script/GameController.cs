@@ -19,7 +19,8 @@ public class GameController : MonoBehaviour {
     
     void Awake()
     {
-        SocketManager.Instance().resDelegate += responseString;        
+        SocketManager.Instance().resDelegate += responseString;
+        SceneChanger.Instance();
     }
 
     void Update()
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    
     public void responseString(string identifier, string json)
     {
         switch (identifier)
@@ -206,7 +208,8 @@ public class GameController : MonoBehaviour {
                     ResponseStart res = JsonUtility.FromJson<ResponseStart>(json);
                     if (res.isSuccess())
                     {
-                        LoadingManager.LoadScene("game");
+                        //LoadingManager.LoadScene("game");
+                        SceneChanger.Instance().changeScene("game");
                     }
                     else
                     {
@@ -214,6 +217,12 @@ public class GameController : MonoBehaviour {
                     }
                 }
                 break;
+            case Common.IDENTIFIER_INIT_GAME:
+                {
+                    LoadingManager.resMessage(json);
+                }
+                break;
+
             case Common.IDENTIFIER_SELECT_NUMBER:
             case Common.IDENTIFIER_TURN:
             case Common.IDENTIFIER_GAME_CARD_INFO:

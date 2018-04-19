@@ -33,6 +33,7 @@ public class WaitingRoomState : BaseState {
 
     public override void updateState(ResponseBase res)
     {
+        Debug.Log("updateState res : " + res);
         setData(res);
         setButton();
     }
@@ -147,6 +148,7 @@ public class WaitingRoomState : BaseState {
         listUsers = users;
         for (int i = 0; i < listUserObj.Count; i++)
         {
+
             if (i < listUsers.Count)
             {
                 listUserObj[i].SetActive(true);
