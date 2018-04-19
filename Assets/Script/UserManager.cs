@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class UserManager : MonoBehaviour
+public class UserManager
 {
     private static UserManager instance = null;
     
@@ -9,7 +9,7 @@ public class UserManager : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = GameObject.FindObjectOfType(typeof(UserManager)) as UserManager;
+            instance = new UserManager();//GameObject.FindObjectOfType(typeof(UserManager)) as UserManager;
         }
 
         return instance;

@@ -73,7 +73,7 @@ public class WaitingRoomState : BaseState {
             }
             else
             {
-				GameController.Instance().showAlert("모두 준비상태가 되어야 시작가능합니다.", false, null,false);
+                GameManager.Instance().showAlert("모두 준비상태가 되어야 시작가능합니다.", false, null,false);
             }            
         }
         else
@@ -105,6 +105,7 @@ public class WaitingRoomState : BaseState {
                     title.text = resCr.title;
                     setUsersData(((ResponseCreateRoom)res).userList);
                     roomNo = resCr.roomNo;
+                    UserManager.Instance().connectionRoom(roomNo);
                 }
                 break;
             case Common.IDENTIFIER_CONNECT_ROOM:
@@ -113,6 +114,7 @@ public class WaitingRoomState : BaseState {
                     title.text = resCr.title;
                     setUsersData(((ResponseConnectionRoom)res).userList);
                     roomNo = resCr.roomNo;
+                    UserManager.Instance().connectionRoom(roomNo);
                 }
                 break;
             case Common.IDENTIFIER_READY:
@@ -130,8 +132,8 @@ public class WaitingRoomState : BaseState {
                 break;
             case Common.IDENTIFIER_OUT_ROOM:
                 {
-
-                    GameManager.Instance().stateChange(GameManager.GAME_STATE.ROOM_LIST, null);
+                    UserManager.Instance().connectionRoom(Common.NO_DATA);
+                    GameManager.Instance().stateChange(GameManager.GAME_STATE.ROOM_LIST, null);                    
                 }
                 break;
             case Common.IDENTIFIER_ROOM_USERS:

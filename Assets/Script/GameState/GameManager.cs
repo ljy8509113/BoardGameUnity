@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
         WAITING_ROOM
     }
 
+    public Alert alert;
+
     class StateInfo
     {
         GAME_STATE currentState = GAME_STATE.INIT;
@@ -61,10 +63,12 @@ public class GameManager : MonoBehaviour {
 
     StateInfo info = new StateInfo();
     bool isUpdate = false;
+    string changeSceneName = null;
 
     void Awake()
     {
         stateChange(GAME_STATE.INIT, null);
+        SocketManager.Instance();
     }
 
     // Use this for initialization
@@ -93,11 +97,41 @@ public class GameManager : MonoBehaviour {
 
             }
         }
-	}
+
+        if (alert != null && alert.getState())
+        {
+            //alert.gameObject.SetActive(true);
+            Debug.Log("alert update");
+            alert.showAlert();
+        }
+
+        if(changeSceneName != null)
+        {
+            string sceneName = changeSceneName;
+            changeSceneName = null;
+            SceneChanger.Instance().changeScene(sceneName);            
+        }
+    }
 
     public void stateChange(GAME_STATE state, ResponseBase res)
     {
         info.setData(state, res);
         isUpdate = true;
+    }
+
+    public void showAlert(string message, bool isTwoButton, Alert.ButtonResult result, bool isShowField)
+    {
+        Debug.Log("showAlert");
+        alert.setData(message, isTwoButton, result, isShowField);
+    }
+
+    public void hideAlert()
+    {
+        alert.hide();
+    }
+
+    public void changeScene(string sceneName)
+    {
+        changeSceneName = sceneName;
     }
 }

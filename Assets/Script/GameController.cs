@@ -2,35 +2,37 @@
 using UnityEngine;
 using System;
 
-public class GameController : MonoBehaviour {
+public class GameController {
     
     private static GameController instance = null;
     public static GameController Instance()
     {
         if (instance == null)
         {
-            instance = GameObject.FindObjectOfType(typeof(GameController)) as GameController;            
+            instance = new GameController(); //GameObject.FindObjectOfType(typeof(GameController)) as GameController;             
         }
 
         return instance;
     }
-
-    public Alert alert;
     
-    void Awake()
+    //void Awake()
+    //{
+        
+    //    SceneChanger.Instance();
+    //}
+
+    //void Update()
+    //{
+    //    if(alert != null && alert.getState())
+    //    {
+    //        alert.gameObject.SetActive(true);
+    //    }
+    //}
+
+    public void setDelegate()
     {
         SocketManager.Instance().resDelegate += responseString;
-        SceneChanger.Instance();
     }
-
-    void Update()
-    {
-        if(alert != null && alert.getState())
-        {
-            alert.gameObject.SetActive(true);
-        }
-    }
-
     
     public void responseString(string identifier, string json)
     {
@@ -46,7 +48,7 @@ public class GameController : MonoBehaviour {
                     {
 //                        DialogManager.Instance.ShowSubmitDialog(res.message, (bool result) => {
 //                        });
-						showAlert(res.message, false, (bool result, string fieldText)=>{
+						GameManager.Instance().showAlert(res.message, false, (bool result, string fieldText)=>{
 							
 						},false);
                     }
@@ -65,7 +67,7 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-						showAlert(res.textMsg, true, (bool result, string fieldText) => {
+                        GameManager.Instance().showAlert(res.textMsg, true, (bool result, string fieldText) => {
                             if (result)
                             {
                                 Debug.Log("isGaming YES");
@@ -90,7 +92,7 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-						showAlert(res.message, false, (bool result, string fieldText)=>{
+						GameManager.Instance().showAlert(res.message, false, (bool result, string fieldText)=>{
 
 						},false);
                     }
@@ -113,7 +115,7 @@ public class GameController : MonoBehaviour {
                         GameManager.Instance().stateChange(GameManager.GAME_STATE.WAITING_ROOM, res);
                     }else
                     {
-						showAlert(res.message, false, (bool result, string fieldText)=>{
+                        GameManager.Instance().showAlert(res.message, false, (bool result, string fieldText)=>{
 
 						},false);
                     }
@@ -129,7 +131,7 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-						showAlert(res.message, false, (bool result, string fieldText)=>{
+                        GameManager.Instance().showAlert(res.message, false, (bool result, string fieldText)=>{
 
 						},false);
                     }
@@ -144,7 +146,8 @@ public class GameController : MonoBehaviour {
                     }
                     else
                     {
-						showAlert(res.message, false, (bool result, string fieldText)=>{
+                        Debug.Log("login fail");
+                        GameManager.Instance().showAlert(res.message, false, (bool result, string fieldText)=>{
 
 						},false);
                     }
@@ -196,7 +199,7 @@ public class GameController : MonoBehaviour {
 					RequestConnectionRoom req = new RequestConnectionRoom (res.roomNo, UserManager.Instance().nickName);
 					SocketManager.Instance ().sendMessage (req);
 				} else {
-					showAlert(res.message, false, (bool result, string fieldText)=>{
+                        GameManager.Instance().showAlert(res.message, false, (bool result, string fieldText)=>{
 
 					},false);
 				}
@@ -209,7 +212,7 @@ public class GameController : MonoBehaviour {
                     if (res.isSuccess())
                     {
                         //LoadingManager.LoadScene("game");
-                        SceneChanger.Instance().changeScene("game");
+                        //SceneChanger.Instance().changeScene("game");
                     }
                     else
                     {
@@ -237,14 +240,14 @@ public class GameController : MonoBehaviour {
 
     }
 
-	public void showAlert(string message, bool isTwoButton, Alert.ButtonResult result, bool isShowField)
-    {
-		alert.setData(message, isTwoButton, result, isShowField);
-    }
+	//public void showAlert(string message, bool isTwoButton, Alert.ButtonResult result, bool isShowField)
+ //   {
+	//	alert.setData(message, isTwoButton, result, isShowField);
+ //   }
 
-    public void hideAlert()
-    {
-        alert.hide();
-    }
+ //   public void hideAlert()
+ //   {
+ //       alert.hide();
+ //   }
 
 }

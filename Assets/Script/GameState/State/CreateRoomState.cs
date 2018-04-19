@@ -44,7 +44,7 @@ public class CreateRoomState : BaseState {
         
         if(title == "")
         {
-            GameController.Instance().showAlert("제목을 입력해주세요.", false, null, false);
+            GameManager.Instance().showAlert("제목을 입력해주세요.", false, null, false);
             return;
         }
 
@@ -52,7 +52,7 @@ public class CreateRoomState : BaseState {
         {
             if(passwordField.text.Length < 1)
             {
-                GameController.Instance().showAlert("비밀번호를 입력해주세요.", false, null, false);
+                GameManager.Instance().showAlert("비밀번호를 입력해주세요.", false, null, false);
                 return;
             }
         }

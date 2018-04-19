@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-
-public class InitState : BaseState {
+﻿public class InitState : BaseState {
 
     public override void initState(ResponseBase res)
     {
@@ -20,22 +15,15 @@ public class InitState : BaseState {
         
     }
 
+    bool isConnection = false;
+    bool connectionRec = false;
+
     // Use this for initialization
     void Start () {
 
         UserManager.Instance().loadData();
-
-        if (UserManager.Instance().isAutoLogin)
-        {
-            string password = Security.Instance().deCryption(UserManager.Instance().password, true);
-            RequestLogin req = new RequestLogin(UserManager.Instance().email, Security.Instance().cryption(password, false), true);
-            SocketManager.Instance().sendMessage(req);
-        }
-        else
-        {
-            GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
-        }
-
+        SocketManager.Instance().connection(connection);
+        
         //string password = Security.Instance().cryption("1234", false);
         //string email, string password, string nickName, DateTime birthday
 
@@ -50,6 +38,35 @@ public class InitState : BaseState {
 
     // Update is called once per frame
     void Update () {
-		
+        if (connectionRec)
+        {
+            connectionRec = false;
+            GameController.Instance().setDelegate();
+            if (isConnection)
+            {
+                if (UserManager.Instance().isAutoLogin)
+                {
+                    string password = Security.Instance().deCryption(UserManager.Instance().password, true);
+                    RequestLogin req = new RequestLogin(UserManager.Instance().email, Security.Instance().cryption(password, false), true);
+                    SocketManager.Instance().sendMessage(req);
+                }
+                else
+                {
+                    GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
+                }
+            }
+            else
+            {
+                GameManager.Instance().showAlert("서버와의 연결에 실패하였습니다. 잠시후 다시 이용해 주세요.", false, (bool result, string fieldText) => {
+
+                }, false);
+            }
+        }
 	}
+
+    public void connection(bool isConnection)
+    {
+        this.isConnection = isConnection;
+        connectionRec = true;        
+    }
 }

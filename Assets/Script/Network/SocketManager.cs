@@ -4,7 +4,7 @@ using System;
 using System.Text;
 using System.Net;
 
-public class SocketManager : MonoBehaviour
+public class SocketManager
 {
     public enum IP_KINDS
     {
@@ -35,7 +35,7 @@ public class SocketManager : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = GameObject.FindObjectOfType(typeof(SocketManager)) as SocketManager;
+            instance = new SocketManager(); //GameObject.FindObjectOfType(typeof(SocketManager)) as SocketManager;
         }
 
         return instance;
@@ -49,21 +49,27 @@ public class SocketManager : MonoBehaviour
     
     public delegate void ResponseResultDelegate(string identifier, string result);
     public ResponseResultDelegate resDelegate = null;
-    
-    void Awake()
+    public delegate void isConnection(bool isConnection);
+    public isConnection socketDelegate = null;
+
+    public SocketManager()
+    {
+        
+    }
+
+    public void connection(isConnection con)
     {
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         socket.SendTimeout = 120000;
         socket.ReceiveTimeout = 120000;
-
+        
         try
         {
-            Debug.Log("awake");
-
+            socketDelegate += con;
             //socket.Connect(ip, port);
             IPAddress ipAddress = IPAddress.Parse(getIp());
             IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
-            
+
             //socket.Blocking = false;
             m_fnReceiveHandler = new AsyncCallback(handleDataReceive);
             try
@@ -71,11 +77,11 @@ public class SocketManager : MonoBehaviour
                 socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallback), socket);
                 //socket.Connect(ip, port);
             }
-            catch(SocketException e)
+            catch (SocketException e)
             {
                 Debug.Log("socket error : " + e);
             }
-            
+
         }
         catch (Exception e)
         {
@@ -83,6 +89,40 @@ public class SocketManager : MonoBehaviour
 
         }
     }
+
+    //void Awake()
+    //{
+    //    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+    //    socket.SendTimeout = 120000;
+    //    socket.ReceiveTimeout = 120000;
+
+    //    try
+    //    {
+    //        Debug.Log("awake");
+
+    //        //socket.Connect(ip, port);
+    //        IPAddress ipAddress = IPAddress.Parse(getIp());
+    //        IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
+            
+    //        //socket.Blocking = false;
+    //        m_fnReceiveHandler = new AsyncCallback(handleDataReceive);
+    //        try
+    //        {
+    //            socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallback), socket);
+    //            //socket.Connect(ip, port);
+    //        }
+    //        catch(SocketException e)
+    //        {
+    //            Debug.Log("socket error : " + e);
+    //        }
+            
+    //    }
+    //    catch (Exception e)
+    //    {
+    //        Debug.Log("socket connection fail : " + e.Message);
+
+    //    }
+    //}
     
     public void ConnectCallback(IAsyncResult ar)
     {
@@ -97,11 +137,12 @@ public class SocketManager : MonoBehaviour
             socket.EndConnect(ar);
             Debug.Log("Socket connected to " + socket.RemoteEndPoint.ToString());
             socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
-
+            socketDelegate(true);
         }
         catch (Exception e)
         {
             Debug.Log("connectionCallback : " + e.Message);
+            socketDelegate(false);
         }
     }
 
@@ -125,17 +166,9 @@ public class SocketManager : MonoBehaviour
         Debug.Log("response : " + stringTransferred);
         ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
         
-
-        if (result.resCode == 0)
+        lock (lockObject)
         {
-            lock (lockObject)
-            {
-                resDelegate(result.identifier, stringTransferred);
-            }
-        }
-        else
-        {
-            Debug.Log("error : " + result.message);
+            resDelegate(result.identifier, stringTransferred);
         }
         
         buffer = new byte[BUFFER_SIZE];

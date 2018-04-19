@@ -121,7 +121,7 @@ public class RoomListState : BaseState
 			RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName);
 			SocketManager.Instance().sendMessage(req);
 		} else {
-			GameController.Instance ().showAlert ("비밀번호를 입력해주세요.", true, (bool result, string fieldText) => {
+            GameManager.Instance ().showAlert ("비밀번호를 입력해주세요.", true, (bool result, string fieldText) => {
 				if(result){
 					RequestRoomPassword req = new RequestRoomPassword(item.no, fieldText);
 					SocketManager.Instance().sendMessage(req);

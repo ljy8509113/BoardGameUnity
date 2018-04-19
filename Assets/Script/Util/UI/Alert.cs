@@ -37,8 +37,33 @@ public class Alert : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (state.isChange)
-        {
+   //     if (state.isChange)
+   //     {
+   //         Debug.Log("alert update in");
+   //         state.isChange = false;
+   //         if (state.isTwoButton)
+   //         {
+   //             Debug.Log("alert two");
+   //             buttonCancel.gameObject.SetActive(true);
+   //             buttonSubmit.gameObject.SetActive(true);
+   //             oneButton.gameObject.SetActive(false);
+   //             textMessage.text = state.message;
+   //         }
+   //         else
+   //         {
+   //             Debug.Log("alert one");
+   //             buttonCancel.gameObject.SetActive(false);
+   //             buttonSubmit.gameObject.SetActive(false);
+   //             oneButton.gameObject.SetActive(true);
+   //         }
+   //         textMessage.text = state.message;
+			//field.gameObject.SetActive (state.isShowField);
+   //         this.gameObject.SetActive(true);
+   //     }
+	}
+    
+    public void showAlert()
+    {
             Debug.Log("alert update in");
             state.isChange = false;
             if (state.isTwoButton)
@@ -57,11 +82,11 @@ public class Alert : MonoBehaviour {
                 oneButton.gameObject.SetActive(true);
             }
             textMessage.text = state.message;
-			field.gameObject.SetActive (state.isShowField);
+            field.gameObject.SetActive(state.isShowField);
             this.gameObject.SetActive(true);
-        }
-	}
-    
+        
+    }
+
 	public void setData(string message, bool isTwoButton, ButtonResult result, bool isShowField)
     {
         this.result = result;
