@@ -212,7 +212,7 @@ public class GameController {
                     if (res.isSuccess())
                     {
                         //LoadingManager.LoadScene("game");
-                        //SceneChanger.Instance().changeScene("game");
+                        SceneChanger.Instance().changeScene("game");
                     }
                     else
                     {
