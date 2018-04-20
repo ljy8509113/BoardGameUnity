@@ -31,7 +31,7 @@ public class SceneChanger : MonoBehaviour {
         if (isChange)
         {
             isChange = false;
-            LoadingManager.LoadScene(sceneName);
+            LoadingManager.LoadScene(sceneName);            
         }
 	}
 }

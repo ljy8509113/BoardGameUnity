@@ -20,6 +20,7 @@ public class UserManager
     public bool isAutoLogin;
     public string password;
     public int roomNo = Common.NO_DATA;
+    public bool isMaster = false;
 
     public void setData(string email, string nickName)
     {
@@ -52,14 +53,16 @@ public class UserManager
         isAutoLogin = PlayerPrefs.GetInt(Common.KEY_AUTO_LOGIN) == 1 ? true : false;
     }
 
-    public void connectionRoom(int roomNo)
+    public void connectedRoom(int roomNo, bool isMaster)
     {
         this.roomNo = roomNo;
+        this.isMaster = isMaster;
     }
 
     public void outRoom()
     {
         roomNo = Common.NO_DATA;
+        isMaster = false;
     }
     
 }

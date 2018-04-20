@@ -19,8 +19,11 @@ public class LoadingManager : MonoBehaviour {
         StartCoroutine(LoadScene());
         if (nextScene.Equals("game"))
         {
-            RequestInitGame req = new RequestInitGame(UserManager.Instance().roomNo);
-            SocketManager.Instance().sendMessage(req);
+            if (UserManager.Instance().isMaster)
+            {
+                RequestInitGame req = new RequestInitGame(UserManager.Instance().roomNo);
+                SocketManager.Instance().sendMessage(req);
+            }            
         }
     }
    
