@@ -7,20 +7,10 @@ public class GamePlayManager : MonoBehaviour {
 
     public GameObject playObj;
     
-
-    private static GamePlayManager instance = null;
-    public static GamePlayManager Instance()
-    {
-        if (instance == null)
-        {
-            instance = GameObject.FindObjectOfType(typeof(GamePlayManager)) as GamePlayManager;
-        }
-
-        return instance;
-    }
-
     UserGameData myData;
     List<UserGameData> userDatas = new List<UserGameData>();
+    public GameCardInfo cardInfo = null;
+
 
     void Awake()
     {
@@ -29,8 +19,12 @@ public class GamePlayManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        cardInfo = new GameCardInfo();
+        cardInfo = LoadingManager.cardInfo;
+        LoadingManager.cardInfo = null;
+
+        Debug.Log("cardInfo : " + cardInfo);
+    }
 	
 	// Update is called once per frame
 	void Update () {

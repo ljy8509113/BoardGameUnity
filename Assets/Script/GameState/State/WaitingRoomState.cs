@@ -105,7 +105,7 @@ public class WaitingRoomState : BaseState {
                     title.text = resCr.title;
                     setUsersData(((ResponseCreateRoom)res).userList);
                     roomNo = resCr.roomNo;
-                    UserManager.Instance().connectedRoom(roomNo, true);
+                    UserManager.Instance().connectedRoom(roomNo);
                 }
                 break;
             case Common.IDENTIFIER_CONNECT_ROOM:
@@ -114,7 +114,7 @@ public class WaitingRoomState : BaseState {
                     title.text = resCr.title;
                     setUsersData(((ResponseConnectionRoom)res).userList);
                     roomNo = resCr.roomNo;
-                    UserManager.Instance().connectedRoom(roomNo, false);
+                    UserManager.Instance().connectedRoom(roomNo);
                 }
                 break;
             case Common.IDENTIFIER_READY:
@@ -161,6 +161,7 @@ public class WaitingRoomState : BaseState {
                     Debug.Log("my info : "+ listUsers[i].isMaster);
                     myInfo = listUsers[i];
 					isMaster = listUsers[i].isMaster;
+                    UserManager.Instance().setMaster(isMaster);
                 }
 
 				source.setData(listUsers[i], isMaster);

@@ -9,7 +9,7 @@ public class LoadingManager : MonoBehaviour {
     public static string nextScene;
 
     float loadingTime = 5f;
-    static GameCardInfo cardInfo = null;
+    public static GameCardInfo cardInfo = null;
 
     [SerializeField]
     Image progressBar;
@@ -20,7 +20,7 @@ public class LoadingManager : MonoBehaviour {
         if (nextScene.Equals("game"))
         {
             if (UserManager.Instance().isMaster)
-            {
+            {                
                 RequestInitGame req = new RequestInitGame(UserManager.Instance().roomNo);
                 SocketManager.Instance().sendMessage(req);
             }            

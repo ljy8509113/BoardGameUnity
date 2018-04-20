@@ -53,16 +53,20 @@ public class UserManager
         isAutoLogin = PlayerPrefs.GetInt(Common.KEY_AUTO_LOGIN) == 1 ? true : false;
     }
 
-    public void connectedRoom(int roomNo, bool isMaster)
+    public void connectedRoom(int roomNo)
     {
         this.roomNo = roomNo;
-        this.isMaster = isMaster;
     }
 
     public void outRoom()
     {
         roomNo = Common.NO_DATA;
         isMaster = false;
+    }
+
+    public void setMaster(bool isMaster)
+    {
+        this.isMaster = isMaster;
     }
     
 }

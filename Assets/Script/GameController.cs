@@ -211,8 +211,6 @@ public class GameController {
                     ResponseStart res = JsonUtility.FromJson<ResponseStart>(json);
                     if (res.isSuccess())
                     {
-                        //LoadingManager.LoadScene("game");
-                        //SceneChanger.Instance().changeScene("game");
                         GameManager.Instance().changeScene("game");
                     }
                     else
