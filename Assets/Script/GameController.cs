@@ -232,6 +232,7 @@ public class GameController {
             case Common.IDENTIFIER_GAME_FINISH:
                 {
                     //GamePlayManager.Instance().resData(json);
+                    GamePlayManager.Instance().resData(json);
                 }
                 break;
             

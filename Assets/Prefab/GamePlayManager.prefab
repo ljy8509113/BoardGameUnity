@@ -51,4 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a0df2487b65a4428d14e9619e6f64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardInfo:
+    arrayUser: []
+  selectableCard: {fileID: 0}
+  userCardObj: {fileID: 0}
   playObj: {fileID: 0}
+  myCardObj: {fileID: 0}

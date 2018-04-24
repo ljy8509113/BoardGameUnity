@@ -565,6 +565,22 @@ GameObject:
   m_PrefabParentObject: {fileID: 1834235038682148, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
     type: 2}
   m_PrefabInternal: {fileID: 582400624}
+--- !u!1 &582400628 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1350404601782570, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
+    type: 2}
+  m_PrefabInternal: {fileID: 582400624}
+--- !u!1 &582400629 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1053565996459712, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
+    type: 2}
+  m_PrefabInternal: {fileID: 582400624}
+--- !u!114 &582400630 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114393160283706588, guid: 8b950dbbf35d3fd44809c5f65251a0f1,
+    type: 2}
+  m_PrefabInternal: {fileID: 582400624}
+  m_Script: {fileID: 11500000, guid: eecd3eaf3359c0a4dacba376b2468708, type: 3}
 --- !u!1 &710316094
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,9 +786,24 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114849694804162646, guid: 09302658ca3ef76408ae48b94761a6f7,
         type: 2}
+      propertyPath: selectableCard
+      value: 
+      objectReference: {fileID: 582400630}
+    - target: {fileID: 114849694804162646, guid: 09302658ca3ef76408ae48b94761a6f7,
+        type: 2}
+      propertyPath: userCardObj
+      value: 
+      objectReference: {fileID: 582400629}
+    - target: {fileID: 114849694804162646, guid: 09302658ca3ef76408ae48b94761a6f7,
+        type: 2}
       propertyPath: playObj
       value: 
       objectReference: {fileID: 582400627}
+    - target: {fileID: 114849694804162646, guid: 09302658ca3ef76408ae48b94761a6f7,
+        type: 2}
+      propertyPath: myCardObj
+      value: 
+      objectReference: {fileID: 582400628}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09302658ca3ef76408ae48b94761a6f7, type: 2}
   m_IsPrefabParent: 0

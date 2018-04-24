@@ -9,6 +9,8 @@ public class SelectableCard : MonoBehaviour {
     public GameObject cardObj;
     List<GameObject> listCards = new List<GameObject>();
 
+    
+
 	// Use this for initialization
 	void Start () {
 		
@@ -19,24 +21,29 @@ public class SelectableCard : MonoBehaviour {
 		
 	}
 
-    public void init(Dictionary<int, NumberCard> dic)
+    public void init()
     {
-        while (dic.Count > 0)
+        while (cardInfo.mapFieldCards.Count > 0)
         {
-            int index = Random.Range(0, dic.Count);
-            NumberCard card = dic[index];
+            int index = Random.Range(0, cardInfo.mapFieldCards.Count);
+            NumberCard card = cardInfo.mapFieldCards[index];
             GameObject item = Instantiate(cardObj) as GameObject;
             NumberCard itemSource = item.GetComponent<NumberCard>();
 
             itemSource.setData(card.number, card.isOpen, card.index);
             itemSource.selectDelegate += selectNumber;
-            
-            dic.Remove(index);
 
-            item.transform.parent = content.transform;            
+            cardInfo.mapFieldCards.Remove(index);
+
+            item.transform.parent = content.transform;
         }
-        
     }
+
+    //public void init(Dictionary<int, NumberCard> dic)
+    //{
+        
+        
+    //}
 
     public void selectNumber(int number)
     {
@@ -85,5 +92,15 @@ public class SelectableCard : MonoBehaviour {
         }
 
         return null;
+    }
+
+    public void show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void hide()
+    {
+        gameObject.SetActive(false);
     }
 }

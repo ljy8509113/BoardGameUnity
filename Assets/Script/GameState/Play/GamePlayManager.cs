@@ -4,13 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GamePlayManager : MonoBehaviour {
-
-    public GameObject playObj;
     
     UserGameData myData;
     List<UserGameData> userDatas = new List<UserGameData>();
-    public GameCardInfo cardInfo = null;
+    
+    public SelectableCard selectableCard;
+    public GameObject userCardObj;
+    public GameObject playObj;
+    public GameObject myCardObj;
 
+    private static GamePlayManager instance = null;
+    public static GamePlayManager Instance()
+    {
+        if (instance == null)
+        {
+            instance = GameObject.FindObjectOfType(typeof(GamePlayManager)) as GamePlayManager;
+        }
+
+        return instance;
+    }
 
     void Awake()
     {
@@ -19,11 +31,15 @@ public class GamePlayManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        cardInfo = new GameCardInfo();
-        cardInfo = LoadingManager.cardInfo;
-        LoadingManager.cardInfo = null;
+        //cardInfo = new GameCardInfo();
+        //cardInfo = LoadingManager.cardInfo;
+        //LoadingManager.cardInfo = null;
 
-        Debug.Log("cardInfo : " + cardInfo);
+        //Debug.Log("cardInfo : " + cardInfo);
+
+        selectableCard.init();
+        
+
     }
 	
 	// Update is called once per frame

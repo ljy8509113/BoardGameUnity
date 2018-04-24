@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 public class LoadingManager : MonoBehaviour {
 
     public static string nextScene;
-
     float loadingTime = 5f;
-    public static GameCardInfo cardInfo = null;
-
+    
     [SerializeField]
     Image progressBar;
+
+    static bool isStart = false;
     
     private void Start()
     {
@@ -36,7 +36,8 @@ public class LoadingManager : MonoBehaviour {
     public static void resMessage(string res)
     {
         ResponseInitGame resObj = JsonUtility.FromJson<ResponseInitGame>(res);
-        cardInfo = resObj.cardInfo;        
+        CardController.Instance().setCardInfo(resObj.cardInfo);
+        isStart = true;
     }
     
     IEnumerator LoadScene()
@@ -60,8 +61,9 @@ public class LoadingManager : MonoBehaviour {
                 if(op.progress >= 0.9f)
                 {
                     progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
-                    if(progressBar.fillAmount == 1.0f && cardInfo != null)
+                    if(progressBar.fillAmount == 1.0f && isStart)
                     {
+                        isStart = false;
                         op.allowSceneActivation = true;                        
                     }   
                 }
