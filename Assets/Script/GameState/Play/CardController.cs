@@ -12,7 +12,7 @@ public class CardController {
         return instance;
     }
 
-    Dictionary<int, NumberCard> dicFieldCards;
+	Dictionary<int, NumberCard> dicFieldCards = new Dictionary<int, NumberCard>();
     Dictionary<int, UserGameData> dicUser = new Dictionary<int, UserGameData>();
 
     public void setCardInfo(GameCardInfo info)

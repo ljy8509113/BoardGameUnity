@@ -10,10 +10,10 @@ public class SocketManager
     {
         KOITT = 0,
         HOME = 1,
-		LAMU = 2,
+		LAMU = 2
     }
 
-    public IP_KINDS ipKinds;
+	public IP_KINDS ipKinds = IP_KINDS.HOME;
     public string getIp()
     {
         switch (ipKinds)
