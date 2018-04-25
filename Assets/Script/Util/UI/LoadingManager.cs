@@ -56,24 +56,23 @@ public class LoadingManager : MonoBehaviour {
 
             timer += Time.deltaTime;
             
-            if(timer >= loadingTime)
+            if(op.progress >= 0.9f)
             {
-                if(op.progress >= 0.9f)
+				progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
+				Debug.Log ("fill : " + progressBar.fillAmount + " // " + isStart);
+                if(progressBar.fillAmount == 1.0f && isStart)
                 {
-                    progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
-                    if(progressBar.fillAmount == 1.0f && isStart)
-                    {
-                        isStart = false;
-                        op.allowSceneActivation = true;                        
-                    }   
-                }
+					Debug.Log ("next ? ");
+                    isStart = false;
+                    op.allowSceneActivation = true;                        
+                }   
             }
             else
             {
-                progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 0.9f, timer);
+				progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 0.9f, timer);
                 if (progressBar.fillAmount >= op.progress)
                 {
-                    timer = 0f;
+					timer = 0f;
                 }
             }
 
