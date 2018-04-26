@@ -68,5 +68,15 @@ public class UserManager
     {
         this.isMaster = isMaster;
     }
+
+	public void removeData(){
+		PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 0);
+		PlayerPrefs.SetString(Common.KEY_PASSWORD, "");
+		PlayerPrefs.SetInt (Common.KEY_AUTO_LOGIN, 0);
+
+		email = "";
+		password = "";
+		isAutoLogin = false;
+	}
     
 }

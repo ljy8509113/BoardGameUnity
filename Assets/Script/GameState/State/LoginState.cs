@@ -94,7 +94,7 @@ public class LoginState : BaseState
                 
                 PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
                 PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 1);
-                PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(res.password, true));
+                PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(pw, true));
 
                 RequestGamingUser gaming = new RequestGamingUser();
                 SocketManager.Instance().sendMessage(gaming);
@@ -106,10 +106,8 @@ public class LoginState : BaseState
         }
         else
         {
-            PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 0);
-            PlayerPrefs.SetString(Common.KEY_PASSWORD, "");
             Debug.Log("login : isAuto f");
-
+			UserManager.Instance ().removeData ();
             RequestGamingUser gaming = new RequestGamingUser();
             SocketManager.Instance().sendMessage(gaming);
         }
