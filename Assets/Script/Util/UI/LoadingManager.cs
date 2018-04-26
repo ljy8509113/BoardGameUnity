@@ -36,7 +36,8 @@ public class LoadingManager : MonoBehaviour {
     public static void resMessage(string res)
     {
         ResponseInitGame resObj = JsonUtility.FromJson<ResponseInitGame>(res);
-        CardController.Instance().setCardInfo(resObj.cardInfo);
+        //CardController.Instance().setCardInfo(resObj.cardInfo);
+		CardController.Instance().setCardInfo(resObj.arrayUser, resObj.arrayFieldCards);
         isStart = true;
     }
     

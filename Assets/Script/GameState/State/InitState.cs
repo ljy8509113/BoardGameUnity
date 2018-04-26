@@ -1,4 +1,7 @@
-﻿public class InitState : BaseState {
+﻿using UnityEngine;
+using System.Collections.Generic;
+
+public class InitState : BaseState {
 
     public override void initState(ResponseBase res)
     {
@@ -14,6 +17,11 @@
     {
         
     }
+	class test{
+		public List<UserGameData> arrayUser;
+		public Dictionary<int, Card> mapFieldCards;
+	}
+	public TextAsset json;
 
     bool isConnection = false;
     bool connectionRec = false;
@@ -69,4 +77,5 @@
         this.isConnection = isConnection;
         connectionRec = true;        
     }
+
 }

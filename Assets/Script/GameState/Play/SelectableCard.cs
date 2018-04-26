@@ -7,7 +7,8 @@ public class SelectableCard : MonoBehaviour {
 
     public GameObject content;
     public GameObject cardObj;
-    List<GameObject> listCards = new List<GameObject>();
+	List<GameObject> listCards;
+	List<NumberCard> listData;
 
 	// Use this for initialization
 	void Start () {
@@ -21,11 +22,9 @@ public class SelectableCard : MonoBehaviour {
 
     public void init()
     {
-		Dictionary<int, NumberCard> dic = CardController.Instance ().getFieldCards ();
+		listData = shuffleList (CardController.Instance ().getFieldCards ());
 
-		foreach (int key in dic.Keys) {
-			NumberCard card = CardController.Instance ().getFieldCards ()[key];
-			int index = Random.Range(0, dic.Count);
+		foreach(NumberCard card in listData){
 			GameObject itemObj = Instantiate(cardObj) as GameObject;
 			NumberCard itemSource = itemObj.GetComponent<NumberCard>();
 
@@ -35,7 +34,6 @@ public class SelectableCard : MonoBehaviour {
 			itemObj.transform.parent = content.transform;
 			listCards.Add (itemObj);
 
-			dic.Remove (key);
 		}
     }
 
@@ -97,4 +95,19 @@ public class SelectableCard : MonoBehaviour {
     {
         gameObject.SetActive(false);
     }
+
+	public List<E> shuffleList<E>(List<E> inputList)
+	{
+		List<E> randomList = new List<E>();
+		Random r = new Random();
+		int randomIndex = 0;
+		while (inputList.Count > 0)
+		{
+			//randomIndex = r.Next(0, inputList.Count); //Choose a random object in the list
+			randomIndex = Random.Range(0, inputList.Count);
+			randomList.Add(inputList[randomIndex]); //add it to the new, random list
+			inputList.RemoveAt(randomIndex); //remove to avoid duplicates
+		}
+		return randomList; //return the new random list
+	}
 }

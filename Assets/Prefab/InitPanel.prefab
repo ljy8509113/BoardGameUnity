@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d31ae4fe4df05fd45a35f78a6b6b2b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  json: {fileID: 4900000, guid: ebfc87e109f514bd29c15bada06f8bcf, type: 3}
 --- !u!222 &222511628258170574
 CanvasRenderer:
   m_ObjectHideFlags: 1
