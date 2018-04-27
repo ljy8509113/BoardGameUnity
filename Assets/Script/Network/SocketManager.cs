@@ -6,30 +6,6 @@ using System.Net;
 
 public class SocketManager
 {
-    public enum IP_KINDS
-    {
-        KOITT = 0,
-        HOME = 1,
-		LAMU = 2
-    }
-
-	public IP_KINDS ipKinds = IP_KINDS.HOME;
-    public string getIp()
-    {
-        switch (ipKinds)
-        {
-            case IP_KINDS.KOITT:
-                return "192.168.0.8";
-			//return "192.168.0.67";
-            case IP_KINDS.HOME:
-                return "211.44.213.112";
-			case IP_KINDS.LAMU : 
-				return "192.168.0.3";
-
-        }
-        return "211.44.213.112";
-    }
-
     private static SocketManager instance = null;
     public static SocketManager Instance()
     {
@@ -67,7 +43,7 @@ public class SocketManager
         {
             socketDelegate += con;
             //socket.Connect(ip, port);
-            IPAddress ipAddress = IPAddress.Parse(getIp());
+            IPAddress ipAddress = IPAddress.Parse(GameManager.Instance().getIp());
             IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
 
             //socket.Blocking = false;
@@ -89,40 +65,6 @@ public class SocketManager
 
         }
     }
-
-    //void Awake()
-    //{
-    //    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-    //    socket.SendTimeout = 120000;
-    //    socket.ReceiveTimeout = 120000;
-
-    //    try
-    //    {
-    //        Debug.Log("awake");
-
-    //        //socket.Connect(ip, port);
-    //        IPAddress ipAddress = IPAddress.Parse(getIp());
-    //        IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
-            
-    //        //socket.Blocking = false;
-    //        m_fnReceiveHandler = new AsyncCallback(handleDataReceive);
-    //        try
-    //        {
-    //            socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallback), socket);
-    //            //socket.Connect(ip, port);
-    //        }
-    //        catch(SocketException e)
-    //        {
-    //            Debug.Log("socket error : " + e);
-    //        }
-            
-    //    }
-    //    catch (Exception e)
-    //    {
-    //        Debug.Log("socket connection fail : " + e.Message);
-
-    //    }
-    //}
     
     public void ConnectCallback(IAsyncResult ar)
     {

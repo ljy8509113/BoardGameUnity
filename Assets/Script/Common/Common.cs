@@ -52,4 +52,11 @@ public class Common {
         PLAING = 3
     }
 
+    public enum IP_KINDS
+    {
+        KOITT = 0,
+        HOME = 1,
+        LAMU = 2
+    }
+
 }
