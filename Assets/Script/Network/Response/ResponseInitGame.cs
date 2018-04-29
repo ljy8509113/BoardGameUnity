@@ -2,5 +2,5 @@
 public class ResponseInitGame : ResponseBase {
     //public GameCardInfo cardInfo;
 	public List<UserGameData> arrayUser;
-	public List<NumberCard> arrayFieldCards;
+	public List<Card> arrayFieldCards;
 }

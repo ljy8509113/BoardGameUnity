@@ -1,17 +1,14 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
 public class NumberCard : MonoBehaviour
 {
-    public int number;
-    public bool isOpen;
-    public int index;
-
+	Card info;
     public delegate void onSelectDelegate(int number);
     public onSelectDelegate selectDelegate;
 
     public NumberCard(){
+		info = new Card ();
     }
 
     public NumberCard(int number, bool isOpen, int index)
@@ -21,14 +18,26 @@ public class NumberCard : MonoBehaviour
 
     public void setData(int number, bool isOpen, int index)
     {
-        this.number = number;
-        this.isOpen = isOpen;
-        this.index = index;
+        info.number = number;
+		info.isOpen = isOpen;
+		info.index = index;
     }
 
     public void onSelect()
     {
         if (selectDelegate != null)
-            selectDelegate(number);
+			selectDelegate(info.number);
     }
+
+	public int getNumber(){
+		return info.number;
+	}
+
+	public bool IsOpen(){
+		return info.isOpen;
+	}
+
+	public int getIndex(){
+		return info.index;
+	}
 }

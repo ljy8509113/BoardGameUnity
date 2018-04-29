@@ -60,11 +60,10 @@ public class LoadingManager : MonoBehaviour {
             if(op.progress >= 0.9f)
             {
 				progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, 1f, timer);
-				Debug.Log ("fill : " + progressBar.fillAmount + " // " + isStart);
+//				Debug.Log ("fill : " + progressBar.fillAmount + " // " + isStart);
                 if(progressBar.fillAmount == 1.0f && isStart)
                 {
-					Debug.Log ("next ? ");
-                    isStart = false;
+					isStart = false;
                     op.allowSceneActivation = true;                        
                 }   
             }

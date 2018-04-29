@@ -8,7 +8,7 @@ public class SelectableCard : MonoBehaviour {
     public GameObject content;
     public GameObject cardObj;
 	List<GameObject> listCards;
-	List<NumberCard> listData;
+	List<Card> listData;
 
 	// Use this for initialization
 	void Start () {
@@ -22,9 +22,11 @@ public class SelectableCard : MonoBehaviour {
 
     public void init()
     {
+		listCards = new List<GameObject> ();
 		listData = shuffleList (CardController.Instance ().getFieldCards ());
-
-		foreach(NumberCard card in listData){
+		Debug.Log ("list size : " + listData.Count);
+		foreach(Card card in listData){
+			Debug.Log ("card : " + card.number);
 			GameObject itemObj = Instantiate(cardObj) as GameObject;
 			NumberCard itemSource = itemObj.GetComponent<NumberCard>();
 
@@ -33,7 +35,7 @@ public class SelectableCard : MonoBehaviour {
 
 			itemObj.transform.parent = content.transform;
 			listCards.Add (itemObj);
-
+			itemObj.SetActive (true);
 		}
     }
 
@@ -48,8 +50,7 @@ public class SelectableCard : MonoBehaviour {
         if (isSuccess)
         {
             GameObject obj = getCard(number);
-            NumberCard card = obj.GetComponent<NumberCard>();
-
+			NumberCard card = obj.GetComponent<NumberCard> ();
         }
         else
         {
@@ -77,7 +78,7 @@ public class SelectableCard : MonoBehaviour {
         foreach (GameObject obj in listCards)
         {
             NumberCard card = obj.GetComponent<NumberCard>();
-            if (number == card.number)
+			if (number == card.getNumber())
             {
                 return obj;                
             }

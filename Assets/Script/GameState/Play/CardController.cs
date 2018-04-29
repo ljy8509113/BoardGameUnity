@@ -14,9 +14,9 @@ public class CardController {
 
 	//Dictionary<int, NumberCard> dicFieldCards = new Dictionary<int, NumberCard>();
     Dictionary<int, UserGameData> dicUser = new Dictionary<int, UserGameData>();
-	List<NumberCard> arrayFieldCards = new List<NumberCard>();
+	List<Card> arrayFieldCards = new List<Card>();
 
-	public void setCardInfo(List<UserGameData> users, List<NumberCard> cards)
+	public void setCardInfo(List<UserGameData> users, List<Card> cards)
     {
         foreach(UserGameData data in users)
         {
@@ -26,7 +26,7 @@ public class CardController {
 		arrayFieldCards = cards;
     }
 
-	public List<NumberCard> getFieldCards()
+	public List<Card> getFieldCards()
     {
 		return arrayFieldCards;
     }
