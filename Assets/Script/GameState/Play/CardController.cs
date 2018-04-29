@@ -12,22 +12,23 @@ public class CardController {
         return instance;
     }
 
-	Dictionary<int, NumberCard> dicFieldCards = new Dictionary<int, NumberCard>();
+	//Dictionary<int, NumberCard> dicFieldCards = new Dictionary<int, NumberCard>();
     Dictionary<int, UserGameData> dicUser = new Dictionary<int, UserGameData>();
+	List<NumberCard> arrayFieldCards = new List<NumberCard>();
 
-    public void setCardInfo(GameCardInfo info)
+	public void setCardInfo(List<UserGameData> users, List<NumberCard> cards)
     {
-        foreach(UserGameData data in info.arrayUser)
+        foreach(UserGameData data in users)
         {
             dicUser.Add(data.no, data);
         }
         
-        dicFieldCards = info.mapFieldCards;
+		arrayFieldCards = cards;
     }
 
-    public Dictionary<int, NumberCard> getFieldCards()
+	public List<NumberCard> getFieldCards()
     {
-        return dicFieldCards;
+		return arrayFieldCards;
     }
 
     public UserGameData getUserGameData(int no)

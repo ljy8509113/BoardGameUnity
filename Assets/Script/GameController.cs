@@ -99,15 +99,7 @@ public class GameController {
                         
                 }
                 break;
-
-            case Common.IDENTIFIER_TEST:
-                {
-                    ResponseTest res = JsonUtility.FromJson<ResponseTest>(json);
-
-                }
-
-                break;
-            case Common.IDENTIFIER_CONNECT_ROOM:
+			case Common.IDENTIFIER_CONNECT_ROOM:
                 {
                     ResponseConnectionRoom res = JsonUtility.FromJson<ResponseConnectionRoom>(json);
                     if (res.isSuccess())
