@@ -46,7 +46,23 @@ public class GameManager : MonoBehaviour {
             return resInfo;
         }
     }
-    
+
+    public Common.IP_KINDS ipKinds = Common.IP_KINDS.HOME;
+    public string getIp()
+    {
+        switch (ipKinds)
+        {
+            case Common.IP_KINDS.KOITT:
+                return "192.168.0.8";
+            case Common.IP_KINDS.HOME:
+                return "211.44.213.112";
+            case Common.IP_KINDS.LAMU:
+                return "192.168.0.3";
+
+        }
+        return "211.44.213.112";
+    }
+
     private static GameManager instance = null;
     public static GameManager Instance()
     {
@@ -94,7 +110,6 @@ public class GameManager : MonoBehaviour {
                 {
                     objectList[i].hideState();
                 }
-
             }
         }
 
