@@ -74,9 +74,9 @@ public class UserManager
 		PlayerPrefs.SetString(Common.KEY_PASSWORD, "");
 		PlayerPrefs.SetInt (Common.KEY_AUTO_LOGIN, 0);
 
-		email = "";
-		password = "";
-		isAutoLogin = false;
+		//email = "";
+		//password = "";
+		//isAutoLogin = false;
 	}
     
 }
