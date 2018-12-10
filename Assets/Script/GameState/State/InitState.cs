@@ -46,27 +46,42 @@ public class InitState : BaseState {
 
     // Update is called once per frame
     void Update () {
-        if (connectionRec)
-        {
+        // if (connectionRec)
+        // {
+        //     connectionRec = false;
+        //     GameController.Instance().setDelegate();
+        //     if (isConnection)
+        //     {
+        //         if (UserManager.Instance().isAutoLogin)
+        //         {
+        //             string password = Security.Instance().deCryption(UserManager.Instance().password, true);
+        //             RequestLogin req = new RequestLogin(UserManager.Instance().email, Security.Instance().cryption(password, false), true);
+        //             SocketManager.Instance().sendMessage(req);
+        //         }
+        //         else
+        //         {
+        //             GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
+        //         }
+        //     }
+        //     else
+        //     {
+        //         GameManager.Instance().showAlert("서버와의 연결에 실패하였습니다. 잠시후 다시 이용해 주세요.", false, (bool result, string fieldText) => {
+
+        //         }, false);
+        //     }
+        // }
+
+        if(connectionRec){
             connectionRec = false;
-            GameController.Instance().setDelegate();
-            if (isConnection)
-            {
+            if(isConnection){
                 if (UserManager.Instance().isAutoLogin)
                 {
-                    string password = Security.Instance().deCryption(UserManager.Instance().password, true);
-                    RequestLogin req = new RequestLogin(UserManager.Instance().email, Security.Instance().cryption(password, false), true);
-                    SocketManager.Instance().sendMessage(req);
-                }
-                else
-                {
+                    
+                }else{
                     GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
                 }
-            }
-            else
-            {
+            }else{
                 GameManager.Instance().showAlert("서버와의 연결에 실패하였습니다. 잠시후 다시 이용해 주세요.", false, (bool result, string fieldText) => {
-
                 }, false);
             }
         }
@@ -76,6 +91,10 @@ public class InitState : BaseState {
     {
         this.isConnection = isConnection;
         connectionRec = true;        
+    }
+
+    public override void responseString(string identifier, string json){
+
     }
 
 }

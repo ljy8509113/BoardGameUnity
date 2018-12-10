@@ -97,24 +97,49 @@ public class SocketManager
         try
         {
             length = socket.EndReceive(ar);
-            Debug.Log("1 receive : " + length);            
+            Debug.Log("1 receive : " + length);    
+
+            lock(lockObject){
+                byte[] sizeByte = new byte[2];
+                // socket.Receive(sizeByte, 0, 2, SocketFlags.None);
+                Array.Copy(buffer, sizeByte, 2);
+                int size = BitConverter.ToUInt16(sizeByte, 0);
+                Console.WriteLine("size : "+size);
+                byte[] dataBytes = new byte[size];
+                // socket.Receive(dataBytes, 0, size, SocketFlags.None);    
+                Array.Copy(buffer, 2, dataBytes, 0, size);
+                string stringTransferred = Encoding.UTF8.GetString(dataBytes);
+                Console.WriteLine("response : " + stringTransferred);
+
+                ResponseBase result =  JsonConvert.DeserializeObject<ResponseBase>(stringTransferred);//JsonUtility.FromJson<ResponseBase>(stringTransferred);
+                resDelegate(result.identifier, stringTransferred);
+
+                current += (sizeByte.Length + dataBytes.Length);
+
+                if(current == length){
+                    socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
+                }
+            }
+                   
         }
         catch (Exception e)
         {
             Debug.Log(e);
         }
+
+
         
-        string stringTransferred = Encoding.UTF8.GetString(buffer, 0, length);
-        Debug.Log("response : " + stringTransferred);
-        ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
+        // string stringTransferred = Encoding.UTF8.GetString(buffer, 0, length);
+        // Debug.Log("response : " + stringTransferred);
+        // ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
         
-        lock (lockObject)
-        {
-            resDelegate(result.identifier, stringTransferred);
-        }
+        // lock (lockObject)
+        // {
+        //     resDelegate(result.identifier, stringTransferred);
+        // }
         
-        buffer = new byte[BUFFER_SIZE];
-        socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
+        // buffer = new byte[BUFFER_SIZE];
+        // socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
         
     }
     

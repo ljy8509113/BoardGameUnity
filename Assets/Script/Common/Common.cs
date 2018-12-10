@@ -16,6 +16,7 @@ public class Common {
     public const string IDENTIFIER_OUT_ROOM         = "out_room";
 	public const string IDENTIFIER_ROOM_PASSWORD	= "room_password";
     public const string IDENTIFIER_START            = "start";
+    public const string IDENTIFIER_ROOM_INFO        = "room_info";
 
     //game play
     public const string IDENTIFIER_INIT_GAME        = "init_game";
