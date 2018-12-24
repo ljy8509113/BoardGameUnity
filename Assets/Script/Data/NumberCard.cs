@@ -11,14 +11,14 @@ public class NumberCard : MonoBehaviour
 		info = new Card ();
     }
 
-    public NumberCard(int number, bool isOpen, int index)
+    public NumberCard(bool isJocker, bool isOpen, int index)
     {
         setData(number, isOpen, index);
     }
 
-    public void setData(int number, bool isOpen, int index)
+    public void setData(bool isJocker, bool isOpen, int index)
     {
-        info.number = number;
+        info.isJoker = isJocker;
 		info.isOpen = isOpen;
 		info.index = index;
     }
@@ -29,8 +29,8 @@ public class NumberCard : MonoBehaviour
 			selectDelegate(info.number);
     }
 
-	public int getNumber(){
-		return info.number;
+	public bool isJocker(){
+		return info.isJoker;
 	}
 
 	public bool IsOpen(){

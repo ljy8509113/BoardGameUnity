@@ -9,7 +9,6 @@ public class ResponseRoomList : ResponseBase
         public int no;
         public string title;
         public int maxUser;
-        public int currentUser;
         public bool isPlaing;
 		public string masterUserNickName;
 		public string password;

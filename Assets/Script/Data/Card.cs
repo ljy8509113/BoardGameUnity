@@ -1,7 +1,7 @@
 ﻿using System;
 [Serializable]
 public class Card {
-	public int number;
+	public bool isJoker;
 	public bool isOpen;
 	public int index;
 }

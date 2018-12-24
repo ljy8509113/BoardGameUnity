@@ -1,6 +1,5 @@
 ﻿public class ResponseLogin : ResponseBase {
-    public bool isAutoLogin;
+    public bool isAutoId;
     public string email;
-    public string password;
     public string nickName;
 }
