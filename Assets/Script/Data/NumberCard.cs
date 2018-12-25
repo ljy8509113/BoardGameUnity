@@ -13,7 +13,7 @@ public class NumberCard : MonoBehaviour
 
     public NumberCard(bool isJocker, bool isOpen, int index)
     {
-        setData(number, isOpen, index);
+        setData(isJocker, isOpen, index);
     }
 
     public void setData(bool isJocker, bool isOpen, int index)
@@ -26,7 +26,7 @@ public class NumberCard : MonoBehaviour
     public void onSelect()
     {
         if (selectDelegate != null)
-			selectDelegate(info.number);
+			selectDelegate(info.index);
     }
 
 	public bool isJocker(){

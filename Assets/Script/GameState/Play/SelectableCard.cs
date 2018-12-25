@@ -26,11 +26,11 @@ public class SelectableCard : MonoBehaviour {
 		listData = shuffleList (CardController.Instance ().getFieldCards ());
 		Debug.Log ("list size : " + listData.Count);
 		foreach(Card card in listData){
-			Debug.Log ("card : " + card.number);
+			Debug.Log ("card : " + card.index);
 			GameObject itemObj = Instantiate(cardObj) as GameObject;
 			NumberCard itemSource = itemObj.GetComponent<NumberCard>();
 
-			itemSource.setData(card.number, card.isOpen, card.index);
+			itemSource.setData(card.isJoker, card.isOpen, card.index);
 			itemSource.selectDelegate += selectNumber;
 
 			itemObj.transform.parent = content.transform;
@@ -78,7 +78,7 @@ public class SelectableCard : MonoBehaviour {
         foreach (GameObject obj in listCards)
         {
             NumberCard card = obj.GetComponent<NumberCard>();
-			if (number == card.getNumber())
+			if (number == card.getIndex())
             {
                 return obj;                
             }

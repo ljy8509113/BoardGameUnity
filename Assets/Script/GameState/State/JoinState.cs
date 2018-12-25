@@ -23,10 +23,6 @@ public class JoinState : BaseState {
         this.gameObject.SetActive(false);
     }
 
-    public override void updateState(ResponseBase res)
-    {
-    }
-
     // Use this for initialization
     void Start () {
 		
@@ -79,7 +75,7 @@ public class JoinState : BaseState {
             birthDay = DateTime.ParseExact(dayStr, "yyyy-MM-dd", null);
             Debug.Log("birthDay : " + birthDay);
 
-            RequestJoin req = new RequestJoin(email.text, Security.Instance().cryption(password.text, false), nickName.text, birthDay);
+            RequestJoin req = new RequestJoin(email.text, nickName.text, Security.Instance().cryption(password.text, false));
             SocketManager.Instance().sendMessage(req);
         }
         catch(Exception e)
@@ -138,5 +134,10 @@ public class JoinState : BaseState {
     {
         yield return new WaitForSeconds(time);
         DialogManager.Instance.DissmissDialog(id);
+    }
+
+    public override void responseString(string identifier, string json)
+    {
+
     }
 }

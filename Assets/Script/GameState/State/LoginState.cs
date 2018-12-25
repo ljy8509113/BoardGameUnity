@@ -55,7 +55,7 @@ public class LoginState : BaseState
             Debug.Log("check email : true // password : " + passwordCryp);
             Debug.Log("password : " + Security.Instance().deCryption(passwordCryp, false));
 
-            RequestLogin login = new RequestLogin(email, passwordCryp, toggleAuto.isOn);
+            RequestLogin login = new RequestLogin(email, passwordCryp);
             SocketManager.Instance().sendMessage(login);
         }
         else
@@ -78,6 +78,7 @@ public class LoginState : BaseState
         Debug.Log("valueChange : " + toggleAuto.isOn);        
     }
     
+    /*
     void loginResult(ResponseLogin res)
     {
         UserManager.Instance().setData(res.email, res.nickName);
@@ -113,6 +114,44 @@ public class LoginState : BaseState
         }
 
         
+    }
+    */
+
+    public override void responseString(string identifier, string json)
+    {
+
+        ResponseLogin res = JsonUtility.FromJson<ResponseLogin>(json);
+        UserManager.Instance().setData(res.email, res.nickName);
+        Debug.Log("email : " + UserManager.Instance().email);
+        Debug.Log("nickName : " + UserManager.Instance().nickName);
+
+        if (res.isAutoLogin)
+        {
+            Debug.Log("login : isAuto");
+            try
+            {
+                string pw = Security.Instance().deCryption(res.password, false);
+                Debug.Log("login pw : " + pw);
+
+                PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
+                PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 1);
+                PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(pw, true));
+
+                RequestGamingUser gaming = new RequestGamingUser();
+                SocketManager.Instance().sendMessage(gaming);
+            }
+            catch (Exception e)
+            {
+                Debug.Log("login error : " + e.Message);
+            }
+        }
+        else
+        {
+            Debug.Log("login : isAuto f");
+            UserManager.Instance().removeData();
+            RequestGamingUser gaming = new RequestGamingUser();
+            SocketManager.Instance().sendMessage(gaming);
+        }
     }
 
 }

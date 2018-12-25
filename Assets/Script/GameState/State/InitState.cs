@@ -12,11 +12,7 @@ public class InitState : BaseState {
     {
         this.gameObject.SetActive(false);
     }
-
-    public override void updateState(ResponseBase res)
-    {
-        
-    }
+    
 	class test{
 		public List<UserGameData> arrayUser;
 		public Dictionary<int, Card> mapFieldCards;

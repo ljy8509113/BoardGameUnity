@@ -9,7 +9,6 @@ public abstract class BaseState : MonoBehaviour {
 
     public abstract void initState(ResponseBase res);
     public abstract void hideState();
-    public abstract void updateState(ResponseBase res);
-
+    
     public abstract void responseString(string identifier, string json);
 }
