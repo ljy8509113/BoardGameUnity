@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class Alert : MonoBehaviour {
 
-    class AlertState
-    {
-        public bool isChange = false;
-        public string message;
-        public bool isTwoButton = false;
-		public bool isShowField = false;
-    }
+    // class AlertState
+    // {
+    //     public bool isChange = false;
+    //     public string message;
+    //     public bool isTwoButton = false;
+	// 	public bool isShowField = false;
+    // }
 
     public Button oneButton;
     public Button buttonCancel;
@@ -22,7 +22,7 @@ public class Alert : MonoBehaviour {
 	public delegate void ButtonResult(bool isOn, string fieldText);
 
     ButtonResult result;
-    AlertState state;
+    // AlertState state;
 
     void Awake()
     {
@@ -87,7 +87,7 @@ public class Alert : MonoBehaviour {
         
     }
 
-	public void setData(string message, bool isTwoButton, ButtonResult result, bool isShowField)
+	public void setData(BaseState.AlertState ButtonResult result)
     {
         this.result = result;
         state.isTwoButton = isTwoButton;

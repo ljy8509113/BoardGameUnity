@@ -21,10 +21,11 @@ public class InitState : BaseState {
 
     bool isConnection = false;
     bool connectionRec = false;
+    GAME_STATE moveState;
 
     // Use this for initialization
-    void Start () {
-
+    override void Start () {
+        base.Start();
         UserManager.Instance().loadData();
         SocketManager.Instance().connection(connection);
         
@@ -41,7 +42,8 @@ public class InitState : BaseState {
     }
 
     // Update is called once per frame
-    void Update () {
+    override void Update () {
+        base.Update();
         // if (connectionRec)
         // {
         //     connectionRec = false;
@@ -74,7 +76,8 @@ public class InitState : BaseState {
                 {
                     
                 }else{
-                    GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
+                    // GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
+                    StateManager.Instance().changeState(GAME_STATE.LOGIN, null);
                 }
             }else{
                 GameManager.Instance().showAlert("서버와의 연결에 실패하였습니다. 잠시후 다시 이용해 주세요.", false, (bool result, string fieldText) => {
@@ -86,11 +89,27 @@ public class InitState : BaseState {
     public void connection(bool isConnection)
     {
         this.isConnection = isConnection;
-        connectionRec = true;        
+        if (UserManager.Instance().isAutoLogin){
+            string password = PlayerPrefs.GetString(Common.KEY_PASSWORD);
+            string decPw = Security.Instance().deCryption(password, true);
+            string sendPw = Security.Instance().cryption(decPw, false);
+            RequestLogin login = new RequestLogin(UserManager.Instance().email, sendPw);
+            SocketManager.Instance().sendMessage(login);
+        }else{
+            moveState = GAME_STATE.LOGIN;
+            connectionRec = true;   
+        }
     }
 
     public override void responseString(string identifier, string json){
-
+        if(identifier.Equals(IDENTIFIER_LOGIN) ){
+            ResponseLogin res = JsonUtility.FromJson<ResponseLogin>(json);
+            if(res.isSuccess()){
+                moveState = GAME_STATE.ROOM_LIST;
+            }else{
+                moveState = GAME_STATE.LOGIN;
+            }
+        }
     }
 
 }
