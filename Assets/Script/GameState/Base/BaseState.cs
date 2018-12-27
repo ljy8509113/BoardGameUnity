@@ -22,29 +22,30 @@ public abstract class BaseState : MonoBehaviour {
     }
 
     virtual void Update(){
-        if(isShowAlert){
+        if(isShowAlert && alert.isShowing == false){
             isShowAlert = false;
             if(listAlert.Count > 0){
                 AlertData data = listAlert[listAlert.LastIndexOf];
-                alert.setData(data.message, data.isTwoButton, alertResult, data.isInput);
+                alert.setData(data, alertResult);
                 alert.showAlert();
             }
-            
-
-
         }
     }
-
-    void checkAlert(string message, bool isTwoButton){
-        // public void setData(string message, bool isTwoButton, ButtonResult result, bool isShowField)
-        
-    }
-    public void showAlert(string message, bool isTwoButton, bool isInput){
-        listAlert.Add( new AlertData(message, isTwoButton, isInput) );
+    
+    public void showAlert(string identifier, string message, bool isTwoButton, bool isInput, ButtonResult callback){
+        listAlert.Add( new AlertData(identifier, message, isTwoButton, isInput, callback) );
         isShowAlert = true;
     }
 
-    public void alertResult(bool isOn, string fieldText){
+    public void alertResult(AlertData data, bool isOn, string fieldText){
+        
+        if(data.callback != null){
+            data.callback(data, isOn, fieldText);
+        }
 
+        listAlert.Remove(data);
+        if(listAlert.Count > 0){
+            isShowAlert = true;
+        }
     }
 }

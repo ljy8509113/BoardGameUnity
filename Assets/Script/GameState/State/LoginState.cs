@@ -11,15 +11,15 @@ public class LoginState : BaseState
    public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
-
-        if(res == null)
-        {
-            toggleAuto.isOn = false;
-        }
-        else
-        {
-            loginResult((ResponseLogin)res);
-        }
+        toggleAuto.isOn = true;
+        // if(res == null)
+        // {
+        //     toggleAuto.isOn = false;
+        // }
+        // else
+        // {
+        //     loginResult((ResponseLogin)res);
+        // }
     }
 
     public override void hideState()
@@ -27,10 +27,10 @@ public class LoginState : BaseState
         this.gameObject.SetActive(false);
     }
 
-    public override void updateState(ResponseBase res)
-    {
-        loginResult((ResponseLogin)res);
-    }
+    // public override void updateState(ResponseBase res)
+    // {
+    //     loginResult((ResponseLogin)res);
+    // }
 
     // Use this for initialization
     void Start()
@@ -43,7 +43,6 @@ public class LoginState : BaseState
     void Update()
     {
     }
-
     public void onLogin()
     {
         string email = fieldEmail.text;
@@ -64,13 +63,26 @@ public class LoginState : BaseState
         }
 
         //SceneChanger.Instance().changeScene("game");
-
     }
 
+    public void autoID(){
+        showAlert("autoId", "임시 계정의 경우 데이터가 동기화 되지 않습니다.", true, false, (AlertData data, bool isOn, string fieldText) => {
+            if(isOn){
+
+            }else{
+
+            }
+        } );
+    }
+
+    void loginAutoID(){
+        
+    }
     public void onJoin()
     {
         //GameController.Instance().changeState(GameController.OBJECT_INDEX.JOIN);
-        GameManager.Instance().stateChange(GameManager.GAME_STATE.JOIN, null);
+        // GameManager.Instance().stateChange(GameManager.GAME_STATE.JOIN, null);
+        StateManager.Instance().changeState(GAME_STATE.JOIN, null);
     }
 
     public void onChangeValue()
@@ -125,33 +137,40 @@ public class LoginState : BaseState
         Debug.Log("email : " + UserManager.Instance().email);
         Debug.Log("nickName : " + UserManager.Instance().nickName);
 
-        if (res.isAutoLogin)
-        {
-            Debug.Log("login : isAuto");
-            try
-            {
-                string pw = Security.Instance().deCryption(res.password, false);
-                Debug.Log("login pw : " + pw);
+        // if (res.isAutoId)
+        // {
+        //     Debug.Log("login : isAuto");
+        //     try
+        //     {
+                // string pw = Security.Instance().deCryption(res.password, false);
+                // Debug.Log("login pw : " + pw);
 
-                PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
-                PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 1);
-                PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(pw, true));
+                // PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
+                // PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 1);
+                // PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(pw, true));
 
-                RequestGamingUser gaming = new RequestGamingUser();
-                SocketManager.Instance().sendMessage(gaming);
-            }
-            catch (Exception e)
-            {
-                Debug.Log("login error : " + e.Message);
-            }
+                // RequestGamingUser gaming = new RequestGamingUser();
+                // SocketManager.Instance().sendMessage(gaming);
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Debug.Log("login error : " + e.Message);
+        //     }
+        // }
+        // else
+        // {
+        //     Debug.Log("login : isAuto f");
+        //     UserManager.Instance().removeData();
+        //     RequestGamingUser gaming = new RequestGamingUser();
+        //     SocketManager.Instance().sendMessage(gaming);
+        // }
+
+        if(res.isAutoId){
+
+        }else{
+
         }
-        else
-        {
-            Debug.Log("login : isAuto f");
-            UserManager.Instance().removeData();
-            RequestGamingUser gaming = new RequestGamingUser();
-            SocketManager.Instance().sendMessage(gaming);
-        }
+
     }
 
 }

@@ -19,14 +19,16 @@ public class Alert : MonoBehaviour {
     public Text textMessage;
 	public InputField field;
 
-	public delegate void ButtonResult(bool isOn, string fieldText);
+	public delegate void ButtonResult(AlertData data, bool isOn, string fieldText);
 
     ButtonResult result;
     // AlertState state;
-
+    public AlertData data;
+    public bool isShowing = false;
     void Awake()
     {
-        state = new AlertState();
+        // state = new AlertState();
+        data = new AlertData();
         this.gameObject.SetActive(false);
     }
 
@@ -64,69 +66,84 @@ public class Alert : MonoBehaviour {
     
     public void showAlert()
     {
-            Debug.Log("alert update in");
-            state.isChange = false;
-            if (state.isTwoButton)
-            {
-                Debug.Log("alert two");
-                buttonCancel.gameObject.SetActive(true);
-                buttonSubmit.gameObject.SetActive(true);
-                oneButton.gameObject.SetActive(false);
-                textMessage.text = state.message;
-            }
-            else
-            {
-                Debug.Log("alert one");
-                buttonCancel.gameObject.SetActive(false);
-                buttonSubmit.gameObject.SetActive(false);
-                oneButton.gameObject.SetActive(true);
-            }
-            textMessage.text = state.message;
-            field.gameObject.SetActive(state.isShowField);
-            this.gameObject.SetActive(true);
-        
+            // Debug.Log("alert update in");
+            // state.isChange = false;
+            // if (state.isTwoButton)
+            // {
+            //     Debug.Log("alert two");
+            //     buttonCancel.gameObject.SetActive(true);
+            //     buttonSubmit.gameObject.SetActive(true);
+            //     oneButton.gameObject.SetActive(false);
+            //     textMessage.text = state.message;
+            // }
+            // else
+            // {
+            //     Debug.Log("alert one");
+            //     buttonCancel.gameObject.SetActive(false);
+            //     buttonSubmit.gameObject.SetActive(false);
+            //     oneButton.gameObject.SetActive(true);
+            // }
+            // textMessage.text = state.message;
+            // field.gameObject.SetActive(state.isShowField);
+            // this.gameObject.SetActive(true);
+        if(data.isTwoButton){
+            //2btn
+            buttonCancel.gameObject.SetActive(true);
+            buttonSubmit.gameObject.SetActive(true);
+            oneButton.gameObject.SetActive(false);
+        }else{
+            //1btn
+            buttonCancel.gameObject.SetActive(false);
+            buttonSubmit.gameObject.SetActive(false);
+            oneButton.gameObject.SetActive(true);
+        }
+        textMessage.text = data.message;
+        field.gameObject.SetActive(data.isShowField);
+        this.gameObject.SetActive(true);
+        isShowing = true;
     }
 
-	public void setData(BaseState.AlertState ButtonResult result)
+	public void setData(AlertData data, ButtonResult result)
     {
         this.result = result;
-        state.isTwoButton = isTwoButton;
-        state.message = message;
-		state.isShowField = isShowField;
-		state.isChange = true;
+        this.data = data;
+        // state.isTwoButton = isTwoButton;
+        // state.message = message;
+		// state.isShowField = isShowField;
+		// state.isChange = true;
 
     }
     
     public void buttonAction(bool isOn)
     {
-		if (result != null) {
-			result(isOn, field.text);
-		}
-        
-		resetAlert ();
+        resetAlert ();
         hide();
+		if (result != null) {
+			result(data, isOn, field.text);
+		}
     }
 
     public void hide()
     {
         this.gameObject.SetActive(false);
+        isShowing = false;
     }
 
-    public void setState(bool isChange)
-    {
-        state.isChange = isChange;
-    }
+    // public void setState(bool isChange)
+    // {
+        // state.isChange = isChange;
+    // }
 
-    public bool getState()
-    {
-        return state.isChange;
-    }
+    // public bool getState()
+    // {
+        // return state.isChange;
+    // }
 
 	void resetAlert(){
-		state.isChange = false;
-		state.isTwoButton = false;
-		state.message = "";
-		state.isShowField = false;
+		// state.isChange = false;
+		// state.isTwoButton = false;
+		// state.message = "";
+		// state.isShowField = false;
 
 		oneButton.gameObject.SetActive(true);
 		buttonCancel.gameObject.SetActive(false);
