@@ -33,16 +33,15 @@ public class LoginState : BaseState
     // }
 
     // Use this for initialization
-    void Start()
-    {
-        fieldEmail.text = "imsi1@gmail.com";
-        fieldPassword.text = "1234";
-    }
+    override void Start () {
+		base.Start();
+	}
+	
+	// Update is called once per frame
+	override void Update () {
+		base.Update();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
     public void onLogin()
     {
         string email = fieldEmail.text;
@@ -65,19 +64,6 @@ public class LoginState : BaseState
         //SceneChanger.Instance().changeScene("game");
     }
 
-    public void autoID(){
-        showAlert("autoId", "임시 계정의 경우 데이터가 동기화 되지 않습니다.", true, false, (AlertData data, bool isOn, string fieldText) => {
-            if(isOn){
-
-            }else{
-
-            }
-        } );
-    }
-
-    void loginAutoID(){
-        
-    }
     public void onJoin()
     {
         //GameController.Instance().changeState(GameController.OBJECT_INDEX.JOIN);
@@ -129,13 +115,20 @@ public class LoginState : BaseState
     }
     */
 
-    public override void responseString(string identifier, string json)
+    public override void responseString(bool isSuccess, string identifier, string json)
     {
 
         ResponseLogin res = JsonUtility.FromJson<ResponseLogin>(json);
         UserManager.Instance().setData(res.email, res.nickName);
         Debug.Log("email : " + UserManager.Instance().email);
         Debug.Log("nickName : " + UserManager.Instance().nickName);
+
+        if(res.isSuccess()){
+            StateManager.Instance().changeState(GAME_STATE.ROOM_LIST, null);
+        }else{
+            showAlert("loginError", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
+            } );
+        }
 
         // if (res.isAutoId)
         // {
@@ -164,12 +157,6 @@ public class LoginState : BaseState
         //     RequestGamingUser gaming = new RequestGamingUser();
         //     SocketManager.Instance().sendMessage(gaming);
         // }
-
-        if(res.isAutoId){
-
-        }else{
-
-        }
 
     }
 

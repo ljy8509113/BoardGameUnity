@@ -108,17 +108,13 @@ public class InitState : BaseState {
             });
         }
     }
-
-    public override void responseString(string identifier, string json){
-        if(identifier.Equals(IDENTIFIER_LOGIN) ){
-            ResponseLogin res = JsonUtility.FromJson<ResponseLogin>(json);
-            if(res.isSuccess()){
-                moveState = GAME_STATE.ROOM_LIST;
-            }else{
-                moveState = GAME_STATE.LOGIN;
-            }
-            connectionRec = true;
+    public override void responseString(bool isSuccess, string identifier, string json){
+        if(isSuccess){
+            moveState = GAME_STATE.ROOM_LIST;
+        }else{
+            moveState = GAME_STATE.LOGIN;
         }
+        connectionRec = true;
     }
 
 }

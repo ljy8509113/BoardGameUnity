@@ -1,11 +1,8 @@
 ﻿public class RequestConnectionRoom : RequestBase {
-
-    public int roomNo;
     public string nickName; 
 
-    public RequestConnectionRoom(int roomNo, string nickName) : base(Common.IDENTIFIER_CONNECT_ROOM)
+    public RequestConnectionRoom(int roomNo, string nickName) : base(Common.IDENTIFIER_CONNECT_ROOM, roomNo)
     {
-        this.roomNo = roomNo;
         this.nickName = nickName;
     }
 }

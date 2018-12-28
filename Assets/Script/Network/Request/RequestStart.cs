@@ -1,9 +1,8 @@
 ﻿
 public class RequestStart : RequestBase {
-    public int roomNo;
     
-    public RequestStart(int roomNo) : base(Common.IDENTIFIER_START)
+    public RequestStart(int gameNo, int roomNo) : base(Common.IDENTIFIER_START, gameNo, roomNo)
     {
-        this.roomNo = roomNo;        
+    
     }
 }

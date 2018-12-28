@@ -17,6 +17,8 @@ public class WaitingRoomState : BaseState {
 
     bool isMaster = false;
     int roomNo;
+
+    bool isUpdate = false;
     
     public override void initState(ResponseBase res)
     {
@@ -31,12 +33,12 @@ public class WaitingRoomState : BaseState {
         this.gameObject.SetActive(false);
     }
 
-    public override void updateState(ResponseBase res)
-    {
-        Debug.Log("updateState res : " + res);
-        setData(res);
-        setButton();
-    }
+    // public override void updateState(ResponseBase res)
+    // {
+    //     Debug.Log("updateState res : " + res);
+    //     setData(res);
+    //     setButton();
+    // }
 
     void Awake()
     {
@@ -51,14 +53,19 @@ public class WaitingRoomState : BaseState {
     }
 
     // Use this for initialization
-    void Start () {
+    override void Start () {
+        base.Start();
         Debug.Log("start --------- ");
         setButton();
     }
 	
 	// Update is called once per frame
-	void Update () {
-		
+	override void Update () {
+		base.Update();
+
+        if(isUpdate){
+            isUpdate = false;
+        }
 	}
 
     public void onReady()
@@ -217,4 +224,44 @@ public class WaitingRoomState : BaseState {
         SocketManager.Instance().sendMessage(req);
     }
 
+    public override void responseString(bool isSuccess, string identifier, string json)
+    {
+        switch (res.identifier)
+        {
+            case Common.IDENTIFIER_CONNECT_ROOM:
+                {
+                    ResponseConnectionRoom resCr = (ResponseConnectionRoom)res;
+                    title.text = resCr.title;
+                    setUsersData(((ResponseConnectionRoom)res).userList);
+                    roomNo = resCr.roomNo;
+                    UserManager.Instance().connectedRoom(roomNo);
+                }
+                break;
+            case Common.IDENTIFIER_READY:
+                {
+                    ResponseReady resReady = (ResponseReady)res;
+                    for(int i=0; i<listUsers.Count; i++)
+                    {
+                        if (resReady.email.Equals(listUsers[i].email))
+                        {
+							listUsers[i].state = resReady.isReady == true ? (int)Common.USER_STATE.READY : (int)Common.USER_STATE.NONE;
+                        }
+                    }
+                    setUsersData(listUsers);
+                }
+                break;
+            case Common.IDENTIFIER_OUT_ROOM:
+                {
+                    UserManager.Instance().outRoom();
+                    GameManager.Instance().stateChange(GameManager.GAME_STATE.ROOM_LIST, null);                    
+                }
+                break;
+            case Common.IDENTIFIER_ROOM_USERS:
+                {
+                    ResponseRoomUsers resUsers = (ResponseRoomUsers)res;
+                    setUsersData(resUsers.userList);
+                }
+                break;
+        }
+    }
 }

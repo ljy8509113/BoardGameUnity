@@ -21,19 +21,20 @@ public class RoomListState : BaseState
     int current = 1;
     int maxCount = 0;
 
+    bool isUpdateList = false;
     
     public override void initState(ResponseBase res)
     {
         this.gameObject.SetActive(true);
-        if(res != null)
-        {
-            updateRoomList(res);
-        }
-        else
-        {
-            RequestRoomList req = new RequestRoomList(1, Common.LIST_COUNT);
-            SocketManager.Instance().sendMessage(req);
-        }
+        // if(res != null)
+        // {
+        //     updateRoomList(res);
+        // }
+        // else
+        // {
+        //     RequestRoomList req = new RequestRoomList(1, Common.LIST_COUNT);
+        //     SocketManager.Instance().sendMessage(req);
+        // }
     }
     
     public override void hideState()
@@ -41,21 +42,82 @@ public class RoomListState : BaseState
         this.gameObject.SetActive(false);
     }
 
-    public override void updateState(ResponseBase res)
+    // public override void updateState(ResponseBase res)
+    // {
+    //     updateRoomList(res);
+    // }
+
+    // void updateRoomList(ResponseBase res)
+    // {
+    //     ResponseRoomList resRoomList = (ResponseRoomList)res;
+    //     current = resRoomList.current;
+    //     maxCount = resRoomList.max;
+
+    //     if (resRoomList.list != null && resRoomList.list.Count > 0)
+    //     {
+    //         roomDataList = resRoomList.list;
+
+    //         int currentCount = current * Common.LIST_COUNT;
+
+    //         if (currentCount > maxCount)
+    //             currentCount = maxCount;
+
+    //         bottomNaviText.text = currentCount + "/" + maxCount;
+    //         for (int i = 0; i < Common.LIST_COUNT; i++)
+    //         {
+    //             if (i < roomDataList.Count)
+    //             {
+    //                 listItem[i].SetActive(true);
+    //                 ResponseRoomList.Room room = roomDataList[i];
+    //                 listItem[i].GetComponent<RoomItem>().setData(room);
+    //             }
+    //             else
+    //             {
+    //                 listItem[i].SetActive(false);
+    //             }
+    //         }
+    //     }
+    //     else
+    //     {
+    //         //목록없음
+    //     }
+    // }
+
+    void Awake()
     {
-        updateRoomList(res);
+
     }
 
-    void updateRoomList(ResponseBase res)
+    override void Start()
     {
-        ResponseRoomList resRoomList = (ResponseRoomList)res;
-        current = resRoomList.current;
-        maxCount = resRoomList.max;
-
-        if (resRoomList.list != null && resRoomList.list.Count > 0)
+        base.Start();
+        for (int i = 0; i < Common.LIST_COUNT; i++)
         {
-            roomDataList = resRoomList.list;
+            GameObject item = Instantiate(roomItem) as GameObject;
+            RoomItem itemSource = item.GetComponent<RoomItem>();
+            itemSource.delegateClick += onClick;
+            itemSource.setIndex(i);
+            item.SetActive(false);
+            listItem.Add(item);
+            item.transform.parent = content.transform;
+        }
 
+        //httpManager = httpManagerObj.GetComponent<HttpManager>();
+
+    }
+
+    override void Update()
+    {
+       base.Update();
+
+       if(isUpdateList){
+           isUpdateList = false;
+           updateRoomList();
+       }
+    }
+    
+    void updateRoomList(){
+        if(roomDataList != null && roomDataList.Count > 0){
             int currentCount = current * Common.LIST_COUNT;
 
             if (currentCount > maxCount)
@@ -74,43 +136,11 @@ public class RoomListState : BaseState
                 {
                     listItem[i].SetActive(false);
                 }
-
             }
-
-        }
-        else
-        {
+        }else{
             //목록없음
         }
     }
-
-    void Awake()
-    {
-
-    }
-
-    void Start()
-    {
-        for (int i = 0; i < Common.LIST_COUNT; i++)
-        {
-            GameObject item = Instantiate(roomItem) as GameObject;
-            RoomItem itemSource = item.GetComponent<RoomItem>();
-            itemSource.delegateClick += onClick;
-            itemSource.setIndex(i);
-            item.SetActive(false);
-            listItem.Add(item);
-            item.transform.parent = content.transform;
-        }
-
-        //httpManager = httpManagerObj.GetComponent<HttpManager>();
-
-    }
-
-    void Update()
-    {
-       
-    }
-    
     
     public void onClick(ResponseRoomList.Room item)
     {
@@ -121,14 +151,20 @@ public class RoomListState : BaseState
 			RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName);
 			SocketManager.Instance().sendMessage(req);
 		} else {
-            GameManager.Instance ().showAlert ("비밀번호를 입력해주세요.", true, (bool result, string fieldText) => {
-				if(result){
-					RequestRoomPassword req = new RequestRoomPassword(item.no, fieldText);
-					SocketManager.Instance().sendMessage(req);
-				}else{
+            // GameManager.Instance ().showAlert ("비밀번호를 입력해주세요.", true, (bool result, string fieldText) => {
+			// 	if(result){
+			// 		RequestRoomPassword req = new RequestRoomPassword(item.no, fieldText);
+			// 		SocketManager.Instance().sendMessage(req);
+			// 	}else{
 				
-				}
-			}, true);
+			// 	}
+			// }, true);
+            showAlert("connectPasswd", "비밀번호를 입력해주세요.", true, true, (AlertData data, bool isOn, string fieldText) => {
+                if(isOn){
+                    RequestRoomPassword req = new RequestRoomPassword(item.no, fieldText);
+                    SocketManager.Instance().sendMessage(req);
+                }        
+            } );
 		}
     }
 
@@ -166,7 +202,8 @@ public class RoomListState : BaseState
 
     public void onCreateRoom()
     {
-        GameManager.Instance().stateChange(GameManager.GAME_STATE.CREATE_ROOM, null);
+        // GameManager.Instance().stateChange(GameManager.GAME_STATE.CREATE_ROOM, null);
+        StateManager.Instance().changeState(GAME_STATE.CREATE_ROOM, null);
     }
 
     public void onReflush()
@@ -174,5 +211,26 @@ public class RoomListState : BaseState
         RequestRoomList req = new RequestRoomList(current, Common.LIST_COUNT);
         SocketManager.Instance().sendMessage(req);
     }
+
+    public override void responseString(bool isSuccess, string identifier, string json)
+    {
+        if(isSuccess){
+            if(identifier.Equals(Common.IDENTIFIER_GAME_ROOM_LIST)){
+                ResponseRoomList res = JsonUtility.FromJson<ResponseRoomList>(json);
+                roomDataList = res.list;
+                current = res.current;
+                maxCount = res.max;
+                isUpdateList = true;
+            }else if(identifier.Equals(Common.IDENTIFIER_CONNECT_ROOM)){
+                ResponseConnectionRoom res = JsonUtility.FromJson<ResponseConnectionRoom>(json);
+                StateManager.Instance().changeState(GAME_STATE.WAITING_ROOM, res);
+            }
+        }else{
+            showAlert("error", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
+            } );
+        }
+        
+    }
+
 }
 

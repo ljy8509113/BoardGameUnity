@@ -20,10 +20,10 @@ public class CreateRoomState : BaseState {
         this.gameObject.SetActive(false);
     }
 
-    public override void updateState(ResponseBase res)
-    {
-        GameManager.Instance().stateChange(GameManager.GAME_STATE.WAITING_ROOM, res);
-    }
+    // public override void updateState(ResponseBase res)
+    // {
+    //     GameManager.Instance().stateChange(GameManager.GAME_STATE.WAITING_ROOM, res);
+    // }
 
     // Use this for initialization
     void Start () {
@@ -66,6 +66,11 @@ public class CreateRoomState : BaseState {
     {
         Debug.Log("valueChange : " + buttonToggle.isOn);
         passwordField.enabled = buttonToggle.isOn;        
+    }
+
+    public override void responseString(bool isSuccess, string identifier, string json)
+    {
+
     }
 
 }

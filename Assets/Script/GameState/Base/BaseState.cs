@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseState : MonoBehaviour {
+    public enum GAME_STATE
+    {
+        INIT = 0,
+        LOGIN,
+        JOIN,
+        ROOM_LIST,
+        CREATE_ROOM,
+        WAITING_ROOM
+    }
+
     [SerializeField]
     public GAME_STATE state;
     public Alert alert;
@@ -15,7 +25,7 @@ public abstract class BaseState : MonoBehaviour {
     public abstract void initState(ResponseBase res);
     public abstract void hideState();
     
-    public abstract void responseString(string identifier, string json);
+    public abstract void responseString(bool isSuccess, string identifier, string json);
 
     virtual void Start(){
 

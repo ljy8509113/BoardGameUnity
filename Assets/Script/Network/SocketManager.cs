@@ -24,7 +24,7 @@ public class SocketManager
     byte[] buffer = new byte[BUFFER_SIZE];
     Socket socket;
 
-    public delegate void ResponseResultDelegate(string identifier, string result);
+    public delegate void ResponseResultDelegate(bool isSuccess, string identifier, string result);
     public ResponseResultDelegate resDelegate = null;
     public delegate void isConnection(bool isConnection);
     public isConnection socketDelegate = null;
@@ -121,7 +121,7 @@ public class SocketManager
                     Console.WriteLine("response : " + stringTransferred);
                     
                     ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
-                    resDelegate(result.identifier, stringTransferred);
+                    resDelegate(result.isSuccess(), result.identifier, stringTransferred);
 
                     current += (sizeByte.Length + dataBytes.Length);
 
