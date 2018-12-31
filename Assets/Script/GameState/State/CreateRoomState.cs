@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class CreateRoomState : BaseState {
 
     public InputField titleField;
-    public Dropdown dropDownUserCount;
+    public Dropdown dropDownGame;
     public InputField passwordField;
     public Toggle buttonToggle;
 
@@ -28,6 +28,7 @@ public class CreateRoomState : BaseState {
     // Use this for initialization
     void Start () {
         passwordField.enabled = false;
+        dropDownGame.options.Clear();
 	}
 	
 	// Update is called once per frame
@@ -44,7 +45,9 @@ public class CreateRoomState : BaseState {
         
         if(title == "")
         {
-            GameManager.Instance().showAlert("제목을 입력해주세요.", false, null, false);
+            // GameManager.Instance().showAlert("제목을 입력해주세요.", false, null, false);
+            showAlert("errorTitle", "제목을 입력해주세요.", false, false, (AlertData data, bool isOn, string fieldText) => {
+            } );
             return;
         }
 
@@ -52,12 +55,15 @@ public class CreateRoomState : BaseState {
         {
             if(passwordField.text.Length < 1)
             {
-                GameManager.Instance().showAlert("비밀번호를 입력해주세요.", false, null, false);
+                // GameManager.Instance().showAlert("비밀번호를 입력해주세요.", false, null, false);
+                showAlert("errorPassword", "비밀번호를 입력해주세요.", false, false, (AlertData data, bool isOn, string fieldText) => {
+                } );
                 return;
             }
         }
 
-        RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title, UserManager.Instance().nickName, passwordField.text);
+        // RequestCreateRoom cr = new RequestCreateRoom(maxUserCount, title, UserManager.Instance().nickName, passwordField.text);
+        RequestCreateRoom cr = new RequestCreateRoom(titleField.text, UserManager.Instance().nickName, passwordField.text, Common.GAME_NO);
         SocketManager.Instance().sendMessage(cr);
         
     }
@@ -70,7 +76,13 @@ public class CreateRoomState : BaseState {
 
     public override void responseString(bool isSuccess, string identifier, string json)
     {
-
+        ResponseCreateRoom res = JsonUtility.FromJson<ResponseCreateRoom>(json);
+        if(isSuccess){
+            StateManager.Instance().changeState(GAME_STATE.WAITING_ROOM, res);
+        }else{
+            showAlert("errorCreate", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
+                } );
+        }
     }
 
 }

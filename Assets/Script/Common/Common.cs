@@ -5,6 +5,7 @@ public class Common {
     public const int NO_DATA = -1;
 
     //game before
+    public const string IDENTIFIER_GANE_LIST 		= "game_list";
     public const string IDENTIFIER_GAME_ROOM_LIST   = "game_room_list";
     public const string IDENTIFIER_GAMING_USER      = "gaming_user";
     public const string IDENTIFIER_CONNECT_ROOM     = "connection_room";

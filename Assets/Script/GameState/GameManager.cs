@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public enum GAME_STATE
-    {
-        INIT = 0,
-        LOGIN,
-        JOIN,
-        ROOM_LIST,
-        CREATE_ROOM,
-        WAITING_ROOM
-    }
+    
 
     public Alert alert;
 
