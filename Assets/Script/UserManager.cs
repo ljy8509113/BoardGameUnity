@@ -18,7 +18,7 @@ public class UserManager
     public string email;
     public string nickName;
     public bool isAutoLogin;
-    
+    public int roomNo = Common.NO_DATA;
     // public int roomNo = Common.NO_DATA;
     // public bool isMaster = false;
 

@@ -204,6 +204,7 @@ public class RoomListState : BaseState
     {
         // GameManager.Instance().stateChange(GameManager.GAME_STATE.CREATE_ROOM, null);
         StateManager.Instance().changeState(GAME_STATE.CREATE_ROOM, null);
+        
     }
 
     public void onReflush()

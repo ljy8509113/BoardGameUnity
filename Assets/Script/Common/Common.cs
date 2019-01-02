@@ -1,7 +1,13 @@
 ﻿using System.Text.RegularExpressions;
 
 public class Common {
-    public const int GAME_NO = 1;
+
+    public enum GAME_KINDS
+    {
+        DAVINCICODE = 1
+    }
+
+    // public const int GAME_NO = 1;
     public const int NO_DATA = -1;
 
     //game before

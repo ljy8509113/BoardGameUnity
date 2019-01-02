@@ -10,7 +10,8 @@ public abstract class BaseState : MonoBehaviour {
         JOIN,
         ROOM_LIST,
         CREATE_ROOM,
-        WAITING_ROOM
+        WAITING_ROOM,
+        PLAYING
     }
 
     [SerializeField]
@@ -27,8 +28,9 @@ public abstract class BaseState : MonoBehaviour {
     
     public abstract void responseString(bool isSuccess, string identifier, string json);
 
+    virtual void Awake(){
+    }
     virtual void Start(){
-
     }
 
     virtual void Update(){
