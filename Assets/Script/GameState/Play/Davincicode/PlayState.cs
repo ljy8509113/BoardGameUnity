@@ -64,9 +64,9 @@ public class PlayState : BaseState {
         base.Update();
         if(isUpdate){
             isUpdate = false;
-
-            switch(PLAY_STATE){
+            switch(state){
                 case PLAY_STATE.INIT :
+                //ㅋㅏ드 선택
                 break;
                 case PLAY_STATE.WAITING:
                 break;
@@ -74,7 +74,10 @@ public class PlayState : BaseState {
                 break;
                 case PLAY_STATE.GAME_OVER:
                 break;
+                default:
+                break;
             }
+            
         }
     }
 

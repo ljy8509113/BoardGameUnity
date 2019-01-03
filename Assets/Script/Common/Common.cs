@@ -27,7 +27,8 @@ public class Common {
 
     //game play
     public const string IDENTIFIER_INIT_GAME        = "init_game";
-    public const string IDENTIFIER_SELECT_NUMBER	= "select_number";
+    public const string IDENTIFIER_SELECT_FIELD_CARD	= "select_field_card";
+	public const string IDENTIFIER_SELECT_USER_CARD	= "select_user_card";
 	public const string IDENTIFIER_TURN				= "turn";
 	public const string IDENTIFIER_GAME_CARD_INFO	= "game_card_info";
 	public const string IDENTIFIER_OPEN_CARD		= "open_card";
