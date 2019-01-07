@@ -30,8 +30,8 @@ public class RoomItem : MonoBehaviour {
     {
         this.roomInfo = roomInfo;
         txtTitle.text = this.roomInfo.title;
-        txtUserCount.text = this.roomInfo.currentUser + "/" + this.roomInfo.maxUser;
-		txtMasterNickName.text = roomInfo.masterUserNickName;
+        txtUserCount.text = this.roomInfo.maxUser + ""; //this.roomInfo.currentUser + "/" + this.roomInfo.maxUser;
+        txtMasterNickName.text = roomInfo.masterUserNickName;
     }
 
     public void setIndex(int index)

@@ -6,20 +6,13 @@ public class LoginState : BaseState
 {
     public InputField fieldEmail;
     public InputField fieldPassword;
-    public Toggle toggleAuto;
+    //public Toggle toggleAuto;
 
-   public override void initState(ResponseBase res)
+    public override void initState(ResponseBase res)
     {
+        base.initState(res);
         this.gameObject.SetActive(true);
-        toggleAuto.isOn = true;
-        // if(res == null)
-        // {
-        //     toggleAuto.isOn = false;
-        // }
-        // else
-        // {
-        //     loginResult((ResponseLogin)res);
-        // }
+        //toggleAuto.isOn = true;
     }
 
     public override void hideState()
@@ -27,18 +20,13 @@ public class LoginState : BaseState
         this.gameObject.SetActive(false);
     }
 
-    // public override void updateState(ResponseBase res)
-    // {
-    //     loginResult((ResponseLogin)res);
-    // }
-
     // Use this for initialization
-    override void Start () {
+    public override void Start () {
 		base.Start();
 	}
-	
-	// Update is called once per frame
-	override void Update () {
+
+    // Update is called once per frame
+    public override void Update () {
 		base.Update();
 	}
 
@@ -58,7 +46,10 @@ public class LoginState : BaseState
         }
         else
         {
-            Debug.Log("check email : " + false);
+            //Debug.Log("check email : " + false);
+            showAlert("emailError", "email 형식이 올바르지 않습니다.", false, false, (AlertData data, bool isOn, string fieldText) =>
+            {
+            });
         }
 
         //SceneChanger.Instance().changeScene("game");
@@ -66,99 +57,28 @@ public class LoginState : BaseState
 
     public void onJoin()
     {
-        //GameController.Instance().changeState(GameController.OBJECT_INDEX.JOIN);
-        // GameManager.Instance().stateChange(GameManager.GAME_STATE.JOIN, null);
         StateManager.Instance().changeState(GAME_STATE.JOIN, null);
     }
-
-    public void onChangeValue()
-    {
-        Debug.Log("valueChange : " + toggleAuto.isOn);        
-    }
-    
-    /*
-    void loginResult(ResponseLogin res)
-    {
-        UserManager.Instance().setData(res.email, res.nickName);
-        Debug.Log("email : " + UserManager.Instance().email);
-        Debug.Log("nickName : " + UserManager.Instance().nickName);
-
-        if (res.isAutoLogin)
-        {
-            Debug.Log("login : isAuto");
-            try
-            {
-                string pw = Security.Instance().deCryption(res.password, false);
-                Debug.Log("login pw : " + pw);
-                
-                PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
-                PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 1);
-                PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(pw, true));
-
-                RequestGamingUser gaming = new RequestGamingUser();
-                SocketManager.Instance().sendMessage(gaming);
-            }
-            catch (Exception e)
-            {
-                Debug.Log("login error : " + e.Message);
-            }
-        }
-        else
-        {
-            Debug.Log("login : isAuto f");
-			UserManager.Instance ().removeData ();
-            RequestGamingUser gaming = new RequestGamingUser();
-            SocketManager.Instance().sendMessage(gaming);
-        }
-
-        
-    }
-    */
 
     public override void responseString(bool isSuccess, string identifier, string json)
     {
 
         ResponseLogin res = JsonUtility.FromJson<ResponseLogin>(json);
-        UserManager.Instance().setData(res.email, res.nickName);
+        UserManager.Instance().setData(res.email, fieldPassword.text, res.nickName);
         Debug.Log("email : " + UserManager.Instance().email);
         Debug.Log("nickName : " + UserManager.Instance().nickName);
 
-        if(res.isSuccess()){
+        if (res.isSuccess())
+        {
             StateManager.Instance().changeState(GAME_STATE.ROOM_LIST, null);
-        }else{
-            showAlert("loginError", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
-            } );
         }
-
-        // if (res.isAutoId)
-        // {
-        //     Debug.Log("login : isAuto");
-        //     try
-        //     {
-                // string pw = Security.Instance().deCryption(res.password, false);
-                // Debug.Log("login pw : " + pw);
-
-                // PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
-                // PlayerPrefs.SetInt(Common.KEY_AUTO_LOGIN, 1);
-                // PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(pw, true));
-
-                // RequestGamingUser gaming = new RequestGamingUser();
-                // SocketManager.Instance().sendMessage(gaming);
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         Debug.Log("login error : " + e.Message);
-        //     }
-        // }
-        // else
-        // {
-        //     Debug.Log("login : isAuto f");
-        //     UserManager.Instance().removeData();
-        //     RequestGamingUser gaming = new RequestGamingUser();
-        //     SocketManager.Instance().sendMessage(gaming);
-        // }
-
+        else
+        {
+            Debug.Log("loginError");
+            showAlert("loginError", res.message, false, false, (AlertData data, bool isOn, string fieldText) =>
+            {
+            });
+        }
     }
-
 }
 

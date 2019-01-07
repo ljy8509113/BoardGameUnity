@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
 
 public class CreateRoomState : BaseState {
 
@@ -12,8 +14,11 @@ public class CreateRoomState : BaseState {
     
     public override void initState(ResponseBase res)
     {
+        base.initState(res);
         this.gameObject.SetActive(true);
         buttonToggle.isOn = false;
+        RequestGameList req = new RequestGameList();
+        SocketManager.Instance().sendMessage(req);
     }
     
     public override void hideState()
@@ -27,16 +32,15 @@ public class CreateRoomState : BaseState {
     // }
 
     // Use this for initialization
-    override void Start () {
+    public override void Start()
+    {
         base.Start();
         passwordField.enabled = false;
         dropDownGame.options.Clear();
-        RequestGameList req = new RequestGameList();
-        SocketManager.Instance().sendMessage(req);
-	}
+    }
 	
 	// Update is called once per frame
-	override void Update () {		
+	public override void Update () {		
         base.Update();
         if(isUpdate){
             isUpdate = false;
@@ -51,7 +55,7 @@ public class CreateRoomState : BaseState {
     public void makeRoom()
     {
         Debug.Log("title : " + titleField.text);
-        Debug.Log("user : " + dropDownUserCount.options[dropDownUserCount.value].text);
+        //Debug.Log("user : " + dropDownUserCount.options[dropDownUserCount.value].text);
 
         string title = titleField.text;
         // int maxUserCount = int.Parse(dropDownUserCount.options[dropDownUserCount.value].text);
@@ -115,11 +119,12 @@ public class CreateRoomState : BaseState {
                 case Common.IDENTIFIER_CREATE_ROOM:
                 {
                     ResponseCreateRoom res = JsonUtility.FromJson<ResponseCreateRoom>(json);
-                    StateManager.Instance().changeState(GAME_STATE.WAITING_ROOM, res);
+                    StateManager.Instance().changeState(BaseState.GAME_STATE.WAITING_ROOM, res);
                 }
                 break;
             }
         }else{
+            ResponseBase res = JsonUtility.FromJson<ResponseBase>(json);
             showAlert("errorCreate", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
                 } );
         }

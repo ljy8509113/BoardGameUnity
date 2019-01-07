@@ -41,8 +41,8 @@ public class SelectableCard : MonoBehaviour {
 
     public void selectNumber(int number)
     {
-        RequestSelectNumber req = new RequestSelectNumber(number);
-        SocketManager.Instance().sendMessage(req);
+        //RequestSelectNumber req = new RequestSelectNumber(number);
+        //SocketManager.Instance().sendMessage(req);
     }
 
     public void selectResult(bool isSuccess, int number)

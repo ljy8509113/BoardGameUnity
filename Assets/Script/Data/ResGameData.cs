@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿[System.Serializable]
 public class ResGameData
 {
 	public string title;

@@ -17,6 +17,7 @@ public class LoadingManager : MonoBehaviour {
     private void Start()
     {
         StartCoroutine(LoadScene());
+        /*
         if (nextScene.Equals("game"))
         {
             if (UserManager.Instance().isMaster)
@@ -25,6 +26,7 @@ public class LoadingManager : MonoBehaviour {
                 SocketManager.Instance().sendMessage(req);
             }            
         }
+        */
     }
    
     public static void LoadScene(string sceneName)
@@ -35,10 +37,12 @@ public class LoadingManager : MonoBehaviour {
 
     public static void resMessage(string res)
     {
+        /*
         ResponseInitGame resObj = JsonUtility.FromJson<ResponseInitGame>(res);
         //CardController.Instance().setCardInfo(resObj.cardInfo);
 		CardController.Instance().setCardInfo(resObj.arrayUser, resObj.arrayFieldCards);
         isStart = true;
+        */
     }
     
     IEnumerator LoadScene()

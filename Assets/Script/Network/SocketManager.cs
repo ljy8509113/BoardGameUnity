@@ -44,7 +44,7 @@ public class SocketManager
         {
             socketDelegate += con;
             //socket.Connect(ip, port);
-            IPAddress ipAddress = IPAddress.Parse("192.168.0.82");//IPAddress.Parse(GameManager.Instance().getIp());
+            IPAddress ipAddress = IPAddress.Parse("210.94.67.12");//IPAddress.Parse(GameManager.Instance().getIp());
             IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
 
             //socket.Blocking = false;
@@ -79,13 +79,13 @@ public class SocketManager
 
             // Complete the connection.  
             socket.EndConnect(ar);
-            Console.WriteLine("Socket connected to " + socket.RemoteEndPoint.ToString());
+            UnityEngine.Debug.Log("Socket connected to " + socket.RemoteEndPoint.ToString());
             socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
             socketDelegate(true);
         }
         catch (Exception e)
         {
-            Console.WriteLine("connectionCallback : " + e.Message);
+            UnityEngine.Debug.Log("connectionCallback : " + e.Message);
             socketDelegate(false);
         }
     }
@@ -101,8 +101,21 @@ public class SocketManager
         try
         {
             length = socket.EndReceive(ar);
-            Console.WriteLine("1 receive : " + length);
+            UnityEngine.Debug.Log("1 receive : " + length);
 
+            lock (lockObject)
+            {
+                string stringTransferred = Encoding.UTF8.GetString(buffer, 0, length);
+                UnityEngine.Debug.Log("response : " + stringTransferred);
+                ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
+                resDelegate(result.isSuccess(), result.identifier, stringTransferred);
+                //resDelegate(result.identifier, stringTransferred);
+
+                buffer = new byte[BUFFER_SIZE];
+                socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
+            }
+
+            /*
             int current = 0;
 
             while (current < length)
@@ -113,13 +126,14 @@ public class SocketManager
                     // socket.Receive(sizeByte, 0, 2, SocketFlags.None);
                     Array.Copy(buffer, sizeByte, 2);
                     int size = BitConverter.ToUInt16(sizeByte, 0);
-                    Console.WriteLine("size : " + size);
                     byte[] dataBytes = new byte[size];
                     // socket.Receive(dataBytes, 0, size, SocketFlags.None);    
                     Array.Copy(buffer, 2, dataBytes, 0, size);
                     string stringTransferred = Encoding.UTF8.GetString(dataBytes);
-                    Console.WriteLine("response : " + stringTransferred);
-                    
+                    //Console.WriteLine("response : " + stringTransferred);
+
+                    UnityEngine.Debug.Log("response : " + stringTransferred);
+
                     ResponseBase result = JsonUtility.FromJson<ResponseBase>(stringTransferred);
                     resDelegate(result.isSuccess(), result.identifier, stringTransferred);
 
@@ -130,7 +144,7 @@ public class SocketManager
                         socket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, m_fnReceiveHandler, socket);
                     }
                 }
-            }
+            }*/
         }
         catch (Exception e)
         {
@@ -152,7 +166,7 @@ public class SocketManager
     public void sendMessage(object obj)
     {
         string msg = JsonUtility.ToJson(obj);
-        Console.WriteLine("sendMessage : " + msg);
+        UnityEngine.Debug.Log("sendMessage : " + msg);
 
         if (socket.Connected)
         {
@@ -172,7 +186,7 @@ public class SocketManager
         }
         else
         {
-            Console.WriteLine("not connection");
+            UnityEngine.Debug.Log("not connection");
         }
     }
 

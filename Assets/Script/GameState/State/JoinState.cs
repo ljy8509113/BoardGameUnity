@@ -9,12 +9,10 @@ public class JoinState : BaseState {
     public InputField email;
     public InputField password;
     public InputField nickName;
-    // public InputField year;
-    // public InputField month;
-    // public InputField day;
-
+    
     public override void initState(ResponseBase res)
     {
+        base.initState(res);
         this.gameObject.SetActive(true);
     }
 
@@ -24,12 +22,12 @@ public class JoinState : BaseState {
     }
 
     // Use this for initialization
-    override void Start () {
+    public override void Start () {
 		base.Start();
 	}
 	
 	// Update is called once per frame
-	override void Update () {
+	public override void Update () {
 		base.Update();
 	}
     
@@ -38,7 +36,7 @@ public class JoinState : BaseState {
             if(isOn){
                 if(nickName.text.Length < 2)
                 {
-                    showAlert("errorJoin", "닉네임은 최소 2글자 이상 입력하셔야합니다.", false, false, (AlertData data, bool isOn, string fieldText) => {
+                    showAlert("errorJoin", "닉네임은 최소 2글자 이상 입력하셔야합니다.", false, false, (AlertData d, bool i, string ft) => {
                     } );
                 }else{
                     RequestJoin req = new RequestJoin("auto", nickName.text, "imsi1234");
@@ -87,73 +85,17 @@ public class JoinState : BaseState {
             return;
         }
 
-        string password = Security.Instance().cryption(password.text, false);
-        RequestJoin req = new RequestJoin(email.text, nickName.text, password);
+        string passwordStr = Security.Instance().cryption(password.text, false);
+        RequestJoin req = new RequestJoin(email.text, nickName.text, passwordStr);
         SocketManager.Instance().sendMessage(req);
-
-        // DateTime birthDay = new DateTime();
-        // string dayStr;
-        // try
-        // {
-        //     dayStr = year.text + "-" + String.Format("{0,2}", int.Parse(month.text).ToString("D2")) + "-" + String.Format("{0,2}", int.Parse(day.text).ToString("D2"));
-        //     birthDay = DateTime.ParseExact(dayStr, "yyyy-MM-dd", null);
-        //     Debug.Log("birthDay : " + birthDay);
-
-        //     RequestJoin req = new RequestJoin(email.text, nickName.text, Security.Instance().cryption(password.text, false));
-        //     SocketManager.Instance().sendMessage(req);
-        // }
-        // catch(Exception e)
-        // {
-        //     Debug.Log("날짜 파싱 실패 : " + e.Message );
-        //     DialogManager.Instance.ShowSubmitDialog("날짜 입력 형식이 잘못되었습니다.", (bool result) => {
-        //     });
-        //     return;
-        // }
-        
         
     }
 
     public void cancel()
     {
-        //GameController.Instance().changeState(GameController.OBJECT_INDEX.LOGIN);
-        // GameManager.Instance().stateChange(GameManager.GAME_STATE.LOGIN, null);
         StateManager.Instance().changeState(GAME_STATE.LOGIN, null);
     }
     
-    //void OnGUI()
-    //{
-    //    if (GUILayout.Button("aaa", GUILayout.MinWidth(200), GUILayout.MinHeight(100)))
-    //    {
-    //        DialogManager.Instance.ShowSelectDialog("aaa", (bool result) => {
-    //            Debug.Log("aaa" + result);
-    //        });
-    //    }
-    //    if (GUILayout.Button("bbb", GUILayout.MinWidth(200), GUILayout.MinHeight(100)))
-    //    {
-    //        DialogManager.Instance.ShowSelectDialog("b title", "bbb", (bool result) => {
-    //            Debug.Log("bbb" + result);
-    //        });
-    //    }
-    //    if (GUILayout.Button("ccc", GUILayout.MinWidth(200), GUILayout.MinHeight(100)))
-    //    {
-    //        DialogManager.Instance.ShowSubmitDialog("ccc", (bool result) => {
-    //            Debug.Log("ccc");
-    //        });
-    //    }
-    //    if (GUILayout.Button("ddd", GUILayout.MinWidth(200), GUILayout.MinHeight(100)))
-    //    {
-    //        DialogManager.Instance.ShowSubmitDialog("d title", "ddd", (bool result) => {
-    //            Debug.Log("ddd");
-    //        });
-    //    }
-    //    if (GUILayout.Button("eee auto dissmiss", GUILayout.MinWidth(200), GUILayout.MinHeight(100)))
-    //    {
-    //        int id = DialogManager.Instance.ShowSelectDialog("eee", (bool result) => {
-    //            Debug.Log("eee" + result);
-    //        });
-    //        StartCoroutine(dissmiss(id, 3f));
-    //    }
-    //}
 
     IEnumerator dissmiss(int id, float time)
     {
@@ -163,13 +105,14 @@ public class JoinState : BaseState {
 
     public override void responseString(bool isSuccess, string identifier, string json)
     {
+        
         if(identifier.Equals(Common.IDENTIFIER_JOIN)){
             ResponseJoin res = JsonUtility.FromJson<ResponseJoin>(json);
             if(res.isSuccess()){
-                string pw =  Security.Instance().deCryption(res.password, false);
-                PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
-                PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(pw, true));
-
+                //string pw =  Security.Instance().deCryption(res.password, false);
+                //PlayerPrefs.SetString(Common.KEY_EMAIL, res.email);
+                //PlayerPrefs.SetString(Common.KEY_PASSWORD, Security.Instance().cryption(pw, true));
+                UserManager.Instance().setData(res.email, password.text, res.nickName);
                 RequestLogin login = new RequestLogin(res.email, res.password);
                 SocketManager.Instance().sendMessage(login);
             }else{
@@ -180,8 +123,8 @@ public class JoinState : BaseState {
         }else if(identifier.Equals(Common.IDENTIFIER_LOGIN)){
             ResponseLogin res = JsonUtility.FromJson<ResponseLogin>(json);
             if(res.isSuccess()){
-                UserManager.Instance().setData(res.email, res.nickName);
-                StateManager.Instance().changeState(GAME_STATE.GAME_LIST);
+                //UserManager.Instance().setData(res.email, res.nickName);
+                StateManager.Instance().changeState(BaseState.GAME_STATE.ROOM_LIST, null);
             }else{
                 showAlert("errorLogin", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
                 

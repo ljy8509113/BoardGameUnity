@@ -25,6 +25,7 @@ public class RoomListState : BaseState
     
     public override void initState(ResponseBase res)
     {
+        base.initState(res);
         this.gameObject.SetActive(true);
         // if(res != null)
         // {
@@ -35,6 +36,22 @@ public class RoomListState : BaseState
         //     RequestRoomList req = new RequestRoomList(1, Common.LIST_COUNT);
         //     SocketManager.Instance().sendMessage(req);
         // }
+
+        for (int i = 0; i < Common.LIST_COUNT; i++)
+        {
+            GameObject item = Instantiate(roomItem) as GameObject;
+            RoomItem itemSource = item.GetComponent<RoomItem>();
+            itemSource.delegateClick += onClick;
+            itemSource.setIndex(i);
+            item.SetActive(false);
+            listItem.Add(item);
+            item.transform.parent = content.transform;
+
+        }
+        //updateRoomList();
+
+        RequestRoomList req = new RequestRoomList(current, Common.LIST_COUNT);
+        SocketManager.Instance().sendMessage(req);
     }
     
     public override void hideState()
@@ -83,30 +100,19 @@ public class RoomListState : BaseState
     //     }
     // }
 
-    void Awake()
+    public override void Awake()
     {
-
+        base.Awake();
     }
 
-    override void Start()
+    public override void Start()
     {
         base.Start();
-        for (int i = 0; i < Common.LIST_COUNT; i++)
-        {
-            GameObject item = Instantiate(roomItem) as GameObject;
-            RoomItem itemSource = item.GetComponent<RoomItem>();
-            itemSource.delegateClick += onClick;
-            itemSource.setIndex(i);
-            item.SetActive(false);
-            listItem.Add(item);
-            item.transform.parent = content.transform;
-        }
-
         //httpManager = httpManagerObj.GetComponent<HttpManager>();
 
     }
 
-    override void Update()
+    public override void Update()
     {
        base.Update();
 
@@ -227,6 +233,7 @@ public class RoomListState : BaseState
                 StateManager.Instance().changeState(GAME_STATE.WAITING_ROOM, res);
             }
         }else{
+            ResponseBase res = JsonUtility.FromJson<ResponseBase>(json);
             showAlert("error", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
             } );
         }

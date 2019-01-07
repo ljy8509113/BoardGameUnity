@@ -28,7 +28,6 @@ public class Alert : MonoBehaviour {
     void Awake()
     {
         // state = new AlertState();
-        data = new AlertData();
         this.gameObject.SetActive(false);
     }
 
@@ -98,7 +97,7 @@ public class Alert : MonoBehaviour {
             oneButton.gameObject.SetActive(true);
         }
         textMessage.text = data.message;
-        field.gameObject.SetActive(data.isShowField);
+        field.gameObject.SetActive(data.isInput);
         this.gameObject.SetActive(true);
         isShowing = true;
     }

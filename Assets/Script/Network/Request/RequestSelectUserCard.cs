@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-public class RequestSelectUserCard : ResponseBaseDavincicode {
-
-	public RequestSelectUserCard() : base(Common.IDENTIFIER_SELECT_USER_CARD)
+﻿public class RequestSelectUserCard : RequestBase {
+    int index;
+    string selectUser;
+	public RequestSelectUserCard(int index, string selectUser) : base(Common.IDENTIFIER_SELECT_USER_CARD)
     {
+        this.index = index;
+        this.selectUser = selectUser;
     }
 }

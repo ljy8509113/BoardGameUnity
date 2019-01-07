@@ -24,6 +24,7 @@ public class WaitingRoomState : BaseState {
     
     public override void initState(ResponseBase res)
     {
+        base.initState(res);
         this.gameObject.SetActive(true);
         Debug.Log("initState res : " + res);
         
@@ -46,7 +47,22 @@ public class WaitingRoomState : BaseState {
             isMaster = false;
             gameNo = resCr.gameNo;
         }
-        isUpdate = true;
+
+        foreach (GameObject obj in listUserObj)
+        {
+            Destroy(obj.gameObject);
+        }
+
+        for (int i = 0; i < maxUser; i++)
+        {
+            GameObject item = Instantiate(userItem) as GameObject;
+            //item.SetActive(false);
+            listUserObj.Add(item);
+            item.transform.parent = content.transform;
+        }
+
+        setButton();
+        setUsersData();
     }
 
     public override void hideState()
@@ -61,27 +77,18 @@ public class WaitingRoomState : BaseState {
     //     setButton();
     // }
 
-    void Awake()
+    public override void Awake()
     {
-        listUserObj.RemoveAll();
-        for (int i = 0; i < maxUser; i++)
-        {
-            GameObject item = Instantiate(userItem) as GameObject;
-            //item.SetActive(false);
-            listUserObj.Add(item);
-            item.transform.parent = content.transform;
-        }
+        base.Awake();
     }
 
     // Use this for initialization
-    override void Start () {
+    public override void Start () {
         base.Start();
-        Debug.Log("start --------- ");
-        setButton();
     }
-	
-	// Update is called once per frame
-	override void Update () {
+
+    // Update is called once per frame
+    public override void Update () {
 		base.Update();
 
         if(isUpdate){
@@ -97,7 +104,7 @@ public class WaitingRoomState : BaseState {
         {
             if (isAllReady())
             {
-                RequestStart req = new RequestStart(roomNo);
+                RequestStart req = new RequestStart(gameNo, roomNo);
                 SocketManager.Instance().sendMessage(req);
             }
             else
@@ -115,14 +122,14 @@ public class WaitingRoomState : BaseState {
                 isReady = false;
             }
             
-            RequestReady req = new RequestReady(isReady, roomNo);
+            RequestReady req = new RequestReady(isReady, gameNo, roomNo);
             SocketManager.Instance().sendMessage(req);
         }
     }
 
     public void onCancel()
     {
-        RequestOutRoom req = new RequestOutRoom(roomNo, UserManager.Instance().email);
+        RequestOutRoom req = new RequestOutRoom(gameNo, roomNo, UserManager.Instance().email);
         SocketManager.Instance().sendMessage(req);
     }
 
@@ -244,7 +251,7 @@ public class WaitingRoomState : BaseState {
 
     public void outUser(string email)
     {
-        RequestOutRoom req = new RequestOutRoom(roomNo, email);
+        RequestOutRoom req = new RequestOutRoom(gameNo, roomNo, email);
         SocketManager.Instance().sendMessage(req);
     }
 
@@ -298,7 +305,7 @@ public class WaitingRoomState : BaseState {
                         // ResponseStart res = JsonUtility.FromJson<ResponseStart>(json);
                         UserManager.Instance().roomNo = roomNo;
                         switch(gameNo){
-                            case Common.GAME_KINDS.DAVINCICODE :
+                            case (int)Common.GAME_KINDS.DAVINCICODE :
                             {
                                 SceneManager.LoadScene("Davincicode");
                             }
@@ -309,6 +316,7 @@ public class WaitingRoomState : BaseState {
             }
             
         }else{
+            ResponseBase res = JsonUtility.FromJson<ResponseBase>(json);
             showAlert("error", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
             } );
         }

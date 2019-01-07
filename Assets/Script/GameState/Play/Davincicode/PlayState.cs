@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PlayState : BaseState {
 
@@ -32,8 +33,8 @@ public class PlayState : BaseState {
                 case Common.IDENTIFIER_INIT_GAME :
                 {
                     ResponseInit res = JsonUtility.FromJson<ResponseInit>(json);
-                    userList = res.userList;
-                    fieldCardList = res.fieldCardList;
+                    userList = res.cardInfo.userList;
+                    fieldCardList = res.cardInfo.fieldCardList;
                     state = PLAY_STATE.INIT;
                     isUpdate = true;
                 }
@@ -45,22 +46,24 @@ public class PlayState : BaseState {
                 break;
             }
         }else{
+            ResponseBase res = JsonUtility.FromJson<ResponseBase>(json);
             showAlert("errorCreate", res.message, false, false, (AlertData data, bool isOn, string fieldText) => {
             } );
         }
     }
 
-    override void Awake(){
+    public override void Awake(){
         base.Awake();
-        RequestInit req = new RequestInit(UserManager.Instance().roomNo);
-        SocketManager.Instance().sendMessage(req);
+        //RequestInit req = new RequestInit(UserManager.Instance().roomNo);
+        //SocketManager.Instance().sendMessage(req);
     }
-    override void Start () {
+
+    public override void Start () {
         base.Start();
 	}
 	
 	// Update is called once per frame
-	override void Update () {		
+	public override void Update () {		
         base.Update();
         if(isUpdate){
             isUpdate = false;

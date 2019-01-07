@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System;
-
 public class StateManager : MonoBehaviour{
     
     private static StateManager instance = null;
@@ -15,15 +14,17 @@ public class StateManager : MonoBehaviour{
         return instance;
     }
     
-    BaseResponse res;
+    ResponseBase res;
     bool isChange = false;
-    GAME_STATE currentState = GAME_STATE.INIT;
+    BaseState.GAME_STATE currentState = BaseState.GAME_STATE.INIT;
 
     [SerializeField]
     public List<BaseState> stateList;
-    void Start(){
 
+    void Start(){
+        changeState(BaseState.GAME_STATE.INIT, null);
     }
+
     void Update () {		
         if(isChange){
             isChange = false;
@@ -38,7 +39,7 @@ public class StateManager : MonoBehaviour{
         }
     }
 
-    public void changeState(GAME_STATE state, BaseResponse res){
+    public void changeState(BaseState.GAME_STATE state, ResponseBase res){
         this.res = res;
         currentState = state;
         isChange = true;

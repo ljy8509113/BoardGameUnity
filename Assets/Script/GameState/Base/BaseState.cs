@@ -19,32 +19,38 @@ public abstract class BaseState : MonoBehaviour {
     public Alert alert;
     public List<AlertData> listAlert = new List<AlertData>();
     bool isShowAlert = false;
-    AlertData alertData = new AlertData();
+    
     protected BaseState(){
+        Debug.Log("base : "+state);
+        //SocketManager.Instance().resDelegate = responseString;
+    }
+    public virtual void initState(ResponseBase res)
+    {
         SocketManager.Instance().resDelegate = responseString;
     }
-    public abstract void initState(ResponseBase res);
+
     public abstract void hideState();
     
     public abstract void responseString(bool isSuccess, string identifier, string json);
 
-    virtual void Awake(){
-    }
-    virtual void Start(){
+    public virtual void Awake(){
     }
 
-    virtual void Update(){
+    public virtual void Start(){
+    }
+
+    public virtual void Update(){
         if(isShowAlert && alert.isShowing == false){
             isShowAlert = false;
             if(listAlert.Count > 0){
-                AlertData data = listAlert[listAlert.LastIndexOf];
+                AlertData data = listAlert[listAlert.Count-1];
                 alert.setData(data, alertResult);
                 alert.showAlert();
             }
         }
     }
     
-    public void showAlert(string identifier, string message, bool isTwoButton, bool isInput, ButtonResult callback){
+    public void showAlert(string identifier, string message, bool isTwoButton, bool isInput, Alert.ButtonResult callback){
         listAlert.Add( new AlertData(identifier, message, isTwoButton, isInput, callback) );
         isShowAlert = true;
     }
