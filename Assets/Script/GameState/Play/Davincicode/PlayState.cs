@@ -39,8 +39,15 @@ public class PlayState : BaseState {
                     isUpdate = true;
                 }
                 break;
-                case Common.IDENTIFIER_CREATE_ROOM:
+                case Common.IDENTIFIER_SELECT_FIELD_CARD:
                 {
+                    ResponseSelectFieldCard res = JsonUtility.FromJson<ResponseSelectFieldCard>(json);
+
+                }
+                break;
+                case Common.IDENTIFIER_SELECT_USER_CARD :
+                {
+                    ResponseSelectUserCard res = JsonUtility.FromJson<ResponseSelectUserCard>(json);
                     
                 }
                 break;
