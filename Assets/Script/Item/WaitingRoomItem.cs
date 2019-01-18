@@ -35,7 +35,7 @@ public class WaitingRoomItem : MonoBehaviour {
         userInfo = user;
         textNickName.text = user.nickName;
 
-		if (userInfo.isMaster) {
+		if (userInfo.equalsType(Common.USER_TYPE.MASTER) ) {
 			textState.text = "방장";	
 			buttonOut.gameObject.SetActive (false);
 		} else {

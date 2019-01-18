@@ -2,4 +2,5 @@
 public class ResponseBaseDavincicode : ResponseBase {
     public GameCardInfo cardInfo;
     public string turnUser;
+    
 }

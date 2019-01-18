@@ -69,4 +69,10 @@ public class Common {
         LAMU = 2
     }
 
+    public enum USER_TYPE
+    {
+        MASTER = 0,
+        USER = 1,
+        COMPUTER = 2
+    }
 }

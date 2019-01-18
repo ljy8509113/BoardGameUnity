@@ -10,13 +10,13 @@ public class WaitingRoomState : BaseState {
     public Button buttonReady;
     public Button buttonCancel;
     public Text title;
+    public Button buttonAddAI;
     int maxUser;
     List<GameObject> listUserObj = new List<GameObject>();
     List<UserInfo> listUsers = new List<UserInfo>();
     public GameObject content;
     UserInfo myInfo;
 
-    bool isMaster = false;
     int roomNo;
     int gameNo;
 
@@ -35,7 +35,6 @@ public class WaitingRoomState : BaseState {
             roomNo = resCr.roomNo;
             maxUser = resCr.max;
             listUsers = resCr.userList;
-            isMaster = true;
             gameNo = resCr.gameNo;
         }else{
             ResponseConnectionRoom resCr = (ResponseConnectionRoom)res;
@@ -44,7 +43,6 @@ public class WaitingRoomState : BaseState {
             roomNo = resCr.roomNo;
             maxUser = resCr.max;
             listUsers = resCr.userList;
-            isMaster = false;
             gameNo = resCr.gameNo;
         }
 
@@ -61,8 +59,8 @@ public class WaitingRoomState : BaseState {
             item.transform.parent = content.transform;
         }
 
-        setButton();
         setUsersData();
+        setButton();
     }
 
     public override void hideState()
@@ -100,7 +98,7 @@ public class WaitingRoomState : BaseState {
     public void onReady()
     {
         Debug.Log("onReady -- ");
-        if (isMaster)
+        if (myInfo.equalsType(Common.USER_TYPE.MASTER))
         {
             if (isAllReady())
             {
@@ -196,13 +194,11 @@ public class WaitingRoomState : BaseState {
 
                 if (listUsers[i].email.Equals(UserManager.Instance().email))
                 {
-                    Debug.Log("my info : "+ listUsers[i].isMaster);
+                    
                     myInfo = listUsers[i];
-					// isMaster = listUsers[i].isMaster;
-                    // UserManager.Instance().setMaster(isMaster);
                 }
 
-				source.setData(listUsers[i], isMaster);
+				source.setData(listUsers[i], myInfo.equalsType(Common.USER_TYPE.MASTER));
                 source.outReceiver += outUser;
             }
             else
@@ -210,18 +206,26 @@ public class WaitingRoomState : BaseState {
                 listUserObj[i].SetActive(false);
             }
         }
+
+        if (myInfo.equalsType(Common.USER_TYPE.MASTER))
+        {
+            buttonReady.enabled = isAllReady();
+        }
+        
     }
 
     void setButton()
     {
-        if (isMaster)
+        if (myInfo.equalsType(Common.USER_TYPE.MASTER))
         {
             buttonReady.GetComponentInChildren<Text>().text = "시작";
             buttonReady.enabled = isAllReady();
+            buttonAddAI.gameObject.SetActive(true);
         }
         else
         {
             buttonReady.GetComponentInChildren<Text>().text = "준비";
+            buttonAddAI.gameObject.SetActive(false);
         }
     }
 
@@ -229,13 +233,13 @@ public class WaitingRoomState : BaseState {
     {
         bool isAllReady = true;
 
-        if (listUsers.Count > 1)
+        if (listUsers.Count > 2)
         {
             for(int i=0; i<listUsers.Count; i++)
             {
                 UserInfo info = listUsers[i];
 
-                if (!listUsers[i].isMaster && listUsers[i].state != (int)Common.USER_STATE.READY)
+                if ( listUsers[i].state != (int)Common.USER_STATE.READY)
                 {
                     isAllReady = false;
                 }
@@ -255,6 +259,19 @@ public class WaitingRoomState : BaseState {
         SocketManager.Instance().sendMessage(req);
     }
 
+    public void addAI()
+    {
+        if(listUsers.Count < maxUser)
+        {
+            RequestConnectionRoom req = new RequestConnectionRoom(roomNo, "", true);
+            SocketManager.Instance().sendMessage(req);
+        }
+        else
+        {
+
+        }
+    }
+
     public override void responseString(bool isSuccess, string identifier, string json)
     {
         if(isSuccess){
@@ -265,10 +282,7 @@ public class WaitingRoomState : BaseState {
                         ResponseConnectionRoom resCr = JsonUtility.FromJson<ResponseConnectionRoom>(json);
                         listUsers = resCr.userList;
                         isUpdate = true;
-                        // title.text = resCr.title;
-                        // setUsersData(((ResponseConnectionRoom)res).userList);
-                        // roomNo = resCr.roomNo;
-                        // UserManager.Instance().connectedRoom(roomNo);
+                        
                     }
                     break;
                 case Common.IDENTIFIER_READY:
@@ -313,6 +327,14 @@ public class WaitingRoomState : BaseState {
                         }
                     }    
                     break;
+                case Common.IDENTIFIER_ROOM_INFO:
+                    {
+                        ResponseRoomInfo res = JsonUtility.FromJson<ResponseRoomInfo>(json);
+                        listUsers = res.userList;
+                        isUpdate = true;
+                    }
+                    break;
+                    
             }
             
         }else{

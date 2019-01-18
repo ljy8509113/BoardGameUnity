@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class RequestSelectFieldCard : ResponseBaseDavincicode {
     int index;
-	public RequestSelectFieldCard(int index) : base(Common.IDENTIFIER_SELECT_FIELD_CARD)
+	public RequestSelectFieldCard(int index)
     {
         this.index = index;
     }

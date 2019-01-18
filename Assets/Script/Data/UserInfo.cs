@@ -4,15 +4,23 @@
 public class UserInfo {
     public string email;
     public string nickName;
-    public bool isMaster;
+    public int type;
     public int state;
 	
-	public void setData(string email, string nickName, bool isMaster, int state)
+	public void setData(string email, string nickName, int type, int state)
     {
         this.email = email;
         this.nickName = nickName;
-        this.isMaster = isMaster;
+        this.type = type;
         this.state = state;        
+    }
+
+    public bool equalsType(Common.USER_TYPE type)
+    {
+        if (this.type == (int)type)
+            return true;
+        else
+            return false;
     }
 
     //public string winningRate()

@@ -154,7 +154,7 @@ public class RoomListState : BaseState
         Debug.Log("index : " + item.title);
 
 		if (item.password == null || item.password.Length == 0) {
-			RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName);
+			RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName, false);
 			SocketManager.Instance().sendMessage(req);
 		} else {
             // GameManager.Instance ().showAlert ("비밀번호를 입력해주세요.", true, (bool result, string fieldText) => {
@@ -167,8 +167,21 @@ public class RoomListState : BaseState
 			// }, true);
             showAlert("connectPasswd", "비밀번호를 입력해주세요.", true, true, (AlertData data, bool isOn, string fieldText) => {
                 if(isOn){
-                    RequestRoomPassword req = new RequestRoomPassword(item.no, fieldText);
-                    SocketManager.Instance().sendMessage(req);
+                    //RequestRoomPassword req = new RequestRoomPassword(item.no, fieldText);
+                    //SocketManager.Instance().sendMessage(req);
+
+                    if ( fieldText.Equals(item.password) )
+                    {
+                        RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName, false);
+                        SocketManager.Instance().sendMessage(req);
+                    }
+                    else
+                    {
+                        showAlert("failPasswd", "비밀번호가 다릅니다.", false, false, (AlertData data1, bool isOn1, string fieldText1) => {
+
+                        });
+                    }
+
                 }        
             } );
 		}
