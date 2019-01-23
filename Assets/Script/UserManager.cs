@@ -26,11 +26,13 @@ public class UserManager : MonoBehaviour
     public string nickName;
     public string password;
     //public bool isAutoLogin;
-    public int roomNo = Common.NO_DATA;
+    //public int roomNo = Common.NO_DATA;
     // public int roomNo = Common.NO_DATA;
     // public bool isMaster = false;
 
     SAVE_DATA_STATE state = SAVE_DATA_STATE.NONE;
+
+    public string gameInitJson;
 
     void Awake()
     {

@@ -24,15 +24,7 @@ public class Common {
 	public const string IDENTIFIER_ROOM_PASSWORD	= "room_password";
     public const string IDENTIFIER_START            = "start";
     public const string IDENTIFIER_ROOM_INFO        = "room_info";
-
-    //game play
     public const string IDENTIFIER_INIT_GAME        = "init_game";
-    public const string IDENTIFIER_SELECT_FIELD_CARD	= "select_field_card";
-	public const string IDENTIFIER_SELECT_USER_CARD	= "select_user_card";
-	public const string IDENTIFIER_TURN				= "turn";
-	public const string IDENTIFIER_GAME_CARD_INFO	= "game_card_info";
-	public const string IDENTIFIER_OPEN_CARD		= "open_card";
-	public const string IDENTIFIER_GAME_FINISH		= "game_finish";
     public const string IDENTIFIER_READY            = "ready";
     
 
@@ -75,4 +67,5 @@ public class Common {
         USER = 1,
         COMPUTER = 2
     }
+    
 }

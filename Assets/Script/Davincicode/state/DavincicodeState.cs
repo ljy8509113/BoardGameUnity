@@ -2,23 +2,19 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class PlayState : BaseState {
-
-    public enum PLAY_STATE
-    {
-        INIT = 0,
-        WAITING = 1,
-        SELECT_CARD = 2,
-        GAME_OVER = 3
-    }
-
-    PLAY_STATE state;
+public class DavincicodeState : BaseState {
+    
+    DavinciCommon.PLAY_STATE playState;
     bool isUpdate = false;
     List<UserGameData> userList;
     List<Card> fieldCardList;
+    public GameObject loadingPanel;
+    int roomNo;
+
     public override void initState(ResponseBase res)
     {
         // this.gameObject.SetActive(true);
+        base.initState(res);
     }
     
     public override void hideState()
@@ -32,20 +28,20 @@ public class PlayState : BaseState {
             switch(identifier){
                 case Common.IDENTIFIER_INIT_GAME :
                 {
-                    ResponseInit res = JsonUtility.FromJson<ResponseInit>(json);
-                    userList = res.cardInfo.userList;
-                    fieldCardList = res.cardInfo.fieldCardList;
-                    state = PLAY_STATE.INIT;
-                    isUpdate = true;
+                    //ResponseInit res = JsonUtility.FromJson<ResponseInit>(json);
+                    //userList = res.cardInfo.userList;
+                    //fieldCardList = res.cardInfo.fieldCardList;
+                    //state = PLAY_STATE.INIT;
+                    //isUpdate = true;
                 }
                 break;
-                case Common.IDENTIFIER_SELECT_FIELD_CARD:
+                case DavinciCommon.IDENTIFIER_SELECT_FIELD_CARD:
                 {
                     ResponseSelectFieldCard res = JsonUtility.FromJson<ResponseSelectFieldCard>(json);
 
                 }
                 break;
-                case Common.IDENTIFIER_SELECT_USER_CARD :
+                case DavinciCommon.IDENTIFIER_SELECT_USER_CARD :
                 {
                     ResponseSelectUserCard res = JsonUtility.FromJson<ResponseSelectUserCard>(json);
                     
@@ -61,8 +57,24 @@ public class PlayState : BaseState {
 
     public override void Awake(){
         base.Awake();
-        //RequestInit req = new RequestInit(UserManager.Instance().roomNo);
-        //SocketManager.Instance().sendMessage(req);
+        initState(null);
+
+        ResponseBaseDavincicode res = JsonUtility.FromJson<ResponseBaseDavincicode>(UserManager.Instance().gameInitJson);
+        userList = res.cardInfo.userList;
+        roomNo = res.roomNo;
+
+        if (res.identifier.Equals(DavinciCommon.IDENTIFIER_START))
+        {
+
+        }else if (res.identifier.Equals(DavinciCommon.IDENTIFIER_GAME_CARD_INFO))
+        {
+
+        }
+        else
+        {
+
+        }
+        
     }
 
     public override void Start () {
@@ -74,15 +86,16 @@ public class PlayState : BaseState {
         base.Update();
         if(isUpdate){
             isUpdate = false;
-            switch(state){
-                case PLAY_STATE.INIT :
+            switch(playState)
+            {
+                case DavinciCommon.PLAY_STATE.INIT :
                 //ㅋㅏ드 선택
                 break;
-                case PLAY_STATE.WAITING:
+                case DavinciCommon.PLAY_STATE.WAITING:
                 break;
-                case PLAY_STATE.SELECT_CARD:
+                case DavinciCommon.PLAY_STATE.SELECT_CARD:
                 break;
-                case PLAY_STATE.GAME_OVER:
+                case DavinciCommon.PLAY_STATE.GAME_OVER:
                 break;
                 default:
                 break;

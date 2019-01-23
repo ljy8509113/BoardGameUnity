@@ -21,7 +21,8 @@ public class WaitingRoomState : BaseState {
     int gameNo;
 
     bool isUpdate = false;
-    
+    string gameScene = null;
+
     public override void initState(ResponseBase res)
     {
         base.initState(res);
@@ -91,7 +92,15 @@ public class WaitingRoomState : BaseState {
 
         if(isUpdate){
             isUpdate = false;
-            setUsersData();
+            if(gameScene != null)
+            {
+                SceneManager.LoadScene(gameScene);
+                gameScene = null;
+            }
+            else
+            {
+                setUsersData();
+            }            
         }
 	}
 
@@ -317,11 +326,13 @@ public class WaitingRoomState : BaseState {
                 case Common.IDENTIFIER_START :
                     {
                         // ResponseStart res = JsonUtility.FromJson<ResponseStart>(json);
-                        UserManager.Instance().roomNo = roomNo;
+                        //UserManager.Instance().roomNo = roomNo;
                         switch(gameNo){
                             case (int)Common.GAME_KINDS.DAVINCICODE :
                             {
-                                SceneManager.LoadScene("Davincicode");
+                                UserManager.Instance().gameInitJson = json;
+                                gameScene = "Davincicode";
+                                isUpdate = true;
                             }
                             break;
                         }
