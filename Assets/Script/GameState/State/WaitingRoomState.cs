@@ -193,6 +193,16 @@ public class WaitingRoomState : BaseState {
     void setUsersData()
     {
         // listUsers = users;
+
+        for(int i=0; i<listUsers.Count; i++)
+        {
+            if (listUsers[i].email.Equals(UserManager.Instance().email))
+            {
+                myInfo = listUsers[i];
+                break;
+            }
+        }
+
         for (int i = 0; i < listUserObj.Count; i++)
         {
 
@@ -200,13 +210,7 @@ public class WaitingRoomState : BaseState {
             {
                 listUserObj[i].SetActive(true);
                 WaitingRoomItem source = listUserObj[i].GetComponent<WaitingRoomItem>();
-
-                if (listUsers[i].email.Equals(UserManager.Instance().email))
-                {
-                    
-                    myInfo = listUsers[i];
-                }
-
+                
 				source.setData(listUsers[i], myInfo.equalsType(Common.USER_TYPE.MASTER));
                 source.outReceiver += outUser;
             }
@@ -242,7 +246,7 @@ public class WaitingRoomState : BaseState {
     {
         bool isAllReady = true;
 
-        if (listUsers.Count > 2)
+        if (listUsers.Count >= 2)
         {
             for(int i=0; i<listUsers.Count; i++)
             {
