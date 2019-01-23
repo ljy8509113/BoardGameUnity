@@ -52,6 +52,8 @@ public class WaitingRoomState : BaseState {
             Destroy(obj.gameObject);
         }
 
+        listUserObj = new List<GameObject>();
+
         for (int i = 0; i < maxUser; i++)
         {
             GameObject item = Instantiate(userItem) as GameObject;
@@ -66,6 +68,11 @@ public class WaitingRoomState : BaseState {
 
     public override void hideState()
     {
+        foreach (GameObject obj in listUserObj)
+        {
+            Destroy(obj.gameObject);
+        }
+        
         this.gameObject.SetActive(false);
     }
 
@@ -335,7 +342,7 @@ public class WaitingRoomState : BaseState {
                             case (int)Common.GAME_KINDS.DAVINCICODE :
                             {
                                 UserManager.Instance().gameInitJson = json;
-                                gameScene = "Davincicode";
+                                gameScene = "davincicode";
                                 isUpdate = true;
                             }
                             break;

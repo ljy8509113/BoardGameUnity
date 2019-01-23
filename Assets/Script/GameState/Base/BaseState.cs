@@ -66,4 +66,5 @@ public abstract class BaseState : MonoBehaviour {
             isShowAlert = true;
         }
     }
+    
 }

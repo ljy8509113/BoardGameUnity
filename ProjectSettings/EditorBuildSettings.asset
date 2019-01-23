@@ -9,8 +9,9 @@ EditorBuildSettings:
     path: Assets/Scene/main.unity
     guid: b70ccab65d1e53b4a9af30aeca39f578
   - enabled: 1
-    path: Assets/Scene/game.unity
+    path: Assets/Scene/Davincicode.unity
     guid: 01d13f2daecaf9f4aa19f1078c224509
   - enabled: 1
     path: Assets/Scene/loading.unity
     guid: bb50bd39e7a8757429dea3c85524c6c1
+  m_configObjects: {}

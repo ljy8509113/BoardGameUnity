@@ -189,6 +189,5 @@ public class SocketManager
             UnityEngine.Debug.Log("not connection");
         }
     }
-
-
+    
 }
