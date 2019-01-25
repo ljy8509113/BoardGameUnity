@@ -11,6 +11,10 @@ public class DavincicodeState : BaseState {
     public GameObject loadingPanel;
     int roomNo;
 
+    public SelectableCard selectableCard;
+    public UserCardLayout userCardLayout;
+    public MyCard myCard;
+
     public override void initState(ResponseBase res)
     {
         // this.gameObject.SetActive(true);
@@ -59,14 +63,22 @@ public class DavincicodeState : BaseState {
         base.Awake();
         initState(null);
 
-        ResponseBaseDavincicode res = JsonUtility.FromJson<ResponseBaseDavincicode>(UserManager.Instance().gameInitJson);
+        Screen.orientation = ScreenOrientation.Landscape;
+
+        Debug.Log("gameInitJson : " + Common.gameInitJson);
+        ResponseBaseDavincicode res = JsonUtility.FromJson<ResponseBaseDavincicode>(Common.gameInitJson);
         userList = res.cardInfo.userList;
         roomNo = res.roomNo;
+        fieldCardList = res.cardInfo.fieldCardList;
+        selectableCard.hide();
+        userCardLayout.gameObject.SetActive(false);
 
         if (res.identifier.Equals(DavinciCommon.IDENTIFIER_START))
         {
-
-        }else if (res.identifier.Equals(DavinciCommon.IDENTIFIER_GAME_CARD_INFO))
+            selectableCard.init(fieldCardList.Count);
+            selectableCard.show(fieldCardList);
+        }
+        else if (res.identifier.Equals(DavinciCommon.IDENTIFIER_GAME_CARD_INFO))
         {
 
         }
@@ -74,12 +86,14 @@ public class DavincicodeState : BaseState {
         {
 
         }
-        
+
+        Common.gameInitJson = "";
     }
 
     public override void Start () {
         base.Start();
-	}
+        
+    }
 	
 	// Update is called once per frame
 	public override void Update () {		

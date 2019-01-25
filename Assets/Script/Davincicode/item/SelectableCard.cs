@@ -7,36 +7,73 @@ public class SelectableCard : MonoBehaviour {
 
     public GameObject content;
     public GameObject cardObj;
-	List<GameObject> listCards;
-	List<Card> listData;
+	List<GameObject> listCards = new List<GameObject>();
+    List<Card> listData = new List<Card>();
 
-	// Use this for initialization
-	void Start () {
+    bool isUpdate = false;
+    bool isShow = false;
+
+    void Awake()
+    {
+        cardObj.SetActive(false);
+    }
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (isUpdate)
+        {
+            isUpdate = false;
+
+            for(int i=0; i<listCards.Count; i++)
+            {
+                if( i < listData.Count)
+                {
+                    NumberCard itemSource = listCards[i].GetComponent<NumberCard>();
+                    itemSource.setData(listData[i].isOpen, listData[i].index);
+                    listCards[i].SetActive(true);
+                }
+                else
+                {
+                    listCards[i].SetActive(false);
+                }
+            }
+            gameObject.SetActive(isShow);
+        }
 	}
 
-    public void init()
+
+    public void show(List<Card> list)
     {
-		listCards = new List<GameObject> ();
-		listData = shuffleList (CardController.Instance ().getFieldCards ());
-		Debug.Log ("list size : " + listData.Count);
-		foreach(Card card in listData){
-			Debug.Log ("card : " + card.index);
-			GameObject itemObj = Instantiate(cardObj) as GameObject;
-			NumberCard itemSource = itemObj.GetComponent<NumberCard>();
+        listData = list;
+        isShow = true;
+        isUpdate = true;
+    }
 
-			itemSource.setData(card.isJoker, card.isOpen, card.index);
-			itemSource.selectDelegate += selectNumber;
+    public void hide()
+    {
+        isShow = false;
+        isUpdate = true;
+    }
 
-			itemObj.transform.parent = content.transform;
-			listCards.Add (itemObj);
-			itemObj.SetActive (true);
-		}
+
+    public void init(int count)
+    {
+        for(int i=0; i<count; i++)
+        {
+            GameObject itemObj = Instantiate(cardObj) as GameObject;
+            NumberCard itemSource = itemObj.GetComponent<NumberCard>();
+
+            itemSource.selectDelegate += selectNumber;
+
+            itemObj.transform.parent = content.transform;
+            listCards.Add(itemObj);
+            itemObj.SetActive(false);
+        }
     }
 
     public void selectNumber(int number)
@@ -86,17 +123,7 @@ public class SelectableCard : MonoBehaviour {
 
         return null;
     }
-
-    public void show()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public void hide()
-    {
-        gameObject.SetActive(false);
-    }
-
+    
 	public List<E> shuffleList<E>(List<E> inputList)
 	{
 		List<E> randomList = new List<E>();

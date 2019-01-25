@@ -32,8 +32,6 @@ public class UserManager : MonoBehaviour
 
     SAVE_DATA_STATE state = SAVE_DATA_STATE.NONE;
 
-    public string gameInitJson;
-
     void Awake()
     {
         

@@ -341,7 +341,7 @@ public class WaitingRoomState : BaseState {
                         switch(gameNo){
                             case (int)Common.GAME_KINDS.DAVINCICODE :
                             {
-                                UserManager.Instance().gameInitJson = json;
+                                Common.gameInitJson = json;
                                 gameScene = "davincicode";
                                 isUpdate = true;
                             }

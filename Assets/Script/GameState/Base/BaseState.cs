@@ -21,7 +21,6 @@ public abstract class BaseState : MonoBehaviour {
     bool isShowAlert = false;
     
     protected BaseState(){
-        Debug.Log("base : "+state);
         //SocketManager.Instance().resDelegate = responseString;
     }
     public virtual void initState(ResponseBase res)
