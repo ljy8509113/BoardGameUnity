@@ -1,0 +1,423 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1281515728178406}
+  m_IsPrefabAsset: 1
+--- !u!1 &1281515728178406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4443245906725700}
+  - component: {fileID: 114535685133776786}
+  m_Layer: 0
+  m_Name: Atlas_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4443245906725700
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281515728178406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114535685133776786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1281515728178406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 646682ee91c09b34090698b3b0c286e0, type: 2}
+  mSprites:
+  - name: b0
+    x: 1074
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b1
+    x: 1074
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b10
+    x: 1074
+    y: 137
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b11
+    x: 895
+    y: 137
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b12
+    x: 716
+    y: 137
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b2
+    x: 895
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b3
+    x: 895
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b4
+    x: 1611
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b5
+    x: 1790
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b6
+    x: 1432
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b7
+    x: 1432
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b8
+    x: 1253
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: b9
+    x: 1253
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: bback
+    x: 1253
+    y: 137
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w0
+    x: 179
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w1
+    x: 179
+    y: 137
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w10
+    x: 358
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w11
+    x: 179
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w12
+    x: 0
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w2
+    x: 0
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w3
+    x: 0
+    y: 137
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w4
+    x: 537
+    y: 137
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w5
+    x: 716
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w6
+    x: 716
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w7
+    x: 537
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w8
+    x: 358
+    y: 433
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w9
+    x: 358
+    y: 137
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: wback
+    x: 537
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  mPixelSize: 1
+  mReplacement: {fileID: 0}
+  mCoordinates: 0
+  sprites: []

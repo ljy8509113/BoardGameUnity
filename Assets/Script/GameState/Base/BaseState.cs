@@ -16,7 +16,7 @@ public abstract class BaseState : MonoBehaviour {
 
     [SerializeField]
     public GAME_STATE state;
-    public Alert alert;
+    public BaseAlert alert;
     public List<AlertData> listAlert = new List<AlertData>();
     bool isShowAlert = false;
     

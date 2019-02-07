@@ -16,4 +16,6 @@ public class DavinciCommon : Common {
         SELECT_CARD = 2,
         GAME_OVER = 3
     }
+
+    public static GamePlayInitData gamePlayingData = new GamePlayInitData();
 }

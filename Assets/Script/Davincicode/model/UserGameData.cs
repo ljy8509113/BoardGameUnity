@@ -8,4 +8,5 @@ public class UserGameData {
     public string nickName;
     public List<NumberCard> cards;
     public bool isLose;
+    public bool isInit;
 }

@@ -341,8 +341,11 @@ public class WaitingRoomState : BaseState {
                         switch(gameNo){
                             case (int)Common.GAME_KINDS.DAVINCICODE :
                             {
-                                Common.gameInitJson = json;
-                                gameScene = "davincicode";
+                                    //Common.gameInitJson = json;
+                                DavinciCommon.gamePlayingData.gameNo = gameNo;
+                                DavinciCommon.gamePlayingData.roomNo = roomNo;
+                                DavinciCommon.gamePlayingData.json = json;
+                                gameScene = "game";
                                 isUpdate = true;
                             }
                             break;

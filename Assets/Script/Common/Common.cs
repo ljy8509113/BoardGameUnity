@@ -67,6 +67,4 @@ public class Common {
         USER = 1,
         COMPUTER = 2
     }
-
-    public static string gameInitJson;
 }

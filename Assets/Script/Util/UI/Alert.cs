@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Alert : MonoBehaviour {
+public class Alert : BaseAlert {
 
     // class AlertState
     // {
@@ -18,26 +18,20 @@ public class Alert : MonoBehaviour {
     public Button buttonSubmit;
     public Text textMessage;
 	public InputField field;
-
-	public delegate void ButtonResult(AlertData data, bool isOn, string fieldText);
-
-    ButtonResult result;
-    // AlertState state;
-    public AlertData data;
-    public bool isShowing = false;
-    void Awake()
+    
+    public override void Awake()
     {
         // state = new AlertState();
         this.gameObject.SetActive(false);
     }
 
     // Use this for initialization
-    void Start () {
+    public override void Start () {
         
     }
 
     // Update is called once per frame
-    void Update () {
+    public override void Update () {
    //     if (state.isChange)
    //     {
    //         Debug.Log("alert update in");
@@ -63,7 +57,7 @@ public class Alert : MonoBehaviour {
    //     }
 	}
     
-    public void showAlert()
+    public override void showAlert()
     {
             // Debug.Log("alert update in");
             // state.isChange = false;
@@ -102,10 +96,10 @@ public class Alert : MonoBehaviour {
         isShowing = true;
     }
 
-	public void setData(AlertData data, ButtonResult result)
+	public override void setData(AlertData data, ButtonResult result)
     {
-        this.result = result;
-        this.data = data;
+        base.result = result;
+        base.data = data;
         // state.isTwoButton = isTwoButton;
         // state.message = message;
 		// state.isShowField = isShowField;
@@ -122,7 +116,7 @@ public class Alert : MonoBehaviour {
 		}
     }
 
-    public void hide()
+    public override void hide()
     {
         this.gameObject.SetActive(false);
         isShowing = false;

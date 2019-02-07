@@ -16,7 +16,7 @@ public class UserManager : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = GameObject.FindObjectOfType(typeof(UserManager)) as UserManager;//instance = new UserManager();
+            instance = GameObject.FindObjectOfType(typeof(UserManager)) as UserManager;
         }
 
         return instance;
@@ -31,7 +31,7 @@ public class UserManager : MonoBehaviour
     // public bool isMaster = false;
 
     SAVE_DATA_STATE state = SAVE_DATA_STATE.NONE;
-
+    
     void Awake()
     {
         
