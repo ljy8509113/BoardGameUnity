@@ -8,6 +8,8 @@ public class DavinciCommon : Common {
     public const string IDENTIFIER_GAME_CARD_INFO = "game_card_info";
     public const string IDENTIFIER_OPEN_CARD = "open_card";
     public const string IDENTIFIER_GAME_FINISH = "game_finish";
+    public const string IDENTIFIER_ATTACK = "attack";
+    public const string IDENTIFIER_NEXT = "next";
 
     public enum PLAY_STATE
     {
@@ -16,6 +18,8 @@ public class DavinciCommon : Common {
         SELECT_CARD = 2,
         GAME_OVER = 3
     }
+
+    public const int JOCKER_START_INDEX = 24;
 
     public static GamePlayInitData gamePlayingData = new GamePlayInitData();
 }

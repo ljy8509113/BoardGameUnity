@@ -24,7 +24,7 @@ public class UserManager : MonoBehaviour
 
     public string email;
     public string nickName;
-    public string password;
+    string password;
     //public bool isAutoLogin;
     //public int roomNo = Common.NO_DATA;
     // public int roomNo = Common.NO_DATA;
@@ -71,6 +71,7 @@ public class UserManager : MonoBehaviour
                 
             }
         }
+        
     }
 
     public void setData(string email, string password, string nickName)
@@ -120,5 +121,10 @@ public class UserManager : MonoBehaviour
     
 	public void removeData(){
 		PlayerPrefs.DeleteAll();
-	}    
+	}   
+    
+    public string getPassword()
+    {
+        return password;
+    }
 }

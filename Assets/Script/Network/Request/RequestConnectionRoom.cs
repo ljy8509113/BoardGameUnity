@@ -1,10 +1,10 @@
 ﻿public class RequestConnectionRoom : RequestBase {
     public string nickName;
-    public bool isComputer;
+    public int userType;
 
-    public RequestConnectionRoom(int roomNo, string nickName, bool isComputer) : base(Common.IDENTIFIER_CONNECT_ROOM, roomNo)
+    public RequestConnectionRoom(int roomNo, string nickName, int userType) : base(Common.IDENTIFIER_CONNECT_ROOM, roomNo)
     {
-        this.isComputer = isComputer;
+        this.userType = userType;
         this.nickName = nickName;
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [SerializeField]
 public class RequestBase {
@@ -11,23 +9,27 @@ public class RequestBase {
     public int roomNo;
     public RequestBase(string identifier)
     {
-        this.identifier = identifier;
-        this.email = UserManager.Instance().email;
-        this.gameNo = -1;
-        this.roomNo = -1;
+        setData(identifier, -1, -1, UserManager.Instance().email);
     }    
 
     public RequestBase(string identifier, int gameNo, int roomNo){
-        this.identifier = identifier;
-        this.email = UserManager.Instance().email;
-        this.gameNo = gameNo;
-        this.roomNo = roomNo;
+        setData(identifier, gameNo, roomNo, UserManager.Instance().email);
     }
 
     public RequestBase(string identifier, int roomNo){
+        setData(identifier, -1, roomNo, UserManager.Instance().email);
+    }
+
+    public RequestBase(string identifier, int gameNo, int roomNo, string email)
+    {
+        setData(identifier, gameNo, roomNo, email);
+    }
+
+    void setData(string identifier, int gameNo, int roomNo, string email)
+    {
         this.identifier = identifier;
-        this.email = UserManager.Instance().email;
-        this.gameNo = -1;
+        this.gameNo = gameNo;
         this.roomNo = roomNo;
+        this.email = email;
     }
 }

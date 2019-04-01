@@ -283,7 +283,7 @@ public class WaitingRoomState : BaseState {
     {
         if(listUsers.Count < maxUser)
         {
-            RequestConnectionRoom req = new RequestConnectionRoom(roomNo, "", true);
+            RequestConnectionRoom req = new RequestConnectionRoom(roomNo, "", (int)Common.USER_TYPE.COMPUTER);
             SocketManager.Instance().sendMessage(req);
         }
         else

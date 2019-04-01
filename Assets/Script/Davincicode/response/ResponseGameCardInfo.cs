@@ -1,3 +1,3 @@
-﻿public class ResponseGameCardInfo : ResponseBase {
-    public GameCardInfo cardInfo;
+﻿public class ResponseGameCardInfo : ResponseBaseDavincicode {
+    
 }

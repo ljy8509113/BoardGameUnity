@@ -94,7 +94,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: b11
     x: 895
-    y: 137
+    y: 729
     width: 178
     height: 295
     borderLeft: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: b12
-    x: 716
-    y: 137
+    x: 895
+    y: 433
     width: 178
     height: 295
     borderLeft: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: b2
     x: 895
-    y: 729
+    y: 137
     width: 178
     height: 295
     borderLeft: 0
@@ -132,8 +132,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: b3
-    x: 895
-    y: 433
+    x: 1253
+    y: 729
     width: 178
     height: 295
     borderLeft: 0
@@ -184,8 +184,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: b7
-    x: 1432
-    y: 729
+    x: 1253
+    y: 433
     width: 178
     height: 295
     borderLeft: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: b8
     x: 1253
-    y: 729
+    y: 137
     width: 178
     height: 295
     borderLeft: 0
@@ -210,8 +210,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: b9
-    x: 1253
-    y: 433
+    x: 1432
+    y: 729
     width: 178
     height: 295
     borderLeft: 0
@@ -223,19 +223,6 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: bback
-    x: 1253
-    y: 137
-    width: 178
-    height: 295
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 3
-    paddingRight: 3
-    paddingTop: 3
-    paddingBottom: 2
-  - name: w0
     x: 179
     y: 433
     width: 178
@@ -248,7 +235,33 @@ MonoBehaviour:
     paddingRight: 3
     paddingTop: 3
     paddingBottom: 2
-  - name: w1
+  - name: indicator
+    x: 1432
+    y: 117
+    width: 139
+    height: 139
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: indicatorBg
+    x: 1432
+    y: 257
+    width: 175
+    height: 175
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: w0
     x: 179
     y: 137
     width: 178
@@ -261,7 +274,7 @@ MonoBehaviour:
     paddingRight: 3
     paddingTop: 3
     paddingBottom: 2
-  - name: w10
+  - name: w1
     x: 358
     y: 729
     width: 178
@@ -274,8 +287,21 @@ MonoBehaviour:
     paddingRight: 3
     paddingTop: 3
     paddingBottom: 2
-  - name: w11
+  - name: w10
     x: 179
+    y: 729
+    width: 178
+    height: 295
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 3
+    paddingTop: 3
+    paddingBottom: 2
+  - name: w11
+    x: 0
     y: 729
     width: 178
     height: 295
@@ -289,7 +315,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: w12
     x: 0
-    y: 729
+    y: 433
     width: 178
     height: 295
     borderLeft: 0
@@ -302,7 +328,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: w2
     x: 0
-    y: 433
+    y: 137
     width: 178
     height: 295
     borderLeft: 0
@@ -314,8 +340,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: w3
-    x: 0
-    y: 137
+    x: 358
+    y: 433
     width: 178
     height: 295
     borderLeft: 0
@@ -327,8 +353,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: w4
-    x: 537
-    y: 137
+    x: 716
+    y: 729
     width: 178
     height: 295
     borderLeft: 0
@@ -341,7 +367,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: w5
     x: 716
-    y: 729
+    y: 433
     width: 178
     height: 295
     borderLeft: 0
@@ -354,7 +380,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: w6
     x: 716
-    y: 433
+    y: 137
     width: 178
     height: 295
     borderLeft: 0
@@ -367,7 +393,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: w7
     x: 537
-    y: 433
+    y: 137
     width: 178
     height: 295
     borderLeft: 0
@@ -380,7 +406,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: w8
     x: 358
-    y: 433
+    y: 137
     width: 178
     height: 295
     borderLeft: 0
@@ -392,8 +418,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: w9
-    x: 358
-    y: 137
+    x: 537
+    y: 729
     width: 178
     height: 295
     borderLeft: 0
@@ -406,7 +432,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: wback
     x: 537
-    y: 729
+    y: 433
     width: 178
     height: 295
     borderLeft: 0

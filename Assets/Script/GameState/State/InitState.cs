@@ -48,7 +48,7 @@ public class InitState : BaseState {
         if(isConnection){
             if(UserManager.Instance().email != null && UserManager.Instance().email.Equals("") == false)
             {
-                string sendPw = Security.Instance().cryption(UserManager.Instance().password, false);
+                string sendPw = Security.Instance().cryption(UserManager.Instance().getPassword(), false);
                 RequestLogin login = new RequestLogin(UserManager.Instance().email, sendPw);
                 SocketManager.Instance().sendMessage(login);
             }
