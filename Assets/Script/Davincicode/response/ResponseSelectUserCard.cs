@@ -1,5 +1,6 @@
 ﻿
 
 public class ResponseSelectUserCard : ResponseBaseDavincicode {
-    public bool isSuccess;
+    public string selectUser;
+    public int selectIndex;
 }

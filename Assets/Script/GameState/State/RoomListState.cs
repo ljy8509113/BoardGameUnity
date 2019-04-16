@@ -154,7 +154,7 @@ public class RoomListState : BaseState
         Debug.Log("index : " + item.title);
 
 		if (item.password == null || item.password.Length == 0) {
-			RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName, false);
+			RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName, (int)Common.USER_TYPE.USER);
 			SocketManager.Instance().sendMessage(req);
 		} else {
             // GameManager.Instance ().showAlert ("비밀번호를 입력해주세요.", true, (bool result, string fieldText) => {
@@ -172,7 +172,7 @@ public class RoomListState : BaseState
 
                     if ( fieldText.Equals(item.password) )
                     {
-                        RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName, false);
+                        RequestConnectionRoom req = new RequestConnectionRoom(item.no, UserManager.Instance().nickName, (int)Common.USER_TYPE.USER);
                         SocketManager.Instance().sendMessage(req);
                     }
                     else

@@ -3,6 +3,7 @@ public class GamePlayInitData {
     public int roomNo;
     public int gameNo;
     public string json;
+    
 
     public void removeData()
     {

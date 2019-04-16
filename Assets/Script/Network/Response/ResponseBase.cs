@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-public class ResponseBase
+﻿public class ResponseBase
 {
     public string identifier;
     public int resCode;

@@ -9,6 +9,11 @@ public class AlertNGUI : BaseAlert {
     public UILabel labelInputField;
     public UIInput inputField;
 
+    public override void Awake()
+    {
+        base.Awake();
+        hide();
+    }
 
     // Use this for initialization
     public override void Start () {
