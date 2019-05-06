@@ -8,7 +8,7 @@ public class AttackState : BaseDavincicodeState {
 
     List<Card> cardList = new List<Card>();
     List<GameObject> cardObjList = new List<GameObject>();
-    public GameObject cardObj;
+    GameObject cardObj = null;
     public UIGrid grid;
 
     [SerializeField]
@@ -42,26 +42,19 @@ public class AttackState : BaseDavincicodeState {
         this.cardList = selectUserData.cards;
         labelUserName.text = selectUserData.nickName;
 
-        int add = cardList.Count - cardObjList.Count;
-
-        Debug.Log("cardList : " + cardList);
-        Debug.Log("cardObjList : " + cardObjList);
-
-        if (add > 0)
-        {
-            for(int i=0; i<add; i++)
-            {
-                GameObject itemObj = NGUITools.AddChild(grid.gameObject, cardObj);
-                NumberCard itemSource = itemObj.GetComponent<NumberCard>();
-                cardObjList.Add(itemObj);
-            }
+        if(cardObj == null){
+            cardObj = (GameObject)Instantiate(Resources.Load ("Davincicode/prefab/NumberCardPrefab"));
+            cardObj.SetActive(false);
         }
+        
+        for(int i=0; i<cardList.Count; i++){
+            GameObject itemObj = NGUITools.AddChild(grid.gameObject, cardObj);
+            NumberCard source = itemObj.GetComponent<NumberCard>();
+            cardObjList.Add(itemObj);
 
-        for (int i = 0; i < cardObjList.Count; i++)
-        {
-            Card c = cardList[i];
-            NumberCard source = cardObjList[i].GetComponent<NumberCard>();
-            source.setData(c.isOpen, c.index);
+            Debug.Log("cardList for : " + itemObj + "  //  index : " + source.info.index);
+
+            source.setData(cardList[i].isOpen, cardList[i].index);
             source.selectCallback((int index) => {
                 Debug.Log("selected index : " + i);
                 selectIndex = index;
@@ -77,6 +70,14 @@ public class AttackState : BaseDavincicodeState {
                 setButton(true);
             });
         }
+        grid.Reposition();
+        // Canvas.ForceUpdateCanvases();
+        
+        for(int i = 0; i<cardList.Count; i++){
+            Debug.Log("cardList : " + cardList[i].index);
+        }
+        
+        Debug.Log("cardListObj count : " + cardObjList.Count);
 
         setButton(false);
         DavinciController.Instance().hideBlock();
@@ -85,6 +86,13 @@ public class AttackState : BaseDavincicodeState {
     public override void hide()
     {
         selectIndex = -1;
+        
+        int length = cardObjList.Count - 1;
+        for(int i = length; i >= 0; i--){
+            Debug.Log("remove in");
+            Destroy(cardObjList[i]);
+        }
+        cardObjList.Clear();
         base.hide();
     }
     

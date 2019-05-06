@@ -243,7 +243,6 @@ public class DavinciController : BaseState {
                                     userListPanel.reload();
                                     userListPanel.checkLose(res.selectUser);
 
-
                                     if (player.email.Equals(UserManager.Instance().email))
                                     {
                                         showAlert("select", "공격을 계속 하시겠습니까?", true, false, (AlertData data, bool isOn, string fieldText) => {
@@ -346,7 +345,7 @@ public class DavinciController : BaseState {
 
     void autoSelect(List<Card> fieldList, UserGameData user)
     {
-        int index = rm.Next(fieldList.Count);
+        int index = rm.Next(0,fieldList.Count);
 
         Card c = fieldList[index];
         RequestSelectFieldCard req = new RequestSelectFieldCard(user.email, c.index, roomNo);
@@ -424,7 +423,7 @@ public class DavinciController : BaseState {
         }
 
         var result = from c in totalSelectList orderby c.index descending select c;
-        int min = 0;
+        int min = -1;
         int max = 100;
 
         for (int i = 0; i < selectUser.cards.Count; i++)
@@ -455,20 +454,21 @@ public class DavinciController : BaseState {
         }
         
         //조커 추가
-        if(max < DavinciCommon.JOCKER_START_INDEX)
-        {
-            int lastIndex = totalSelectList.Count - 1;
-            Card lastCard = totalSelectList[lastIndex];
+        // if(max < DavinciCommon.JOCKER_START_INDEX)
+        // {
+        //     int lastIndex = totalSelectList.Count - 1;
+        //     Card lastCard = totalSelectList[lastIndex];
 
-            if (lastCard.index >= DavinciCommon.JOCKER_START_INDEX)
-            {
-                selectList.Add(lastCard);
-            }
-        }
-        
+        //     if (lastCard.index >= DavinciCommon.JOCKER_START_INDEX)
+        //     {
+        //         selectList.Add(lastCard);
+        //     }
+        // }
+
         int rmIndex = rm.Next(selectList.Count);
-        int attackIndex = selectList[rmIndex].index;
-        //int selectedIndex = selectUser.cards[selectindex].index;
+        int attackIndex = selectList[rmIndex].index;        
+
+        Debug.Log("autoAttack selectList count : " + selectList.Count + " // rmIndex : " + rmIndex + " // attackIndex : " + attackIndex);
 
         RequestAttack req = new RequestAttack(roomNo, selectUser.email, selectindex, attackIndex); //autoAttack(userList, filedCards, player, selectUser, index);
         SocketManager.Instance().sendMessage(req);

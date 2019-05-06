@@ -44,11 +44,7 @@ public class SocketManager
         {
             socketDelegate += con;
             //socket.Connect(ip, port);
-<<<<<<< HEAD
-            IPAddress ipAddress = IPAddress.Parse("210.94.67.196");//IPAddress.Parse(GameManager.Instance().getIp());
-=======
-            IPAddress ipAddress = IPAddress.Parse("210.94.67.104");//IPAddress.Parse(GameManager.Instance().getIp());
->>>>>>> 10b8a3185fbd97a80cbf04fb83f6d2cfc45c8277
+            IPAddress ipAddress = IPAddress.Parse("192.168.35.218");//IPAddress.Parse(GameManager.Instance().getIp());
             IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
 
             //socket.Blocking = false;

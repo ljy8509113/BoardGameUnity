@@ -6,7 +6,7 @@ public abstract class BaseDavincicodeState : MonoBehaviour
     bool isHide = false;
     public virtual void show()
     {
-        Debug.Log("show");
+        
         this.gameObject.transform.localScale = Vector3.zero;
         scale.from = Vector3.zero;
         scale.to = Vector3.one;
@@ -18,7 +18,7 @@ public abstract class BaseDavincicodeState : MonoBehaviour
 
     public virtual void hide()
     {
-        Debug.Log("hide");
+        
         scale.from = Vector3.one;
         scale.to = Vector3.zero;
         scale.ResetToBeginning();
